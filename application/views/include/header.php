@@ -48,14 +48,22 @@
                   $('#company_name').html(data.company_name);
                   $('#address').html(data.address);
                   $('#city').html(data.kb_kab_kot);
-                  $('#zip').html(data.zip);
                   $('#contact_name').html(data.contact_name);
                   $('#contact_phone').html(data.contact_phone);
                   $('#requested_date').html(data.requested_date);
                   $('#part_number').html(data.part_number);
                   $('#part_desc').html(data.part_desc);
                   $('#igso_number').html(data.igso_number);
-                  $('#freelancer').html(data.freelancer_name);
+                  var wo_id = data.wo_id;
+                  var assigned = data.freelancer;
+                  var book_stat1 = data.book_status_id;
+                  var part_stat1 = data.part_status_id;
+                  document.getElementById('freelancer').value=assigned;
+                  $('#freelancer').attr('data-id' , wo_id);
+                  document.getElementById('booking_status').value=book_stat1;
+                  $('#booking_status').attr('data-id' , wo_id);
+                  document.getElementById('update_status').value=part_stat1;
+                  $('#update_status').attr('data-id' , wo_id);
                   $('#loader').hide();
              })
              .fail(function(){
@@ -87,7 +95,6 @@
               $('#company_name').html(data_card.company_name);
               $('#address').html(data_card.address);
               $('#city').html(data_card.kb_kab_kot);
-              $('#zip').html(data_card.zip);
               $('#contact_name').html(data_card.contact_name);
               $('#contact_phone').html(data_card.contact_phone);
               $('#requested_date').html(data_card.requested_date);

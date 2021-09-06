@@ -45,7 +45,8 @@
                   ]
                 });
                 $('.modal_kanban').on('hidden.bs.modal', function () {
-                 location.reload();
+                  document.getElementById("loader-wrapper").style.display = "block";
+                  location.reload();
                 })
                  $(".form-select-status").on('change', function(){
                       var value = $(this).val();
@@ -61,6 +62,15 @@
                       var id = $(this).data('id');
                       $.ajax({
                           url:'<?=base_url()?>fl_task/update_freelancer',
+                          method:'POST',
+                          data: {value_data:value,id_data:id}
+                      });
+                  });
+                   $(".form-select-book-status").change(function (){
+                      var value = $(this).val();
+                      var id = $(this).data('id');
+                      $.ajax({
+                          url:'<?=base_url()?>data/update_book_status',
                           method:'POST',
                           data: {value_data:value,id_data:id}
                       });

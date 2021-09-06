@@ -47,6 +47,17 @@ class User_level extends CI_Controller {
 		$nm_akses = $_POST['type_data'];
 		$sql=$this->db->query("UPDATE tbl_akses_menu set $nm_akses = '$val' where id=$id;");
 	}
+	public function update_nama(){
+		$namalevel = $_POST['nama_level'];
+		$id = $_POST['id_level'];
+
+		$query = $this->db->query("UPDATE tbl_userlevel set nama_level = '$namalevel' where id_level = $id");
+		if($query){
+			header("location:".base_url()."user_level?alert=success");
+		}else{
+			header("location:".base_url()."user_level?alert=failed");
+		}
+	}
 	public function add_level()
 	{
 		$namalevel = $_POST['nama_level'];

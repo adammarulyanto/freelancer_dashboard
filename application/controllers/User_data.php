@@ -56,14 +56,42 @@ class User_data extends CI_Controller {
 	public function add_user()
 	{
 		$fullname = $_POST['fullname'];
+		$email = $_POST['email'];
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$level = $_POST['level'];
 		$is_active = $_POST['is_active'];
 
-		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`) VALUES ('$fullname', '$username', sha1('$password'), '$is_active', $level);");
+		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`,`ud_email_address`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`) VALUES ('$fullname','$email','$username', sha1('$password'), '$is_active', $level);");
 		if($sql){
-			header("location:".base_url()."user_data?alert=success");
+			header("location:".base_url()."user_data?alert=add_success");
+		}else{
+			header("location:".base_url()."user_data?alert=failed");
+		}
+	}
+	public function update_data(){
+		$id = $_POST['id_user'];
+		$fullname = $_POST['fullname'];
+		$email = $_POST['email'];
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$level = $_POST['level'];
+		if($password==NULL){
+			$pwd="";
+		}else{
+			$pwd=",`ud_password` = sha1('$password')";
+		}
+		$level = $_POST['level'];
+
+		if(isset($_POST['is_active'])){
+			$is_active=",ud_is_active='Y'";
+		}else{
+			$is_active=",ud_is_active='N'";
+		}
+
+		$sql = $this->db->query("UPDATE `user_data` SET `ud_fullname` = '$fullname', `ud_email_address` = '$email', `ud_username` = '$username' $pwd$is_active, `ud_id_level` = $level WHERE `ud_id` = $id;");
+		if($sql){
+			header("location:".base_url()."user_data?alert=update_success");
 		}else{
 			header("location:".base_url()."user_data?alert=failed");
 		}

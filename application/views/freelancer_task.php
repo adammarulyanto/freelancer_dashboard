@@ -1,3 +1,10 @@
+<div id="loader-wrapper">
+  <div class="d-flex justify-content-center loading-circle position-absolute top-50 start-50 translate-middle">
+    <div class="spinner-border" role="status">
+    </div>
+  </div>
+</div>
+
 <?php foreach($akses_menu as $akses_menu){?>
 <div class="container-kanban">
     <h1 class="mt-4 h1-kanban">Freelancer Task</h1>
@@ -141,20 +148,20 @@
             <label for="inputAddress" class="form-label">Case ID</label>
             <p id="case_id"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">WO Description</label>
             <p id="wo_desc"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Product Description</label>
             <p id="product_desc"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Asset Serial</label>
             <p id="asset_serial"></p>
           </div>
         <h6>Account Information</h6>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Company Name</label>
             <p id="company_name"></p>
           </div>
@@ -162,25 +169,25 @@
             <label for="inputAddress" class="form-label">Customer Name</label>
             <p id="contact_name"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Customer Address</label>
             <p id="address"></p>
           </div>
         <h6>Date</h6>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Request Date</label>
             <p id="requested_date"></p>
           </div>
         <h6>Order Information</h6>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Part Number</label>
             <p id="part_number"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Part Description</label>
             <p id="part_desc"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">SO Number</label>
             <p id="igso_number"></p>
           </div>

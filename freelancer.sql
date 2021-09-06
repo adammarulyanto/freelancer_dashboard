@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 06/09/2021 13:01:25
+ Date: 07/09/2021 01:03:42
 */
 
 SET NAMES utf8mb4;
@@ -3700,492 +3700,20 @@ INSERT INTO `dates` VALUES (7305, '2030-01-01', 1893430800, 'Weekday', 'Tuesday'
 DROP TABLE IF EXISTS `kota_kabupaten`;
 CREATE TABLE `kota_kabupaten`  (
   `kb_id` int NOT NULL AUTO_INCREMENT,
-  `kb_prov` int NOT NULL DEFAULT 0,
-  `kb_city_code` varchar(160) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `kb_kab_kot` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `kb_active` enum('Y','T') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'Y',
+  `kb_active` enum('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'N',
   PRIMARY KEY (`kb_id`) USING BTREE,
-  UNIQUE INDEX `kode_kota`(`kb_city_code`) USING BTREE,
-  INDEX `id_id_pro_kab_kota_aktif`(`kb_id`, `kb_prov`, `kb_kab_kot`, `kb_active`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 477 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+  INDEX `id_id_pro_kab_kota_aktif`(`kb_id`, `kb_kab_kot`, `kb_active`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of kota_kabupaten
 -- ----------------------------
-INSERT INTO `kota_kabupaten` VALUES (1, 21, 'aceh-barat-kab', 'Aceh Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (2, 21, 'aceh-barat-daya-kab', 'Aceh Barat Daya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (3, 21, 'aceh-besar-kab', 'Aceh Besar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (4, 21, 'aceh-jaya-kab', 'Aceh Jaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (5, 21, 'aceh-selatan-kab', 'Aceh Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (6, 21, 'aceh-singkil-kab', 'Aceh Singkil', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (7, 21, 'aceh-tamiang-kab', 'Aceh Tamiang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (8, 21, 'aceh-tengah-kab', 'Aceh Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (9, 21, 'aceh-tenggara-kab', 'Aceh Tenggara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (10, 21, 'aceh-utara-kab', 'Aceh Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (11, 32, 'agam-kab', 'Agam', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (12, 23, 'alor-kab', 'Alor', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (13, 19, 'ambon-kab', 'Ambon', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (14, 34, 'asahan-kab', 'Asahan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (15, 24, 'asmat-kab', 'Asmat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (17, 13, 'balangan-kab', 'Balangan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (18, 15, 'balikpapan-kab', 'Balikpapan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (19, 21, 'banda-aceh-kab', 'Banda Aceh', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (20, 18, 'bandar-lampung-kab', 'Bandar Lampung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (21, 9, 'bandung-kab', 'Bandung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (22, 9, 'bandung-barat-kab', 'Bandung Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (23, 29, 'banggai-kab', 'Banggai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (24, 29, 'banggai-kepulauan-kab', 'Banggai Kepulauan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (25, 2, 'bangka-kab', 'Bangka', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (26, 2, 'bangka-barat-kab', 'Bangka Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (27, 2, 'bangka-selatan-kab', 'Bangka Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (28, 2, 'bangka-tengah-kab', 'Bangka Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (29, 11, 'bangkalan-kab', 'Bangkalan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (30, 1, 'bangli-kab', 'Bangli', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (31, 13, 'banjar-kab', 'Banjar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (32, 9, 'banjar-kab-kota', 'Banjar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (33, 13, 'banjarbaru-kab', 'Banjarbaru', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (34, 13, 'banjarmasin-kab', 'Banjarmasin', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (35, 10, 'banjarnegara-kab', 'Banjarnegara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (36, 28, 'bantaeng-kab', 'Bantaeng', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (37, 5, 'bantul-kab', 'Bantul', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (38, 33, 'banyuasin-kab', 'Banyuasin', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (39, 10, 'banyumas-kab', 'Banyumas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (40, 11, 'banyuwangi-kab', 'Banyuwangi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (41, 13, 'barito-kuala-kab', 'Barito Kuala', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (42, 14, 'barito-selatan-kab', 'Barito Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (43, 14, 'barito-timur-kab', 'Barito Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (44, 14, 'barito-utara-kab', 'Barito Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (45, 28, 'barru-kab', 'Barru', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (46, 17, 'batam-kab', 'Batam', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (47, 10, 'batang-kab', 'Batang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (48, 8, 'batang-hari-kab', 'Batang Hari', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (49, 11, 'batu-kab', 'Batu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (50, 34, 'batu-bara-kab', 'Batu Bara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (51, 30, 'bau-bau-kab', 'Bau Bau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (52, 9, 'bekasi-kab', 'Bekasi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (53, 2, 'belitung-kab', 'Belitung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (54, 2, 'belitung-timur-kab', 'Belitung Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (55, 23, 'belu-kab', 'Belu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (56, 21, 'bener-meriah-kab', 'Bener Meriah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (57, 26, 'bengkalis-kab', 'Bengkalis', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (58, 12, 'bengkayang-kab', 'Bengkayang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (59, 4, 'bengkulu-kab', 'Bengkulu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (60, 4, 'bengkulu-selatan-kab', 'Bengkulu Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (61, 4, 'bengkulu-tengah-kab', 'Bengkulu Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (62, 4, 'bengkulu-utara-kab', 'Bengkulu Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (63, 15, 'berau-kab', 'Berau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (64, 24, 'biak-numfor-kab', 'Biak Numfor', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (65, 22, 'bima-kab', 'Bima', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (66, 34, 'binjai-kab', 'Binjai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (67, 17, 'bintan-kab', 'Bintan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (68, 21, 'bireuen-kab', 'Bireuen', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (69, 31, 'bitung-kab', 'Bitung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (70, 11, 'blitar-kab', 'Blitar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (71, 10, 'blora-kab', 'Blora', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (72, 7, 'boalemo-kab', 'Boalemo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (73, 9, 'bogor-kab', 'Bogor', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (74, 11, 'bojonegoro-kab', 'Bojonegoro', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (75, 31, 'bolaang-mongondow-(bolmong)-kab', 'Bolaang Mongondow (Bolmong)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (76, 31, 'bolaang-mongondow-selatan-kab', 'Bolaang Mongondow Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (77, 31, 'bolaang-mongondow-timur-kab', 'Bolaang Mongondow Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (78, 31, 'bolaang-mongondow-utara-kab', 'Bolaang Mongondow Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (79, 30, 'bombana-kab', 'Bombana', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (80, 11, 'bondowoso-kab', 'Bondowoso', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (81, 28, 'bone-kab', 'Bone', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (82, 7, 'bone-bolango-kab', 'Bone Bolango', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (83, 15, 'bontang-kab', 'Bontang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (84, 24, 'boven-digoel-kab', 'Boven Digoel', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (85, 10, 'boyolali-kab', 'Boyolali', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (86, 10, 'brebes-kab', 'Brebes', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (87, 32, 'bukittinggi-kab', 'Bukittinggi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (88, 1, 'buleleng-kab', 'Buleleng', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (89, 28, 'bulukumba-kab', 'Bulukumba', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (90, 16, 'bulungan-kab', 'Bulungan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (91, 8, 'bungo-kab', 'Bungo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (92, 29, 'buol-kab', 'Buol', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (93, 19, 'buru-kab', 'Buru', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (94, 19, 'buru-selatan-kab', 'Buru Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (95, 30, 'buton-kab', 'Buton', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (96, 30, 'buton-utara-kab', 'Buton Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (97, 9, 'ciamis-kab', 'Ciamis', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (98, 9, 'cianjur-kab', 'Cianjur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (99, 10, 'cilacap-kab', 'Cilacap', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (100, 3, 'cilegon-kab', 'Cilegon', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (101, 9, 'cimahi-kab', 'Cimahi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (102, 9, 'cirebon-kab', 'Cirebon', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (103, 34, 'dairi-kab', 'Dairi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (104, 24, 'deiyai-(deliyai)-kab', 'Deiyai (Deliyai)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (105, 34, 'deli-serdang-kab', 'Deli Serdang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (106, 10, 'demak-kab', 'Demak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (107, 1, 'denpasar-kab', 'Denpasar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (108, 9, 'depok-kab', 'Depok', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (109, 32, 'dharmasraya-kab', 'Dharmasraya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (110, 24, 'dogiyai-kab', 'Dogiyai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (111, 22, 'dompu-kab', 'Dompu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (112, 29, 'donggala-kab', 'Donggala', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (113, 26, 'dumai-kab', 'Dumai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (114, 33, 'empat-lawang-kab', 'Empat Lawang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (115, 23, 'ende-kab', 'Ende', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (116, 28, 'enrekang-kab', 'Enrekang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (117, 25, 'fakfak-kab', 'Fakfak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (118, 23, 'flores-timur-kab', 'Flores Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (119, 9, 'garut-kab', 'Garut', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (120, 21, 'gayo-lues-kab', 'Gayo Lues', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (121, 1, 'gianyar-kab', 'Gianyar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (122, 7, 'gorontalo-kab', 'Gorontalo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (123, 7, 'gorontalo-utara-kab', 'Gorontalo Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (124, 28, 'gowa-kab', 'Gowa', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (125, 11, 'gresik-kab', 'Gresik', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (126, 10, 'grobogan-kab', 'Grobogan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (127, 5, 'gunung-kidul-kab', 'Gunung Kidul', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (128, 14, 'gunung-mas-kab', 'Gunung Mas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (129, 34, 'gunungsitoli-kab', 'Gunungsitoli', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (130, 20, 'halmahera-barat-kab', 'Halmahera Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (131, 20, 'halmahera-selatan-kab', 'Halmahera Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (132, 20, 'halmahera-tengah-kab', 'Halmahera Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (133, 20, 'halmahera-timur-kab', 'Halmahera Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (134, 20, 'halmahera-utara-kab', 'Halmahera Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (135, 13, 'hulu-sungai-selatan-kab', 'Hulu Sungai Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (136, 13, 'hulu-sungai-tengah-kab', 'Hulu Sungai Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (137, 13, 'hulu-sungai-utara-kab', 'Hulu Sungai Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (138, 34, 'humbang-hasundutan-kab', 'Humbang Hasundutan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (139, 26, 'indragiri-hilir-kab', 'Indragiri Hilir', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (140, 26, 'indragiri-hulu-kab', 'Indragiri Hulu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (141, 9, 'indramayu-kab', 'Indramayu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (142, 24, 'intan-jaya-kab', 'Intan Jaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (143, 6, 'jakarta-barat-kab', 'Jakarta Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (144, 6, 'jakarta-pusat-kab', 'Jakarta Pusat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (145, 6, 'jakarta-selatan-kab', 'Jakarta Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (146, 6, 'jakarta-timur-kab', 'Jakarta Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (147, 6, 'jakarta-utara-kab', 'Jakarta Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (148, 8, 'jambi-kab', 'Jambi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (149, 24, 'jayapura-kab', 'Jayapura', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (150, 24, 'jayawijaya-kab', 'Jayawijaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (151, 11, 'jember-kab', 'Jember', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (152, 1, 'jembrana-kab', 'Jembrana', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (153, 28, 'jeneponto-kab', 'Jeneponto', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (154, 10, 'jepara-kab', 'Jepara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (155, 11, 'jombang-kab', 'Jombang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (156, 25, 'kaimana-kab', 'Kaimana', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (157, 26, 'kampar-kab', 'Kampar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (158, 14, 'kapuas-kab', 'Kapuas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (159, 12, 'kapuas-hulu-kab', 'Kapuas Hulu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (160, 10, 'karanganyar-kab', 'Karanganyar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (161, 1, 'karangasem-kab', 'Karangasem', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (162, 9, 'karawang-kab', 'Karawang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (163, 17, 'karimun-kab', 'Karimun', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (164, 34, 'karo-kab', 'Karo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (165, 14, 'katingan-kab', 'Katingan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (166, 4, 'kaur-kab', 'Kaur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (167, 12, 'kayong-utara-kab', 'Kayong Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (168, 10, 'kebumen-kab', 'Kebumen', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (169, 11, 'kediri-kab', 'Kediri', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (170, 24, 'keerom-kab', 'Keerom', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (171, 10, 'kendal-kab', 'Kendal', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (172, 30, 'kendari-kab', 'Kendari', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (173, 4, 'kepahiang-kab', 'Kepahiang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (174, 17, 'kepulauan-anambas-kab', 'Kepulauan Anambas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (175, 19, 'kepulauan-aru-kab', 'Kepulauan Aru', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (176, 32, 'kepulauan-mentawai-kab', 'Kepulauan Mentawai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (177, 26, 'kepulauan-meranti-kab', 'Kepulauan Meranti', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (178, 31, 'kepulauan-sangihe-kab', 'Kepulauan Sangihe', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (179, 6, 'kepulauan-seribu-kab', 'Kepulauan Seribu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (180, 31, 'kepulauan-siau-tagulandang-biaro-(sitaro)-kab', 'Kepulauan Siau Tagulandang Biaro (Sitaro)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (181, 20, 'kepulauan-sula-kab', 'Kepulauan Sula', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (182, 31, 'kepulauan-talaud-kab', 'Kepulauan Talaud', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (183, 24, 'kepulauan-yapen-(yapen-waropen)-kab', 'Kepulauan Yapen (Yapen Waropen)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (184, 12, 'ketapang-kab', 'Ketapang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (185, 10, 'klaten-kab', 'Klaten', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (186, 1, 'klungkung-kab', 'Klungkung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (187, 30, 'kolaka-kab', 'Kolaka', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (188, 30, 'kolaka-utara-kab', 'Kolaka Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (189, 30, 'konawe-kab', 'Konawe', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (190, 30, 'konawe-selatan-kab', 'Konawe Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (191, 30, 'konawe-utara-kab', 'Konawe Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (192, 13, 'kotabaru-kab', 'Kotabaru', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (193, 31, 'kotamobagu-kab', 'Kotamobagu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (194, 14, 'kotawaringin-barat-kab', 'Kotawaringin Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (195, 14, 'kotawaringin-timur-kab', 'Kotawaringin Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (196, 26, 'kuantan-singingi-kab', 'Kuantan Singingi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (197, 12, 'kubu-raya-kab', 'Kubu Raya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (198, 10, 'kudus-kab', 'Kudus', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (199, 5, 'kulon-progo-kab', 'Kulon Progo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (200, 9, 'kuningan-kab', 'Kuningan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (201, 23, 'kupang-kab', 'Kupang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (202, 15, 'kutai-barat-kab', 'Kutai Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (203, 15, 'kutai-kartanegara-kab', 'Kutai Kartanegara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (204, 15, 'kutai-timur-kab', 'Kutai Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (205, 34, 'labuhan-batu-kab', 'Labuhan Batu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (206, 34, 'labuhan-batu-selatan-kab', 'Labuhan Batu Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (207, 34, 'labuhan-batu-utara-kab', 'Labuhan Batu Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (208, 33, 'lahat-kab', 'Lahat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (209, 14, 'lamandau-kab', 'Lamandau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (210, 11, 'lamongan-kab', 'Lamongan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (211, 18, 'lampung-barat-kab', 'Lampung Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (212, 18, 'lampung-selatan-kab', 'Lampung Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (213, 18, 'lampung-tengah-kab', 'Lampung Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (214, 18, 'lampung-timur-kab', 'Lampung Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (215, 18, 'lampung-utara-kab', 'Lampung Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (216, 12, 'landak-kab', 'Landak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (217, 34, 'langkat-kab', 'Langkat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (218, 21, 'langsa-kab', 'Langsa', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (219, 24, 'lanny-jaya-kab', 'Lanny Jaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (220, 3, 'lebak-kab', 'Lebak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (221, 4, 'lebong-kab', 'Lebong', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (222, 23, 'lembata-kab', 'Lembata', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (223, 21, 'lhokseumawe-kab', 'Lhokseumawe', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (224, 32, 'lima-puluh-kota', 'Lima Puluh Koto/Kota', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (225, 17, 'lingga-kab', 'Lingga', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (226, 22, 'lombok-barat-kab', 'Lombok Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (227, 22, 'lombok-tengah-kab', 'Lombok Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (228, 22, 'lombok-timur-kab', 'Lombok Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (229, 22, 'lombok-utara-kab', 'Lombok Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (230, 33, 'lubuk-linggau-kab', 'Lubuk Linggau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (231, 11, 'lumajang-kab', 'Lumajang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (232, 28, 'luwu-kab', 'Luwu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (233, 28, 'luwu-timur-kab', 'Luwu Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (234, 28, 'luwu-utara-kab', 'Luwu Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (235, 11, 'madiun-kab', 'Madiun', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (236, 10, 'magelang-kab', 'Magelang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (237, 11, 'magetan-kab', 'Magetan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (238, 9, 'majalengka-kab', 'Majalengka', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (239, 27, 'majene-kab', 'Majene', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (240, 28, 'makassar-kab', 'Makassar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (241, 11, 'malang-kab', 'Malang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (242, 16, 'malinau-kab', 'Malinau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (243, 19, 'maluku-barat-daya-kab', 'Maluku Barat Daya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (244, 19, 'maluku-tengah-kab', 'Maluku Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (245, 19, 'maluku-tenggara-kab', 'Maluku Tenggara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (246, 19, 'maluku-tenggara-barat-kab', 'Maluku Tenggara Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (247, 27, 'mamasa-kab', 'Mamasa', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (248, 24, 'mamberamo-raya-kab', 'Mamberamo Raya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (249, 24, 'mamberamo-tengah-kab', 'Mamberamo Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (250, 27, 'mamuju-kab', 'Mamuju', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (251, 27, 'mamuju-utara-kab', 'Mamuju Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (252, 31, 'manado-kab', 'Manado', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (253, 34, 'mandailing-natal-kab', 'Mandailing Natal', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (254, 23, 'manggarai-kab', 'Manggarai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (255, 23, 'manggarai-barat-kab', 'Manggarai Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (256, 23, 'manggarai-timur-kab', 'Manggarai Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (257, 25, 'manokwari-kab', 'Manokwari', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (258, 25, 'manokwari-selatan-kab', 'Manokwari Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (259, 24, 'mappi-kab', 'Mappi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (260, 28, 'maros-kab', 'Maros', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (261, 22, 'mataram-kab', 'Mataram', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (262, 25, 'maybrat-kab', 'Maybrat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (263, 23, 'medan-kab', 'Medan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (264, 12, 'melawi-kab', 'Melawi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (265, 8, 'merangin-kab', 'Merangin', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (266, 24, 'merauke-kab', 'Merauke', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (267, 18, 'mesuji-kab', 'Mesuji', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (268, 18, 'metro-kab', 'Metro', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (269, 24, 'mimika-kab', 'Mimika', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (270, 31, 'minahasa-kab', 'Minahasa', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (271, 31, 'minahasa-selatan-kab', 'Minahasa Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (272, 31, 'minahasa-tenggara-kab', 'Minahasa Tenggara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (273, 31, 'minahasa-utara-kab', 'Minahasa Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (274, 11, 'mojokerto-kab', 'Mojokerto', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (275, 29, 'morowali-kab', 'Morowali', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (276, 33, 'muara-enim-kab', 'Muara Enim', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (277, 8, 'muaro-jambi-kab', 'Muaro Jambi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (278, 4, 'muko-muko-kab', 'Muko Muko', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (279, 30, 'muna-kab', 'Muna', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (280, 14, 'murung-raya-kab', 'Murung Raya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (281, 33, 'musi-banyuasin-kab', 'Musi Banyuasin', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (282, 33, 'musi-rawas-kab', 'Musi Rawas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (283, 24, 'nabire-kab', 'Nabire', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (284, 21, 'nagan-raya-kab', 'Nagan Raya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (285, 23, 'nagekeo-kab', 'Nagekeo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (286, 17, 'natuna-kab', 'Natuna', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (287, 24, 'nduga-kab', 'Nduga', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (288, 23, 'ngada-kab', 'Ngada', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (289, 11, 'nganjuk-kab', 'Nganjuk', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (290, 11, 'ngawi-kab', 'Ngawi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (291, 34, 'nias-kab', 'Nias', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (292, 34, 'nias-barat-kab', 'Nias Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (293, 34, 'nias-selatan-kab', 'Nias Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (294, 34, 'nias-utara-kab', 'Nias Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (295, 16, 'nunukan-kab', 'Nunukan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (296, 33, 'ogan-ilir-kab', 'Ogan Ilir', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (297, 33, 'ogan-komering-ilir-kab', 'Ogan Komering Ilir', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (298, 33, 'ogan-komering-ulu-kab', 'Ogan Komering Ulu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (299, 33, 'ogan-komering-ulu-selatan-kab', 'Ogan Komering Ulu Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (300, 33, 'ogan-komering-ulu-timur-kab', 'Ogan Komering Ulu Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (301, 11, 'pacitan-kab', 'Pacitan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (302, 32, 'padang-kab', 'Padang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (303, 34, 'padang-lawas-kab', 'Padang Lawas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (304, 34, 'padang-lawas-utara-kab', 'Padang Lawas Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (305, 32, 'padang-panjang-kab', 'Padang Panjang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (306, 32, 'padang-pariaman-kab', 'Padang Pariaman', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (307, 32, 'padang-sidempuan-kab', 'Padang Sidempuan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (308, 33, 'pagar-alam-kab', 'Pagar Alam', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (309, 34, 'pakpak-bharat-kab', 'Pakpak Bharat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (310, 14, 'palangka-raya-kab', 'Palangka Raya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (311, 33, 'palembang-kab', 'Palembang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (312, 28, 'palopo-kab', 'Palopo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (313, 29, 'palu-kab', 'Palu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (314, 11, 'pamekasan-kab', 'Pamekasan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (315, 3, 'pandeglang-kab', 'Pandeglang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (316, 9, 'pangandaran-kab', 'Pangandaran', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (317, 28, 'pangkajene-kepulauan-kab', 'Pangkajene Kepulauan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (318, 2, 'pangkal-pinang-kab', 'Pangkal Pinang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (319, 24, 'paniai-kab', 'Paniai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (320, 28, 'parepare-kab', 'Parepare', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (321, 32, 'pariaman-kab', 'Pariaman', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (322, 29, 'parigi-moutong-kab', 'Parigi Moutong', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (323, 32, 'pasaman-kab', 'Pasaman', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (324, 32, 'pasaman-barat-kab', 'Pasaman Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (325, 15, 'paser-kab', 'Paser', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (326, 11, 'pasuruan-kab', 'Pasuruan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (327, 10, 'pati-kab', 'Pati', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (328, 32, 'payakumbuh-kab', 'Payakumbuh', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (329, 25, 'pegunungan-arfak-kab', 'Pegunungan Arfak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (330, 24, 'pegunungan-bintang-kab', 'Pegunungan Bintang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (331, 10, 'pekalongan-kab', 'Pekalongan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (332, 26, 'pekanbaru-kab', 'Pekanbaru', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (333, 26, 'pelalawan-kab', 'Pelalawan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (334, 10, 'pemalang-kab', 'Pemalang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (335, 34, 'pematang-siantar-kab', 'Pematang Siantar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (336, 15, 'penajam-paser-utara-kab', 'Penajam Paser Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (337, 18, 'pesawaran-kab', 'Pesawaran', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (338, 18, 'pesisir-barat-kab', 'Pesisir Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (339, 32, 'pesisir-selatan-kab', 'Pesisir Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (340, 21, 'pidie-kab', 'Pidie', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (341, 21, 'pidie-jaya-kab', 'Pidie Jaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (342, 28, 'pinrang-kab', 'Pinrang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (343, 7, 'pohuwato-kab', 'Pohuwato', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (344, 27, 'polewali-mandar-kab', 'Polewali Mandar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (345, 11, 'ponorogo-kab', 'Ponorogo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (346, 12, 'pontianak-kab', 'Pontianak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (347, 29, 'poso-kab', 'Poso', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (348, 33, 'prabumulih-kab', 'Prabumulih', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (349, 18, 'pringsewu-kab', 'Pringsewu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (350, 11, 'probolinggo-kab', 'Probolinggo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (351, 14, 'pulang-pisau-kab', 'Pulang Pisau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (352, 20, 'pulau-morotai-kab', 'Pulau Morotai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (353, 24, 'puncak-kab', 'Puncak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (354, 24, 'puncak-jaya-kab', 'Puncak Jaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (355, 10, 'purbalingga-kab', 'Purbalingga', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (356, 9, 'purwakarta-kab', 'Purwakarta', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (357, 10, 'purworejo-kab', 'Purworejo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (358, 25, 'raja-ampat-kab', 'Raja Ampat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (359, 4, 'rejang-lebong-kab', 'Rejang Lebong', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (360, 10, 'rembang-kab', 'Rembang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (361, 26, 'rokan-hilir-kab', 'Rokan Hilir', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (362, 26, 'bagan-batu-kab', 'Bagan Batu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (363, 26, 'rokan-hulu-kab', 'Rokan Hulu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (364, 23, 'rote-ndao-kab', 'Rote Ndao', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (365, 21, 'sabang-kab', 'Sabang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (366, 23, 'sabu-raijua-kab', 'Sabu Raijua', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (367, 10, 'salatiga-kab', 'Salatiga', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (368, 15, 'samarinda-kab', 'Samarinda', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (369, 12, 'sambas-kab', 'Sambas', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (370, 34, 'samosir-kab', 'Samosir', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (371, 11, 'sampang-kab', 'Sampang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (372, 12, 'sanggau-kab', 'Sanggau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (373, 24, 'sarmi-kab', 'Sarmi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (374, 8, 'sarolangun-kab', 'Sarolangun', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (375, 32, 'sawah-lunto-kab', 'Sawah Lunto', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (376, 12, 'sekadau-kab', 'Sekadau', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (377, 28, 'selayar-(kepulauan-selayar)-kab', 'Selayar (Kepulauan Selayar)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (378, 4, 'seluma-kab', 'Seluma', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (379, 10, 'semarang-kab', 'Semarang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (380, 19, 'seram-bagian-barat-kab', 'Seram Bagian Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (381, 19, 'seram-bagian-timur-kab', 'Seram Bagian Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (382, 3, 'serang-kab', 'Serang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (383, 34, 'serdang-bedagai-kab', 'Serdang Bedagai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (384, 14, 'seruyan-kab', 'Seruyan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (385, 26, 'siak-kab', 'Siak', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (386, 34, 'sibolga-kab', 'Sibolga', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (387, 28, 'sidenreng-rappang/rapang-kab', 'Sidenreng Rappang/Rapang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (388, 11, 'sidoarjo-kab', 'Sidoarjo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (389, 29, 'sigi-kab', 'Sigi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (390, 32, 'sijunjung-(sawah-lunto-sijunjung)-kab', 'Sijunjung (Sawah Lunto Sijunjung)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (391, 23, 'sikka-kab', 'Sikka', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (392, 34, 'simalungun-kab', 'Simalungun', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (393, 21, 'simeulue-kab', 'Simeulue', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (394, 12, 'singkawang-kab', 'Singkawang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (395, 28, 'sinjai-kab', 'Sinjai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (396, 12, 'sintang-kab', 'Sintang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (397, 11, 'situbondo-kab', 'Situbondo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (398, 5, 'sleman-kab', 'Sleman', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (399, 32, 'solok-kab', 'Solok', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (400, 32, 'solok-selatan-kab', 'Solok Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (401, 28, 'soppeng-kab', 'Soppeng', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (402, 25, 'sorong-kab', 'Sorong', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (403, 25, 'sorong-selatan-kab', 'Sorong Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (404, 10, 'sragen-kab', 'Sragen', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (405, 9, 'subang-kab', 'Subang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (406, 21, 'subulussalam-kab', 'Subulussalam', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (407, 9, 'sukabumi-kab', 'Sukabumi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (408, 14, 'sukamara-kab', 'Sukamara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (409, 10, 'sukoharjo-kab', 'Sukoharjo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (410, 23, 'sumba-barat-kab', 'Sumba Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (411, 23, 'sumba-barat-daya-kab', 'Sumba Barat Daya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (412, 23, 'sumba-tengah-kab', 'Sumba Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (413, 23, 'sumba-timur-kab', 'Sumba Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (414, 22, 'sumbawa-kab', 'Sumbawa', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (415, 22, 'sumbawa-barat-kab', 'Sumbawa Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (416, 9, 'sumedang-kab', 'Sumedang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (417, 11, 'sumenep-kab', 'Sumenep', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (418, 8, 'sungaipenuh-kab', 'Sungaipenuh', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (419, 24, 'supiori-kab', 'Supiori', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (420, 11, 'surabaya-kab', 'Surabaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (421, 10, 'surakarta-(solo)-kab', 'Surakarta (Solo)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (422, 13, 'tabalong-kab', 'Tabalong', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (423, 1, 'tabanan-kab', 'Tabanan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (424, 28, 'takalar-kab', 'Takalar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (425, 25, 'tambrauw-kab', 'Tambrauw', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (426, 16, 'tana-tidung-kab', 'Tana Tidung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (427, 28, 'tana-toraja-kab', 'Tana Toraja', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (428, 13, 'tanah-bumbu-kab', 'Tanah Bumbu', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (429, 32, 'tanah-datar-kab', 'Tanah Datar', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (430, 13, 'tanah-laut-kab', 'Tanah Laut', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (431, 3, 'tangerang-kab', 'Tangerang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (432, 3, 'tangerang-selatan-kab', 'Tangerang Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (433, 18, 'tanggamus-kab', 'Tanggamus', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (434, 34, 'tanjung-balai-kab', 'Tanjung Balai', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (435, 8, 'tanjung-jabung-barat-kab', 'Tanjung Jabung Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (436, 8, 'tanjung-jabung-timur-kab', 'Tanjung Jabung Timur', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (437, 17, 'tanjung-pinang-kab', 'Tanjung Pinang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (438, 34, 'tapanuli-selatan-kab', 'Tapanuli Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (439, 34, 'tapanuli-tengah-kab', 'Tapanuli Tengah', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (440, 34, 'tapanuli-utara-kab', 'Tapanuli Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (441, 13, 'tapin-kab', 'Tapin', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (442, 16, 'tarakan-kab', 'Tarakan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (443, 9, 'tasikmalaya-kab', 'Tasikmalaya', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (445, 34, 'tebing-tinggi-kab', 'Tebing Tinggi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (446, 8, 'tebo-kab', 'Tebo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (447, 10, 'tegal-kab', 'Tegal', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (448, 25, 'teluk-bintuni-kab', 'Teluk Bintuni', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (449, 25, 'teluk-wondama-kab', 'Teluk Wondama', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (450, 10, 'temanggung-kab', 'Temanggung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (451, 20, 'ternate-kab', 'Ternate', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (452, 20, 'tidore-kepulauan-kab', 'Tidore Kepulauan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (453, 23, 'timor-tengah-selatan-kab', 'Timor Tengah Selatan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (454, 23, 'nusa-tenggara-timur-(ntt)-kab', 'Nusa Tenggara Timur (NTT)', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (455, 34, 'toba-samosir-kab', 'Toba Samosir', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (456, 29, 'tojo-una-una-kab', 'Tojo Una-Una', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (457, 29, 'toli-toli-kab', 'Toli-Toli', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (458, 24, 'tolikara-kab', 'Tolikara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (459, 31, 'tomohon-kab', 'Tomohon', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (460, 28, 'toraja-utara-kab', 'Toraja Utara', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (461, 11, 'trenggalek-kab', 'Trenggalek', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (462, 19, 'tual-kab', 'Tual', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (463, 11, 'tuban-kab', 'Tuban', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (464, 18, 'tulang-bawang-kab', 'Tulang Bawang', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (465, 18, 'tulang-bawang-barat-kab', 'Tulang Bawang Barat', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (466, 11, 'tulungagung-kab', 'Tulungagung', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (467, 28, 'wajo-kab', 'Wajo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (468, 30, 'wakatobi-kab', 'Wakatobi', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (469, 24, 'waropen-kab', 'Waropen', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (470, 18, 'way-kanan-kab', 'Way Kanan', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (471, 10, 'wonogiri-kab', 'Wonogiri', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (472, 10, 'wonosobo-kab', 'Wonosobo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (473, 24, 'yahukimo-kab', 'Yahukimo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (474, 24, 'yalimo-kab', 'Yalimo', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (475, 5, 'yogyakarta-kab', 'Yogyakarta', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (476, 34, 'medan-kota', 'Medan Kota', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (1, 'Kota 1', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (2, 'Kota 2', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (3, 'Kota 3', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (4, 'Kota 4', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (5, 'Kota 5', 'Y');
 
 -- ----------------------------
 -- Table structure for mr_global_param
@@ -4214,7 +3742,7 @@ INSERT INTO `mr_global_param` VALUES (3, '3', 'booking-status', 'Completed', '20
 INSERT INTO `mr_global_param` VALUES (4, '4', 'booking-status', 'Requested to Cancel', '2021-09-01 18:11:01', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (5, '5', 'booking-status', 'Customer Canceled', '2021-09-01 18:11:21', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (6, '6', 'booking-status', 'Partner Request Reassign', '2021-09-01 18:11:22', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `mr_global_param` VALUES (7, '7', 'booking-status', 'Reschedule', '2021-09-01 18:11:28', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `mr_global_param` VALUES (7, '7', 'booking-status', 'Additional Parts Required', '2021-09-01 18:11:28', NULL, '2021-09-06 22:41:44', NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (8, '1', 'failure-code', 'Used & Consumed', '2021-09-01 18:12:13', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (9, '2', 'failure-code', 'Return & Good', '2021-09-01 18:12:13', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (10, '1', 'part-status', 'Waiting for Parts', '2021-09-01 18:12:14', NULL, NULL, NULL, NULL, NULL);
@@ -4246,7 +3774,7 @@ CREATE TABLE `tbl_akses_menu`  (
   `edit_level` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   `delete_level` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tbl_akses_menu
@@ -4254,7 +3782,7 @@ CREATE TABLE `tbl_akses_menu`  (
 INSERT INTO `tbl_akses_menu` VALUES (1, 1, 1, 'Y', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (2, 1, 2, 'Y', 'N', 'Y', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (3, 1, 3, 'Y', 'Y', 'Y', 'Y');
-INSERT INTO `tbl_akses_menu` VALUES (4, 1, 4, 'Y', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (4, 1, 4, 'Y', 'Y', 'Y', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (5, 1, 5, 'Y', 'Y', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (6, 1, 6, 'Y', 'Y', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (7, 2, 1, 'N', 'N', 'N', 'N');
@@ -4269,6 +3797,12 @@ INSERT INTO `tbl_akses_menu` VALUES (15, 3, 3, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (16, 3, 4, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (17, 3, 5, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (18, 3, 6, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (19, 4, 1, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (20, 4, 2, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (21, 4, 3, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (22, 4, 4, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (23, 4, 5, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (24, 4, 6, 'N', 'N', 'N', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_menu
@@ -4303,14 +3837,15 @@ CREATE TABLE `tbl_userlevel`  (
   `id_level` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `nama_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_level`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tbl_userlevel
 -- ----------------------------
 INSERT INTO `tbl_userlevel` VALUES (1, 'Administator');
 INSERT INTO `tbl_userlevel` VALUES (2, 'Freelancer');
-INSERT INTO `tbl_userlevel` VALUES (3, 'Viewer');
+INSERT INTO `tbl_userlevel` VALUES (3, 'Team Leader');
+INSERT INTO `tbl_userlevel` VALUES (4, 'Viewer');
 
 -- ----------------------------
 -- Table structure for user_data
@@ -4319,21 +3854,23 @@ DROP TABLE IF EXISTS `user_data`;
 CREATE TABLE `user_data`  (
   `ud_id` int NOT NULL AUTO_INCREMENT,
   `ud_fullname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `ud_email_address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ud_username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ud_password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ud_is_active` enum('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'N',
   `ud_id_level` int NULL DEFAULT NULL,
   PRIMARY KEY (`ud_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_data
 -- ----------------------------
-INSERT INTO `user_data` VALUES (1, 'Admin', 'admin', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 1);
-INSERT INTO `user_data` VALUES (2, 'Freelancer 1', 'freelancer1', '7c222fb2927d828af22f592134e8932480637c0d', 'N', 2);
-INSERT INTO `user_data` VALUES (3, 'Freelancer 2', 'freelancer2', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
-INSERT INTO `user_data` VALUES (4, 'Freelancer 3', 'freelancer3', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
-INSERT INTO `user_data` VALUES (5, 'Viewer 1', 'viewer1', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 3);
+INSERT INTO `user_data` VALUES (1, 'Administator', 'admin@mail.com', 'admin', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 1);
+INSERT INTO `user_data` VALUES (2, 'Freelancer 1', 'fl1@mail.com', 'freelancer1', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
+INSERT INTO `user_data` VALUES (3, 'Freelancer 2', 'fl2@mail.com', 'freelancer2', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
+INSERT INTO `user_data` VALUES (4, 'Freelancer 3', NULL, 'freelancer3', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
+INSERT INTO `user_data` VALUES (5, 'Viewer 1', NULL, 'viewer1', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 3);
+INSERT INTO `user_data` VALUES (6, 'Fullname', 'mail@mail.com', 'Name', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 1);
 
 -- ----------------------------
 -- Table structure for work_order
@@ -4350,7 +3887,6 @@ CREATE TABLE `work_order`  (
   `company_name` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `address` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `city` int NULL DEFAULT NULL,
-  `zip` int NULL DEFAULT NULL,
   `contact_name` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `contact_phone` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `created_date` datetime NULL DEFAULT CURRENT_TIMESTAMP,
@@ -4364,29 +3900,25 @@ CREATE TABLE `work_order`  (
   `part_status` int NULL DEFAULT NULL,
   `delay_code` int NULL DEFAULT NULL,
   PRIMARY KEY (`wo_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of work_order
 -- ----------------------------
-INSERT INTO `work_order` VALUES (2, '12hj3g12hj', 2, 12312312, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 23, NULL, 'asdasda', '12312312312', '2021-01-01 17:59:40', '2021-09-01', '2021-09-01', 5, '123123asd', 'asdasda', '12312asd', 1, 5, 1);
-INSERT INTO `work_order` VALUES (3, 'j1h23gjh123', 3, 21312, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 50, NULL, 'asdasda', '12312312312', '2021-02-02 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 1, 2);
-INSERT INTO `work_order` VALUES (4, '1kj23hkj12', 1, 32423, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 90, NULL, 'asdasda', '12312312312', '2021-02-02 17:59:40', '2021-09-01', '2021-09-01', 5, '123123asd', 'asdasda', '12312asd', 1, 2, 2);
-INSERT INTO `work_order` VALUES (5, '12n3bmn123', 2, 234234, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 100, NULL, 'asdasda', '12312312312', '2021-02-02 17:59:40', '2021-09-01', '2021-09-01', 5, '123123asd', 'asdasda', '12312asd', 1, 1, 3);
-INSERT INTO `work_order` VALUES (6, '1n2b3v1n23', 2, 123123, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 50, NULL, 'asdasda', '12312312312', '2021-02-01 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 5, 3);
-INSERT INTO `work_order` VALUES (7, '1mbn2v3m12', 1, 34523, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 90, NULL, 'asdasda', '12312312312', '2021-03-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 5, 3);
-INSERT INTO `work_order` VALUES (8, '1nm23vbnm12', 1, 56745, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 100, NULL, 'asdasda', '12312312312', '2021-03-01 17:59:40', '2021-09-01', '2021-09-01', 5, '123123asd', 'asdasda', '12312asd', 1, 2, 4);
-INSERT INTO `work_order` VALUES (9, '1nm23b1', 1, 765897, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 50, NULL, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 2, 3);
-INSERT INTO `work_order` VALUES (10, '456hjkjk56h4', 1, 901019, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, NULL, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 2, 4);
-INSERT INTO `work_order` VALUES (12, 'jk435hk34j', 2, 897213849, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 50, NULL, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 3, 5);
-INSERT INTO `work_order` VALUES (13, 'm123mnm132', 1, 5678412, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 23, NULL, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 4, 5);
-INSERT INTO `work_order` VALUES (14, 'j456hk45j6', 2, 12312345, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 90, NULL, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 5, '123123asd', 'asdasda', '12312asd', 1, 4, 6);
-INSERT INTO `work_order` VALUES (15, '1n23vbn12', 2, 123123789, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 123, NULL, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 4, 7);
-INSERT INTO `work_order` VALUES (16, 'op12i3op12', 1, 675678, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 111, NULL, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 5, 6);
-INSERT INTO `work_order` VALUES (17, 'er21wr3e1', 1, 456456, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 20, NULL, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 6, '123123asd', 'asdasda', '12312asd', 1, 1, 8);
-INSERT INTO `work_order` VALUES (18, 'casbvcasd23', 1, 2354567, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 40, NULL, 'asdasda', '12312312312', '2021-08-01 17:59:40', '2021-09-01', '2021-09-01', 6, '123123asd', 'asdasda', '12312asd', 1, 6, 9);
-INSERT INTO `work_order` VALUES (20, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, NULL, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 1, '1231231', 'part_desc', '', NULL, 1, NULL);
-INSERT INTO `work_order` VALUES (21, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, NULL, 'asdasd', '123123123', '2021-09-05 18:28:38', '2021-09-02', NULL, 1, '1231231', 'part_desc', '', NULL, 1, NULL);
-INSERT INTO `work_order` VALUES (22, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, NULL, 'asdasd', '123123123', '2021-09-05 18:28:50', '2021-09-02', NULL, 1, '1231231', 'part_desc', 'asd123', NULL, 1, NULL);
+INSERT INTO `work_order` VALUES (3, 'j1h23gjh123', 3, 21312, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-02-02 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 1, 2);
+INSERT INTO `work_order` VALUES (6, '1n2b3v1n23', 2, 123123, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-02-01 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 5, 3);
+INSERT INTO `work_order` VALUES (8, '1nm23vbnm12', 1, 56745, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-03-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 1, 4);
+INSERT INTO `work_order` VALUES (9, '1nm23b1', 1, 765897, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 3);
+INSERT INTO `work_order` VALUES (10, '456hjkjk56h4', 1, 901019, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 7, '123123asd', 'asdasda', '12312asd', 1, 3, 4);
+INSERT INTO `work_order` VALUES (12, 'jk435hk34j', 2, 897213849, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 7, '123123asd', 'asdasda', '12312asd', 1, 3, 5);
+INSERT INTO `work_order` VALUES (13, 'm123mnm132', 1, 5678412, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 5, 5);
+INSERT INTO `work_order` VALUES (14, 'j456hk45j6', 2, 12312345, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 5, 6);
+INSERT INTO `work_order` VALUES (15, '1n23vbn12', 5, 123123789, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 5, 7);
+INSERT INTO `work_order` VALUES (16, 'op12i3op12', 1, 675678, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 6);
+INSERT INTO `work_order` VALUES (17, 'er21wr3e1', 1, 456456, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 8);
+INSERT INTO `work_order` VALUES (18, 'casbvcasd23', 1, 2354567, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 2, 'asdasda', '12312312312', '2021-08-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 6, 9);
+INSERT INTO `work_order` VALUES (20, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 3, NULL);
+INSERT INTO `work_order` VALUES (21, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 2, NULL);
+INSERT INTO `work_order` VALUES (22, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2021-09-05 18:28:50', '2021-09-02', NULL, 2, '1231231', 'part_desc', 'asd123', NULL, 2, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

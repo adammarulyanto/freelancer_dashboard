@@ -62,10 +62,10 @@
                                   <thead>
                                     <tr>
                                       <th scope="col">Menu</th>
-                                      <th scope="col">View</th>
-                                      <th scope="col">Add</th>
-                                      <th scope="col">Edit</th>
-                                      <th scope="col">Delete</th>
+                                      <th scope="col" class="text-center">View</th>
+                                      <th scope="col" class="text-center">Add</th>
+                                      <th scope="col" class="text-center">Edit</th>
+                                      <th scope="col" class="text-center">Delete</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -76,22 +76,22 @@
                                     <tr>
                                       <td><?=$akseslevel->nama_menu?></td>
                                       <td>
-                                        <div class="form-check form-switch">
+                                        <div class="form-check form-switch d-flex justify-content-center">
                                           <input class="form-check-input update_akses" type="checkbox" data-id="<?=$akseslevel->id?>" data-type="view_level" <?php if($akseslevel->view_level=="Y"){ echo"checked";}?>>
                                         </div>
                                       </td>
                                       <td>
-                                        <div class="form-check form-switch">
+                                        <div class="form-check form-switch d-flex justify-content-center">
                                           <input class="form-check-input update_akses" type="checkbox" data-id="<?=$akseslevel->id?>" data-type="add_level" <?php if($akseslevel->add_level=="Y"){ echo"checked";}?>>
                                         </div>
                                       </td>
                                       <td>
-                                        <div class="form-check form-switch">
+                                        <div class="form-check form-switch d-flex justify-content-center">
                                           <input class="form-check-input update_akses" type="checkbox" data-id="<?=$akseslevel->id?>" data-type="edit_level" <?php if($akseslevel->edit_level=="Y"){ echo"checked";}?>>
                                         </div>
                                       </td>
                                       <td>
-                                        <div class="form-check form-switch">
+                                        <div class="form-check form-switch d-flex justify-content-center">
                                           <input class="form-check-input update_akses" type="checkbox" data-id="<?=$akseslevel->id?>" data-type="delete_level" <?php if($akseslevel->delete_level=="Y"){ echo"checked";}?>>
                                         </div>
                                         </td>
@@ -107,7 +107,34 @@
                       </div>
                     </div>
                 </td>
-                <td></td>
+                <td>
+                  <i class="bi bi-pencil-square btn-action" data-bs-toggle="modal" data-bs-target="#editlevel<?=$userlevel->id_level?>"></i>
+                  <div class="modal fade" id="editlevel<?=$userlevel->id_level?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Edit Level Name</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="<?=base_url()?>user_level/update_nama" method="post">
+                        <div class="modal-body">
+                          <div class="row g-3" id="datawo">
+                            <div class="col-12">
+                              <label for="inputState" class="form-label">Level Name</label>
+                              <input type="hidden" class="form-control" id="inputAddress" placeholder="" name="id_level" value="<?=$userlevel->id_level?>" required>
+                              <input type="text" class="form-control" id="inputAddress" placeholder="" name="nama_level" value="<?=$userlevel->nama_level?>" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </td>
             </tr>
             <?php
             }

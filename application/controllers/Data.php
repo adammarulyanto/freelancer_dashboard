@@ -31,7 +31,7 @@ class Data extends CI_Controller {
 	public function index()
 	{
 		$data['workorder'] = $this->db->query("	SELECT
-												wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,zip,kb_kab_kot,ud_fullname freelancer_name
+												wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,kb_kab_kot,ud_fullname freelancer_name
 												FROM
 												work_order
 												LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
@@ -44,6 +44,8 @@ class Data extends CI_Controller {
 												")->result();
 		$data['kota'] = $this->db->query("select * from kota_kabupaten")->result();
 		$data['freelancer'] = $this->db->query("select * from user_data")->result();
+		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
+		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
 
 
 		$url = $this->uri->segment(1);
@@ -65,7 +67,6 @@ class Data extends CI_Controller {
 		$company_name = $_POST['company_name'];
 		$address = $_POST['address'];
 		$city = $_POST['city'];
-		$zip = $_POST['zip'];
 		$customer_name = $_POST['customer_name'];
 		$contact_phone = $_POST['contact_phone'];
 		$request_date = $_POST['request_date'];
@@ -75,14 +76,14 @@ class Data extends CI_Controller {
 
 		$query = $this->db->query("INSERT INTO `work_order` (`wo_number`, `freelancer`, `case_id`, `wo_desc`, `product_desc`, `asset_serial`, `company_name`, `address`, `city`, `contact_name`, `contact_phone`, `created_date`, `requested_date`, `booking_status`, `part_number`, `part_desc`, `igso_number`, `part_status`) VALUES ('$wo_number', '$freelancer', '$case_id', '$wo_desc', '$prod_desc', '$asset_serial', '$company_name', '$address', '$city', '$customer_name', '$contact_phone', NOW(), '$request_date', 1, '$part_number', 'part_desc', '$igso_number', 1);");
 
-		header(base_url()."data?alert=success");
+		header(base_url()."data?alert=add_success");
 	}
 
 	public function get_data(){
 		if($_REQUEST['id_data']) {
 		$id = $_REQUEST['id_data'];
 		$data = $this->db->query("SELECT
-								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,zip,kb_kab_kot,ud_fullname freelancer_name
+								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status, booking_status book_status_id,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,part_status part_status_id,kb_kab_kot,ud_fullname freelancer_name
 								FROM
 								work_order
 								LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
@@ -104,6 +105,11 @@ class Data extends CI_Controller {
 		$id = $_GET['id'];
 
 		$query = $this->db->query("DELETE from work_order where wo_id = $id");
-		header("location:".base_url()."data");
+		header("location:".base_url()."data?alert=del_success");
+	}
+	public function update_book_status(){
+		$value = $_POST['value_data'];
+		$id = $_POST['id_data'];
+		$sql=$this->db->query("UPDATE work_order set booking_status=$value where wo_id=$id");
 	}	
 }

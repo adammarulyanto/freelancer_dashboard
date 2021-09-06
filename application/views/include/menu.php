@@ -12,16 +12,10 @@
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
-      <li>
-          <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Search...">
-         <span class="tooltip">Search</span>
-      </li>
     <?php
     $url = $this->uri->segment(1);
     $idlevel  = $this->session->userdata['user_level'];
     $url = $this->uri->segment(1);
-    echo $url;
     $menu = $this->db->query("select * from tbl_menu where id_menu in (select id_menu from tbl_akses_menu where view_level = 'Y' and id_level =$idlevel) order by urutan asc,id_menu desc")->result();
     foreach ($menu as $menu){
     ?>
@@ -29,12 +23,15 @@
         <a href="<?=base_url().$menu->link?>" class="<?php if($url=="<?=$menu->link?>"){echo 'active-menu';}?>">
           <i class='<?=$menu->icon?>'></i>
           <span class="links_name"><?=$menu->nama_menu?></span>
+          <span class="tooltip"><?=$menu->nama_menu?></span>
         </a>
-         <span class="tooltip"><?=$menu->nama_menu?></span>
       </li>
     <?php
     }
     ?>
+    <li>
+      &nbsp;
+    </li>
      <li class="profile">
          <div class="profile-details">
            <img src="https://cberry.net/assets/website/img/img-user.png" alt="profileImg">

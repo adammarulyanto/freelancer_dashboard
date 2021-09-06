@@ -67,8 +67,17 @@ class Fl_task extends CI_Controller {
 	}
 	public function update_status(){
 		$value = $_POST['value_data'];
+		if($value=='1'){
+			$booking_status = 1;
+		}else if($value=='2'){
+			$booking_status = 2;
+		}else if($value=='3'){
+			$booking_status = 7;
+		}else if($value=='5'){
+			$booking_status = 3;
+		}
 		$id = $_POST['id_data'];
-		$sql=$this->db->query("UPDATE work_order set part_status=$value where wo_id=$id");
+		$sql=$this->db->query("UPDATE work_order set part_status=$value,booking_status=$booking_status where wo_id=$id");
 	}
 	public function update_freelancer(){
 		$value = $_POST['value_data'];
@@ -79,7 +88,7 @@ class Fl_task extends CI_Controller {
 		if($_REQUEST['id_data_card']) {
 		$id = $_REQUEST['id_data_card'];
 		$data = $this->db->query("SELECT
-								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,zip,kb_kab_kot,ud_fullname freelancer_name
+								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name
 								FROM
 								work_order
 								LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 

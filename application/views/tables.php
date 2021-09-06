@@ -1,9 +1,23 @@
+<div id="loader-wrapper">
+  <div class="d-flex justify-content-center loading-circle position-absolute top-50 start-50 translate-middle">
+    <div class="spinner-border" role="status">
+    </div>
+  </div>
+</div>
+
 <?php foreach($akses_menu as $akses_menu){
 if(isset($_GET['alert'])){
-  if($_GET['alert']=="success"){
+  if($_GET['alert']=="add_success"){
 ?>
 <div class="alert alert-success alert-dismissible fade show justify-content-center" role="alert">
   <strong>Add Work Order Success!</strong> You should check in on some of those fields below.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php
+}else if($_GET['alert']=="del_success"){
+?>
+<div class="alert alert-success alert-dismissible fade show justify-content-center" role="alert">
+  <strong>Delete Work Order Success!</strong> You should check in on some of those fields below.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <?php
@@ -46,38 +60,34 @@ if(isset($_GET['alert'])){
                 <label for="inputAddress" class="form-label">Case ID</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="case_id" required>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">WO Description</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="wo_desc" required></textarea>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Product Description</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="prod_desc" required></textarea>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Asset Serial</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="asset_serial" required>
               </div>
             <h6>Account Information</h6>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Company Name</label>
                 <input type="text" class="form-control" id="inputAddress" name="company_name" required>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Address</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address" required></textarea>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <label for="inputState" class="form-label">City</label>
                 <select class="form-select" name="city">
                     <?php foreach($kota as $kota1) { ?>
                       <option value="<?=$kota1->kb_id?>"><?=$kota1->kb_kab_kot?> </option> 
                     <?php } ?> 
                 </select>
-              </div>
-              <div class="col-md-4">
-                <label for="inputZip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="inputZip" name="zip" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Customer Name</label>
@@ -88,20 +98,20 @@ if(isset($_GET['alert'])){
                 <input type="number" class="form-control" id="inputAddress" placeholder="" name="contact_phone" required>
               </div>
             <h6>Date</h6>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Request Date</label>
                 <input type="date" class="form-control" id="inputAddress" placeholder="" name="request_date" required>
               </div>
             <h6>Order Information</h6>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Part Number</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="part_number" required>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Part Description</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="part_desc" required></textarea>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <label for="inputAddress" class="form-label">IGSO Number</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="igso_number" required>
               </div>
@@ -194,7 +204,7 @@ if(isset($_GET['alert'])){
 }
 ?>
 
-<div class="modal fade" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade modal_kanban" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -205,7 +215,32 @@ if(isset($_GET['alert'])){
         <div id="loader" style="display: none; text-align: center;">
           <img src="<?=base_url()?>assets/img/ajax-loader.gif"> 
         </div> 
-        <div class="row g-3" id="datawo">
+        <div class="row g-3" id="datawo"> 
+        <h6>Asginee & Status</h6>
+        <div class="col-md-6">
+          <label for="inputState" class="form-label">Assigned to</label>
+          <select id="freelancer" class="form-select form-select-freelancer" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
+            <?php foreach($freelancer as $flancer1) { ?>
+              <option value="<?=$flancer1->ud_id?>"><?=$flancer1->ud_fullname?> </option> 
+            <?php } ?>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="inputState" class="form-label">Booking Status</label>
+          <select id="booking_status" class="form-select form-select-book-status" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
+            <?php foreach($booking_status as $bstatus) { ?>
+              <option value="<?=$bstatus->mgp_code_id?>"><?=$bstatus->mgp_desc?> </option> 
+            <?php } ?>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="inputState" class="form-label">Part Status</label>
+          <select id="update_status" class="form-select form-select-status" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
+            <?php foreach($part_status as $pstatus) { ?>
+              <option value="<?=$pstatus->mgp_code_id?>"><?=$pstatus->parts_status?> </option> 
+            <?php } ?>
+          </select>
+        </div>
         <h6>WO Information</h6>
           <div class="col-md-6">
             <label for="inputAddress" class="form-label">Wo Number</label>
@@ -215,34 +250,30 @@ if(isset($_GET['alert'])){
             <label for="inputAddress" class="form-label">Case ID</label>
             <p id="case_id"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">WO Description</label>
             <p id="wo_desc"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Product Description</label>
             <p id="product_desc"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Asset Serial</label>
             <p id="asset_serial"></p>
           </div>
         <h6>Account Information</h6>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Company Name</label>
             <p id="company_name"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Address</label>
             <p id="address"></p>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <label for="inputState" class="form-label">City</label>
             <p id="city"></p>
-          </div>
-          <div class="col-md-4">
-            <label for="inputZip" class="form-label">Zip</label>
-            <p id="zip"></p>
           </div>
           <div class="col-md-6">
             <label for="inputAddress" class="form-label">Customer Name</label>
@@ -253,27 +284,22 @@ if(isset($_GET['alert'])){
             <p id="contact_phone"></p>
           </div>
         <h6>Date</h6>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Request Date</label>
             <p id="requested_date"></p>
           </div>
         <h6>Order Information</h6>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Part Number</label>
             <p id="part_number"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Part Description</label>
             <p id="part_desc"></p>
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">IGSO Number</label>
             <p id="igso_number"></p>
-          </div>
-          <h6>Asginee</h6>
-          <div class="col-md-6">
-            <label for="inputState" class="form-label">Assigned to</label>
-            <p id="freelancer"></p>
           </div>
         </div>
       </div>
