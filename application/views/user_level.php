@@ -1,7 +1,32 @@
 <!-- Page content-->
 <div class="container-fluid cont">
     <h1 class="mt-4">User Level</h1>
-    <button class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i></button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add"><i class="bi bi-plus-lg"></i></button>
+
+    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Level</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="<?=base_url()?>user_level/add_level" method="post">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="inputAddress" class="form-label">Level Name</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="nama_level" required>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="shadow-sm mb-5 p-3 bg-white rounded box-data">
       <table id="example" class="table table-responsive table-hover" style="width:100%">
         <thead>

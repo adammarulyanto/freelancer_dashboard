@@ -31,6 +31,7 @@ class User_data extends CI_Controller {
 	public function index()
 	{
 		$data['users'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level")->result();
+		$data['level'] = $this->db->query("select * from tbl_userlevel")->result();
 
 		
 		$url = $this->uri->segment(1);
@@ -51,5 +52,20 @@ class User_data extends CI_Controller {
 		}
 		$id = $_POST['id_data'];
 		$sql=$this->db->query("UPDATE user_data set ud_is_active = '$val' where ud_id=$id;");
+	}
+	public function add_user()
+	{
+		$fullname = $_POST['fullname'];
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$level = $_POST['level'];
+		$is_active = $_POST['is_active'];
+
+		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`) VALUES ('$fullname', '$username', sha1('$password'), '$is_active', $level);");
+		if($sql){
+			header("location:".base_url()."user_data?alert=success");
+		}else{
+			header("location:".base_url()."user_data?alert=failed");
+		}
 	}
 }

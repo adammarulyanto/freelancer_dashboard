@@ -39,8 +39,8 @@
          <div class="profile-details">
            <img src="https://cberry.net/assets/website/img/img-user.png" alt="profileImg">
            <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
+             <div class="name"><?=$this->session->userdata("nama")?></div>
+             <div class="job"><?=$this->session->userdata("nama_level")?></div>
            </div>
          </div>
          <a href="<?=base_url()?>login/logout" style="text-decoration: none;"><i class='bx bx-log-out' id="log_out"></i></a>

@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 06/09/2021 01:18:49
+ Date: 06/09/2021 13:01:25
 */
 
 SET NAMES utf8mb4;
@@ -4246,7 +4246,7 @@ CREATE TABLE `tbl_akses_menu`  (
   `edit_level` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   `delete_level` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tbl_akses_menu
@@ -4257,12 +4257,18 @@ INSERT INTO `tbl_akses_menu` VALUES (3, 1, 3, 'Y', 'Y', 'Y', 'Y');
 INSERT INTO `tbl_akses_menu` VALUES (4, 1, 4, 'Y', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (5, 1, 5, 'Y', 'Y', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (6, 1, 6, 'Y', 'Y', 'N', 'N');
-INSERT INTO `tbl_akses_menu` VALUES (7, 2, 1, 'N', 'Y', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (7, 2, 1, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (8, 2, 2, 'Y', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (9, 2, 3, 'Y', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (10, 2, 4, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (11, 2, 5, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (12, 2, 6, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (13, 3, 1, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (14, 3, 2, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (15, 3, 3, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (16, 3, 4, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (17, 3, 5, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (18, 3, 6, 'N', 'N', 'N', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_menu
@@ -4297,13 +4303,14 @@ CREATE TABLE `tbl_userlevel`  (
   `id_level` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `nama_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_level`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tbl_userlevel
 -- ----------------------------
 INSERT INTO `tbl_userlevel` VALUES (1, 'Administator');
 INSERT INTO `tbl_userlevel` VALUES (2, 'Freelancer');
+INSERT INTO `tbl_userlevel` VALUES (3, 'Viewer');
 
 -- ----------------------------
 -- Table structure for user_data
@@ -4317,7 +4324,7 @@ CREATE TABLE `user_data`  (
   `ud_is_active` enum('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'N',
   `ud_id_level` int NULL DEFAULT NULL,
   PRIMARY KEY (`ud_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_data
@@ -4325,6 +4332,8 @@ CREATE TABLE `user_data`  (
 INSERT INTO `user_data` VALUES (1, 'Admin', 'admin', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 1);
 INSERT INTO `user_data` VALUES (2, 'Freelancer 1', 'freelancer1', '7c222fb2927d828af22f592134e8932480637c0d', 'N', 2);
 INSERT INTO `user_data` VALUES (3, 'Freelancer 2', 'freelancer2', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
+INSERT INTO `user_data` VALUES (4, 'Freelancer 3', 'freelancer3', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
+INSERT INTO `user_data` VALUES (5, 'Viewer 1', 'viewer1', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 3);
 
 -- ----------------------------
 -- Table structure for work_order

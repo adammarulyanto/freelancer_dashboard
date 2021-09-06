@@ -62,9 +62,47 @@
                   $('#datawo').html('Error, Please try again...');
                   $('#loader').hide();
              });
-            }); 
-        });
-
+            });  
+       $(document).on('click', '#detailcard', function(e){  
+         e.preventDefault();  
+         var id_data_card = $(this).data('id');    
+         $('#datcard').hide();
+         $('#loader_card').show();  
+         $.ajax({
+              url: '<?=base_url()?>fl_task/get_data',
+              type: 'POST',
+              data: 'id_data_card='+id_data_card,
+              dataType: 'json',
+          cache: false
+         })
+         .done(function(data_card){
+              console.log(data_card.wo_number); 
+              $('#datcard').hide();
+              $('#datcard').show();
+              $('#wo_number').html(data_card.wo_number);
+              $('#case_id').html(data_card.case_id);
+              $('#wo_desc').html(data_card.wo_desc);
+              $('#product_desc').html(data_card.product_desc);
+              $('#asset_serial').html(data_card.asset_serial);
+              $('#company_name').html(data_card.company_name);
+              $('#address').html(data_card.address);
+              $('#city').html(data_card.kb_kab_kot);
+              $('#zip').html(data_card.zip);
+              $('#contact_name').html(data_card.contact_name);
+              $('#contact_phone').html(data_card.contact_phone);
+              $('#requested_date').html(data_card.requested_date);
+              $('#part_number').html(data_card.part_number);
+              $('#part_desc').html(data_card.part_desc);
+              $('#igso_number').html(data_card.igso_number);
+              $('#assigned').html(data_card.freelancer);
+              $('#loader_card').hide();
+         })
+         .fail(function(){
+              $('#datcard').html('Error, Please try again...');
+              $('#loader_card').hide();
+         });
+        }); 
+    });
         </script>
     </head>
     <body>

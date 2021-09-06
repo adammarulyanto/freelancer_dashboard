@@ -32,7 +32,6 @@ class Login extends CI_Controller {
 		$cek = $this->db->query("SELECT * from user_data left join tbl_userlevel on id_level = ud_id_level where ud_username = '$username' and ud_password=sha1('$password')")->row();
 
 		if($cek){
-			$id = $cek->bu_id;
 			$getmenu = $this->db->query("SELECT link from tbl_menu tm left join tbl_akses_menu tam on tam.id_menu = tm.id_menu where id_level = $cek->id_level and view_level='Y' limit 1")->row();
 			$session = array(
 				'id' 		=> $cek->ud_id,
