@@ -94,7 +94,13 @@
               $('#part_number').html(data_card.part_number);
               $('#part_desc').html(data_card.part_desc);
               $('#igso_number').html(data_card.igso_number);
-              $('#assigned').html(data_card.freelancer);
+              var wo_id = data_card.wo_id;
+              var assigned = data_card.freelancer;
+              var part_stat = data_card.part_status;
+              document.getElementById('update_freelancer').value=assigned;
+              $('#update_freelancer').attr('data-id' , wo_id);
+              document.getElementById('update_status').value=part_stat;
+              $('#update_status').attr('data-id' , wo_id);
               $('#loader_card').hide();
          })
          .fail(function(){

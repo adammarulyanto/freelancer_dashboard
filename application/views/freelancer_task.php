@@ -123,20 +123,19 @@
           <div class="col-md-6">
             <label class="form-label">Assigned to</label>
 
-            <select id="update_freelancer" class="form-select form-select-freelancer" data-id="<?=$waitpart->wo_id?>" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
+            <select id="update_freelancer" class="form-select form-select-freelancer" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
               <?php foreach($freelancer as $flancer1) { ?>
-                <option value="<?=$flancer1->ud_id?>" <?php if($flancer1->ud_id == $waitpart->freelancer){echo "selected";} ?>><?=$flancer1->ud_fullname?> </option> 
+                <option value="<?=$flancer1->ud_id?>"><?=$flancer1->ud_fullname?> </option> 
               <?php } ?>
             </select>
           </div>
           <div class="col-md-6">
             <label class="form-label">Status</label>
-            <select id="update" class="form-select form-select-status" data-id="<?=$waitpart->wo_id?>" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
+            <select id="update_status" class="form-select form-select-status" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
               <?php foreach ($part_status as $status_part){?>
-              <option value="<?=$status_part->mgp_code_id?>" <?php echo ($waitpart->part_status == $status_part->mgp_code_id? 'selected ': '') ?>><?=$status_part->parts_status?></option>
+              <option value="<?=$status_part->mgp_code_id?>"><?=$status_part->parts_status?></option>
               <?php } ?>
             </select>
-          <script>document.write(assigned)</script>
           </div>
           <div class="col-md-6">
             <label for="inputAddress" class="form-label">Case ID</label>

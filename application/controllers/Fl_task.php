@@ -79,7 +79,7 @@ class Fl_task extends CI_Controller {
 		if($_REQUEST['id_data_card']) {
 		$id = $_REQUEST['id_data_card'];
 		$data = $this->db->query("SELECT
-								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,zip,kb_kab_kot,ud_fullname freelancer_name
+								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,zip,kb_kab_kot,ud_fullname freelancer_name
 								FROM
 								work_order
 								LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
