@@ -30,6 +30,54 @@ class Fl_task extends CI_Controller {
  	}
 	public function index()
 	{
+		if(isset($_GET['create_from'])){
+			$create_from = " and created_date > '".$_GET['create_from']." 00:00:00'";
+		}else{
+			$create_from = "";
+		}
+
+		if(isset($_GET['create_to'])){
+			$create_to = " and created_date <= '".$_GET['create_to']." 23:59:59'";
+		}else{
+			$create_to = "";
+		}
+
+		if(isset($_GET['req_from'])){
+			$req_from = " and request_date >= '".$_GET['req_from']."' 00:00:00";
+		}else{
+			$req_from = "";
+		}
+
+		if(isset($_GET['req_to'])){
+			$req_to = " and request_date <= '".$_GET['req_to']."' 23:59:59";
+		}else{
+			$req_to = "";
+		}
+
+		if(isset($_GET['book_status'])){
+			$book_stat = $_GET['book_status'];
+			$imp_book = implode(',', $book_stat);
+			$where_book = " and booking_status in (".$imp_book.")";
+		}else{
+			$where_book = "";
+		}
+
+		if(isset($_GET['part_status'])){
+			$part_stat = $_GET['part_status'];
+			$imp_part = implode(',', $part_stat);
+			$where_part = "and part_status in (".$imp_part.")";
+		}else{
+			$where_part = "";
+		}
+
+		if(isset($_GET['freelancer'])){
+			$freelancer = $_GET['freelancer'];
+			$imp_fl = implode(',', $freelancer);
+			$where_fl = " and freelancer in (".$imp_fl.")";
+		}else{
+			$where_fl = "";
+		}
+
 		$query = "	SELECT
 					wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date, booking_status,part_number,part_desc,igso_number,failure_code,part_status,ud_fullname
 					FROM
@@ -45,16 +93,20 @@ class Fl_task extends CI_Controller {
 		}else{
 			$get_freelancer_id = "";
 		}
-		$data['waitpart'] = $this->db->query($query."where part_status = 1 ".$get_freelancer_id." order by created_date")->result();
-		$data['cnt_waitpart'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 1 ".$get_freelancer_id)->result();
-		$data['partpickup'] = $this->db->query($query."where part_status = 2 ".$get_freelancer_id." order by created_date")->result();
-		$data['cnt_partpickup'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 2 ".$get_freelancer_id)->result();
-		$data['escalation'] = $this->db->query($query."where part_status = 3 ".$get_freelancer_id." order by created_date")->result();
-		$data['cnt_escalation'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 3 ".$get_freelancer_id)->result();
-		$data['partreturn'] = $this->db->query($query."where part_status = 5 ".$get_freelancer_id." order by created_date")->result();
-		$data['cnt_partreturn'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 5 ".$get_freelancer_id)->result();
-		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status' and mgp_code_id in (1,2,3,5)")->result();
+		$where = $create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl;
+		$data['waitpart'] = $this->db->query($query."where part_status = 1 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_waitpart'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 1 ".$get_freelancer_id.$where)->result();
+		$data['partpickup'] = $this->db->query($query."where part_status = 2 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_partpickup'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 2 ".$get_freelancer_id.$where)->result();
+		$data['escalation'] = $this->db->query($query."where part_status = 3 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_escalation'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 3 ".$get_freelancer_id.$where)->result();
+		$data['partreturn'] = $this->db->query($query."where part_status = 5 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_partreturn'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 5 ".$get_freelancer_id.$where)->result();
+		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status' and mgp_code_id in (1,2,3,5,6)")->result();
 		$data['freelancer'] = $this->db->query("select * from user_data")->result();
+		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
+		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
+		$data['delay_code'] = $this->db->query("select * from mr_global_param where mgp_slug='delay-code'")->result();
 
 		$url = $this->uri->segment(1);
 		$menu = $this->db->query("select id_menu from tbl_menu where link = '$url'")->row()->id_menu;

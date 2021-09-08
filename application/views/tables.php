@@ -7,10 +7,10 @@
 
 <?php foreach($akses_menu as $akses_menu){
 if(isset($_GET['alert'])){
-  if($_GET['alert']=="add_success"){
+  if($_GET['alert']=="add_success" || $_GET['alert']=="edit_success"){
 ?>
 <div class="alert alert-success alert-dismissible fade show justify-content-center" role="alert">
-  <strong>Add Work Order Success!</strong> You should check in on some of those fields below.
+  <strong>Success!</strong> You should check in on some of those fields below.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <?php
@@ -39,6 +39,7 @@ if(isset($_GET['alert'])){
     <?php
     }
     ?>
+    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
 
     <!-- Modal -->
     <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,6 +135,77 @@ if(isset($_GET['alert'])){
         </div>
       </div>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form>
+          <div class="modal-body">
+            <div class="row g-3">
+            <h6>Created Date</h6>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">From</label>
+                <input type="date" class="form-control" id="inputAddress" name="create_from">
+              </div>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">To</label>
+                <input type="date" class="form-control" id="inputAddress" name="create_to">
+              </div>
+            <h6>Request Date</h6>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">From</label>
+                <input type="date" class="form-control" id="inputAddress" name="req_from">
+              </div>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">To</label>
+                <input type="date" class="form-control" id="inputAddress" name="req_to">
+              </div>
+            <h6>Booking Status</h6>
+              <div class="col-12">
+                  <?php foreach($booking_status as $bstatus1) { ?>    
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"><span><?=$bstatus1->mgp_desc?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
+
+            <h6>Part Status</h6>
+              <div class="col-12">
+                  <?php foreach($part_status as $pstatus) { ?>    
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"><span><?=$pstatus->parts_status?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
+
+            <h6>Freelancer</h6>
+              <div class="col-12">
+                  <?php foreach($freelancer as $flancer1) { ?>  
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="freelancer[]" value="<?=$flancer1->ud_id?>"><span><?=$flancer1->ud_fullname?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Filter</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="shadow-sm mb-5 p-3 bg-white rounded box-data">
       <table id="example" class="table table-responsive table-hover" style="width:100%">
         <thead>
@@ -190,6 +262,11 @@ if(isset($_GET['alert'])){
                     </div>
                   <?php
                   }
+                  if($akses_menu->edit_level=="Y"){
+                  ?>
+                  <i class="bi bi-pencil-square btn-action" onclick="location.href='<?=base_url()?>data/edit_wo?id_wo=<?=$workorder->wo_id_sha1?>'"></i>
+                  <?php
+                  }
                   ?>
                 </td>
             </tr>
@@ -216,7 +293,6 @@ if(isset($_GET['alert'])){
           <img src="<?=base_url()?>assets/img/ajax-loader.gif"> 
         </div> 
         <div class="row g-3" id="datawo"> 
-        <h6>Asginee & Status</h6>
         <div class="col-md-6">
           <label for="inputState" class="form-label">Assigned to</label>
           <select id="freelancer" class="form-select form-select-freelancer" <?php if($akses_menu->edit_level=="N"){echo 'disabled';}?>>
@@ -240,6 +316,43 @@ if(isset($_GET['alert'])){
               <option value="<?=$pstatus->mgp_code_id?>"><?=$pstatus->parts_status?> </option> 
             <?php } ?>
           </select>
+        </div>
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Other Information
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Failure</label>
+                    <p id="failure_code"></p>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Delay Code</label>
+                    <p id="delay_code"></p>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Visit</label>
+                    <p id="visit"></p>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Link HP SubK Partner</label>
+                    <p id="link"></p>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Comment</label>
+                    <p id="comment"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <h6>WO Information</h6>
           <div class="col-md-6">

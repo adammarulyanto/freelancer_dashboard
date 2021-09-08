@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <div class="menu-samping">
     <div class="logo-details">
-      <i class='bx bxl-c-plus-plus icon'></i>
-        <div class="logo_name">Dashboard</div>
+      <!-- <i class='bx bxl-c-plus-plus icon'></i> -->
+        <img src="https://iconape.com/wp-content/files/hx/58721/svg/freelancer-1.svg" class="img-fluid icon" style="max-width:30px;">
+        <div class="logo_name"> &nbsp;Dashboard</div>
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">

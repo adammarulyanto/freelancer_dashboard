@@ -16,6 +16,15 @@
                 $(".child-menu").toggleClass("active-submenu");
               });
             });
+            $(document).ready(function(){
+                $("form").submit(function(){
+                    $("input").each(function(index, obj){
+                        if($(obj).val() == "") {
+                            $(obj).remove();
+                        }
+                    });
+                });
+            });
 
             $(document).ready(function() {
                 $('#example').DataTable({
@@ -27,6 +36,9 @@
                           extend: 'excel',
                           text: '<i class="bi bi-file-earmark-excel-fill"></i>',
                           className: 'btn-excel',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
                           title: null,
                           filename: '<?php echo "Data-".date('Ymdhis');?>'
                       },
@@ -34,11 +46,17 @@
                           extend: 'pdf',
                           text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
                           title: '<?php echo "Data-".date('Ymdhis');?>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
                           className: 'btn-pdf'
                       },
                       {
                           extend: 'print',
                           text: '<i class="bi bi-printer-fill"></i>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           className: 'btn-print'
                       }
@@ -71,6 +89,24 @@
                       var id = $(this).data('id');
                       $.ajax({
                           url:'<?=base_url()?>data/update_book_status',
+                          method:'POST',
+                          data: {value_data:value,id_data:id}
+                      });
+                  });
+                   $(".form-select-failure").change(function (){
+                      var value = $(this).val();
+                      var id = $(this).data('id');
+                      $.ajax({
+                          url:'<?=base_url()?>data/update_failure_code',
+                          method:'POST',
+                          data: {value_data:value,id_data:id}
+                      });
+                  });
+                   $(".form-select-delay").change(function (){
+                      var value = $(this).val();
+                      var id = $(this).data('id');
+                      $.ajax({
+                          url:'<?=base_url()?>data/update_delay_code',
                           method:'POST',
                           data: {value_data:value,id_data:id}
                       });
@@ -117,6 +153,7 @@ function menuBtnChange() {
  }
 }
 </script>
+
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

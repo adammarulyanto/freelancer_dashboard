@@ -1,3 +1,7 @@
+<?php
+$link = ($this->uri->segment(1) == NULL) ? 'Dashboard' : $this->uri->segment(1);
+$menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")->result();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title><?php foreach($menu as $menu){ echo $menu->nama_menu;}?> Dashboard</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -54,10 +58,17 @@
                   $('#part_number').html(data.part_number);
                   $('#part_desc').html(data.part_desc);
                   $('#igso_number').html(data.igso_number);
+                  $('#visit').html(data.visit);
+                  $('#link').html(data.link);
+                  $('#comment').html(data.comment);
+                  $('#failure_code').html(data.failure_code);
+                  $('#delay_code').html(data.delay_code_name);
                   var wo_id = data.wo_id;
                   var assigned = data.freelancer;
                   var book_stat1 = data.book_status_id;
                   var part_stat1 = data.part_status_id;
+                  var f_code1 = data.failure_code_id;
+                  var d_code1 = data.delay_code;
                   document.getElementById('freelancer').value=assigned;
                   $('#freelancer').attr('data-id' , wo_id);
                   document.getElementById('booking_status').value=book_stat1;

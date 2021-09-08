@@ -4,10 +4,80 @@
     </div>
   </div>
 </div>
-
 <?php foreach($akses_menu as $akses_menu){?>
 <div class="container-kanban">
     <h1 class="mt-4 h1-kanban">Freelancer Task</h1>
+    <button class="btn btn-secondary mb-3 filter-kanban" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
+<!-- Modal -->
+    <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form>
+          <div class="modal-body">
+            <div class="row g-3">
+            <h6>Created Date</h6>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">From</label>
+                <input type="date" class="form-control" id="inputAddress" name="create_from">
+              </div>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">To</label>
+                <input type="date" class="form-control" id="inputAddress" name="create_to">
+              </div>
+            <h6>Request Date</h6>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">From</label>
+                <input type="date" class="form-control" id="inputAddress" name="req_from">
+              </div>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">To</label>
+                <input type="date" class="form-control" id="inputAddress" name="req_to">
+              </div>
+            <h6>Booking Status</h6>
+              <div class="col-12">
+                  <?php foreach($booking_status as $bstatus1) { ?>    
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"><span><?=$bstatus1->mgp_desc?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
+
+            <h6>Part Status</h6>
+              <div class="col-12">
+                  <?php foreach($part_status as $pstatus) { ?>    
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"><span><?=$pstatus->parts_status?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
+
+            <h6>Freelancer</h6>
+              <div class="col-12">
+                  <?php foreach($freelancer as $flancer1) { ?>  
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="freelancer[]" value="<?=$flancer1->ud_id?>"><span><?=$flancer1->ud_fullname?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Filter</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="table-responsive">
       <table class="table table-kanban">
         <tr>
@@ -20,7 +90,7 @@
                 <?php foreach($waitpart as $waitpart){?>
                 <div class="card mb-3 border-0 card-kanban card-modal" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$waitpart->wo_id?>" id="detailcard">
                   <div class="card-body text-success">
-                    <div class="btn-group">
+                    <div class="btn-group img-card">
                       <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="img-thumbnail-assignee rounded-circle">
                           <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
@@ -44,7 +114,7 @@
                 <?php foreach($partpickup as $partpickup){?>
                 <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partpickup->wo_id?>" id="detailcard">
                   <div class="card-body text-success">
-                    <div class="btn-group">
+                    <div class="btn-group img-card">
                       <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="img-thumbnail-assignee rounded-circle">
                           <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
@@ -67,7 +137,7 @@
                 <?php foreach($escalation as $escalation){?>
                 <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$escalation->wo_id?>" id="detailcard">
                   <div class="card-body text-success">
-                    <div class="btn-group">
+                    <div class="btn-group img-card">
                       <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="img-thumbnail-assignee rounded-circle">
                           <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
@@ -91,7 +161,7 @@
                 <?php foreach($partreturn as $partreturn){?>
                 <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partreturn->wo_id?>" id="detailcard">
                   <div class="card-body text-success">
-                    <div class="btn-group">
+                    <div class="btn-group img-card">
                       <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="img-thumbnail-assignee rounded-circle">
                           <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">

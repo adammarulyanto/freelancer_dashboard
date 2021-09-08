@@ -1,9 +1,42 @@
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
 body{
   font-size: 0.9rem;
   font-family: 'Open Sans', sans-serif;
 }
 .container{
   padding-left: 100px;
+}
+.dropdown-filter li{
+    padding:5px;
+}
+.btn-filter{
+  line-height: 1.2;
+  
+  margin-bottom: 10px;
+  margin-left:   10px;
+  
+  border-color: rgb(187, 187, 187);
+  background-color: #FFF;
+  color: rgb(20, 164, 190);
+}
+
+.btn-filter.active {
+  background-color: black;
+  color:            white;
+  
+  box-shadow: none;
+}
+
+.btn-filter:hover {
+  border-color:     $pill-hover-border;
+  background-color: $pill-hover-bg;
+  color:            $pill-hover-font;
 }
 #loader-wrapper{
   position: fixed;
@@ -203,6 +236,12 @@ body{
   margin: 20px 20px 20px 100px;
   width: 100%;
 }
+.h1-kanban{
+  margin-left: 10px;
+}
+.filter-kanban{
+  margin-left: 10px;
+}
 .card-kanban{
   cursor: pointer;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -251,7 +290,7 @@ body{
   margin-right: 10px;
   margin-top: 9px;
 }
-.btn-group{
+.img-card{
   position: absolute;
   top: 5px;
   right: 5px;
@@ -316,7 +355,105 @@ body{
   font-weight: 600;
   font-size: 13px;
 }
+/*-- LOGIN --*/
+.btn-login{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 0;
+  background-color: #27ae60;
+  border: 0;
+}
+.btn-login:hover{
+  background-color: #2ecc71;
+}
 
+
+/*-- BUTTON FILTER-- */
+.cat{
+  margin: 4px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  overflow: hidden;
+  float: left;
+}
+
+.cat label {
+  float: left;
+}
+
+.cat label span {
+  text-align: center;
+  display: block;
+  padding: 10px;
+}
+
+.cat label input {
+  position: absolute;
+  display: none;
+  color: #fff !important;
+}
+/* selects all of the text within the input element and changes the color of the text */
+.cat label input + span{color: #000;}
+
+
+/* This will declare how a selected input will look giving generic properties */
+.cat input:checked + span {
+    color: #ffffff;
+}
+
+
+/*
+This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
+*/
+
+.action input:checked + span{background-color: #27ae60;}
+
+/* --MODAL -- */
+.accordion-item{
+  border: 0;
+  padding: 0;
+  margin: 0;
+  margin-top: 5px;
+}
+.accordion-button{
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.accordion-button:focus,.accordion-button:active {
+   outline: none !important;
+   box-shadow: none;
+   background: transparent;
+   color: #000;
+}
+.accordion-body{
+  padding: 10px 0;
+}
+.accordion-button:not(.collapsed) {
+  border: 0;
+  color: #000;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* -- Edit Work Order -- */
+hr.update-wo{
+  margin:  40px 0 20px 0;
+  width: 70%;
+}
+.btn-update-wo{
+  margin-bottom: 40px;
+}
+.btn-update-wo button{
+  width: 150px;
+  padding: 10px 0;
+}
+.box-data h6{
+  font-weight: bold;
+  margin: 0;
+  margin-top: 30px;
+}
 /* -- Responsive CSS -- */
 
 @media (max-width: 767px) {
@@ -348,8 +485,8 @@ body{
     font-size: 25px;
   }
   .alert{
-    width: 100%;
-    top: 0;
+    width: 90vw;
+    top: 10px;
     right: 0;
   }
   .container-kanban{
@@ -364,6 +501,10 @@ body{
   }
   .h1-kanban{
     margin-left: 50px;
+    margin-bottom: 15px;
+  }
+  .filter-kanban{
+    margin-left: 30px;
   }
   #example{
     min-width: 1000px;
