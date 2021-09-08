@@ -42,7 +42,7 @@ class Dashboard extends CI_Controller {
 			$date_from = " and date >= '".$_GET['create_from']."' ";
 		}else{
 			$create_from = "";
-			$date_from = " and date >= '".$tahun."-01-01'";
+			$date_from = "";
 		}
 
 		if(isset($_GET['create_to'])){

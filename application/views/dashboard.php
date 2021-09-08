@@ -2,8 +2,16 @@
                 <!-- Page content-->
                 <div class="container-fluid cont">
                     <h1 class="mt-4">Dashboard</h1>
-                    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
-                    <?php foreach($booking_status as $booking_status){?>
+                    <form method="get">
+                    <span class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></span>
+                    <?php
+                    if(isset($_GET['filter'])){
+                    ?>
+                    <button class="btn btn-default mb-3" type="submit">Clear Filter</button>
+                    </form>
+                    <?php
+                    }
+                    foreach($booking_status as $booking_status){?>
                     <div class="row show-grid summary-dashboard">
                         <!-- <div class="col-sm-6 col-md-1-5 col-lg-1-5">
                             <div class="card mb-3" style="max-width: 540px;">
@@ -278,7 +286,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Filter</button>
+            <button type="submit" class="btn btn-primary" name="filter" value="on">Filter</button>
           </div>
           </form>
         </div>
