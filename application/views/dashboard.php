@@ -25,73 +25,79 @@
                               </div>
                             </div>
                         </div> -->
-                        <div class="col-12 col-md-2 col-sm-6">
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-6 col-md-4 col-lg-2 col-sm-6">
+                            <div class="card mb-3 card-dashboard" style="background:#e84393">
                               <div class="row g-0">
                                 <div class="col-md-12">
                                   <div class="card-body">
                                     <h5 class="card-title">Acknowledge</h5>
                                     <h4 class="card-text"><?=$booking_status->acknowledge?></h4>
+                                    <i class="bx bx-bulb icon-card-dashboard"></i>
                                   </div>
                                 </div>
                               </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-2 col-sm-6">
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-6 col-md-4 col-lg-2 col-sm-6">
+                            <div class="card mb-3 card-dashboard" style="background:#0984e3">
                               <div class="row g-0">
                                 <div class="col-md-8">
                                   <div class="card-body">
                                     <h5 class="card-title">Onsite</h5>
                                     <h4 class="card-text"><?=$booking_status->onsite?></h4>
+                                    <i class="bx bx-current-location icon-card-dashboard"></i>
                                   </div>
                                 </div>
                               </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-2 col-sm-6">
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-6 col-md-4 col-lg-2 col-sm-6">
+                            <div class="card mb-3 card-dashboard" style="background:#e17055">
                               <div class="row g-0">
                                 <div class="col-md-8">
                                   <div class="card-body">
                                     <h5 class="card-title">Canceled</h5>
                                     <h4 class="card-text"><?=$booking_status->canceled?></h4>
+                                    <i class="bx bx-x-circle icon-card-dashboard"></i>
                                   </div>
                                 </div>
                               </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-2 col-sm-6">
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-6 col-md-4 col-lg-2 col-sm-6">
+                            <div class="card mb-3 card-dashboard" style="background:#6c5ce7">
                               <div class="row g-0">
                                 <div class="col-md-8">
                                   <div class="card-body">
                                     <h5 class="card-title">Reassign</h5>
                                     <h4 class="card-text"><?=$booking_status->reassign?></h4>
+                                    <i class="bx bx-user-check icon-card-dashboard"></i>
                                   </div>
                                 </div>
                               </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-2 col-sm-6">
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-6 col-md-4 col-lg-2 col-sm-6">
+                            <div class="card mb-3 card-dashboard" style="background:#00b894">
                               <div class="row g-0">
                                 <div class="col-md-8">
                                   <div class="card-body">
                                     <h5 class="card-title">Completed</h5>
                                     <h4 class="card-text"><?=$booking_status->completed?></h4>
+                                    <i class="bx bx-check-circle icon-card-dashboard"></i>
                                   </div>
                                 </div>
                               </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-2 col-sm-6">
-                            <div class="card mb-3" style="max-width: 540px;">
+                        <div class="col-6 col-md-4 col-lg-2 col-sm-6">
+                            <div class="card mb-3 card-dashboard" style="background:#636e72">
                               <div class="row g-0">
                                 <div class="col-md-8">
                                   <div class="card-body">
                                     <h5 class="card-title">Total Ticket</h5>
                                     <h4 class="card-text"><?=$booking_status->total_tiket?></h4>
+                                    <i class="bx bx-task icon-card-dashboard"></i>
                                   </div>
                                 </div>
                               </div>
@@ -103,19 +109,19 @@
                         <div class="col-12 col-md-6">
                               <div class="row">
                                 <div class="col-12 box-dashboard">
-                                    <div class="card">
+                                    <div class="card box-card-dashboard">
                                       <div class="card-body p-0">
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13599981.5849072!2d100.61660562519218!3d8.24953275897812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1631076401751!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                                       </div>
                                     </div>
                                 </div>
                                 <div class="col-12 box-dashboard">
-                                    <div class="card">
-                                      <div class="card-body p-0">
-                                        <table class="table table-responsive">
+                                    <div class="card box-card-dashboard">
+                                      <div class="card-body p-0 table-responsive">
+                                        <table class="table table-borderless">
                                           <thead>
                                             <tr>
-                                              <th width="15%">Country</th>
+                                              <th width="15%" style="padding-left: 15px;">Country</th>
                                               <th width="15%">City</th>
                                               <th style="text-align: right;">Achivement</th>
                                             </tr>
@@ -125,9 +131,9 @@
                                               foreach ($cityachovement as $ca1){
                                               ?>
                                               <tr>
-                                                <td><?=$ca1->country?></td>
+                                                <td style="padding-left: 15px;"><?=$ca1->country?></td>
                                                 <td><?=$ca1->city?></td>
-                                                <td style="text-align: right;"><?=$ca1->achivement?></td>
+                                                <td style="text-align: right;" class="heatmap" data-id="<?=$ca1->max_value?>"><?=$ca1->achivement?></td>
                                               </tr>
                                               <?php
                                               }
@@ -142,17 +148,17 @@
                         <div class="col-12 col-md-6">
                               <div class="row">
                                 <div class="col-12 box-dashboard">
-                                    <div class="card">
-                                      <h5 class="card-header">City/Part Status</h5>
-                                      <div class="card-body px-2">
-                                        <table class="table table-responsive">
+                                    <h5 class="title-card-dashboard">City/Part Status</h5>
+                                    <div class="card box-card-dashboard">
+                                      <div class="card-body p-0 table-responsive">
+                                        <table class="table table-borderless table-citypart" id="js-datatable" style="min-width:700px">
                                           <thead>
                                             <tr>
-                                              <th>Part Status</th>
+                                              <th style="padding-left: 15px;">Part Status</th>
                                               <?php
                                               foreach ($city as $col_city){
                                               ?>
-                                                <th><?=$col_city->city?></th>
+                                                <th style='text-align:center'><?=$col_city->city?></th>
                                               <?php
                                               }
                                               ?>
@@ -163,8 +169,8 @@
                                               foreach ($citypartstatus as $cp1){
                                               ?>
                                               <tr>
-                                                <td><?=$cp1->status_part?></td>
-                                                <td><?=$cp1->value_data?></td>
+                                                <td style="padding-left: 15px;"><?=$cp1->status_part?></td>
+                                                <?=$cp1->value_data?>
                                               </tr>
                                               <?php
                                               }
@@ -175,7 +181,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 box-dashboard">
-                                    <div class="card">
+                                    <div class="card box-card-dashboard">
                                       <div class="card-body p-4">
                                         <canvas id="line-chart"></canvas>
                                         <script>
@@ -201,6 +207,13 @@
                                             ]
                                           },
                                           options: {
+                                            scales: {
+                                              x: {
+                                                grid: {
+                                                  display: false
+                                                }
+                                              },
+                                            },
                                             title: {
                                               display: true,
                                               text: 'World population per region (in millions)'
@@ -217,8 +230,6 @@
                 </div>
             </div>
         </div>
-        
-
 
         <!-- Modal -->
     <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -264,10 +275,10 @@
 
             <h6>City</h6>
               <div class="col-12">
-                  <?php foreach($part_status as $pstatus) { ?>    
+                  <?php foreach($city_filter as $ct1) { ?>    
                   <div class="cat action">
                      <label>
-                        <input type="checkbox" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"><span><?=$pstatus->parts_status?></span>
+                        <input type="checkbox" name="city_filter[]" value="<?=$ct1->kb_id?>"><span><?=$ct1->kb_kab_kot?></span>
                      </label>
                   </div>
                   <?php } ?>
@@ -275,10 +286,10 @@
 
             <h6>Country </h6>
               <div class="col-12">
-                  <?php foreach($part_status as $pstatus) { ?>    
+                  <?php foreach($country as $con1) { ?>    
                   <div class="cat action">
                      <label>
-                        <input type="checkbox" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"><span><?=$pstatus->parts_status?></span>
+                        <input type="checkbox" name="country[]" value="<?=$con1->mrc_id?>"><span><?=$con1->mrc_country?></span>
                      </label>
                   </div>
                   <?php } ?>
@@ -292,3 +303,5 @@
         </div>
       </div>
     </div>
+
+

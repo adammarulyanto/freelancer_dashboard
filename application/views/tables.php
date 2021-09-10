@@ -63,11 +63,11 @@ if(isset($_GET['alert'])){
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">WO Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="wo_desc" required></textarea>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="wo_desc" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Product Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="prod_desc" required></textarea>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="prod_desc" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Asset Serial</label>
@@ -80,13 +80,13 @@ if(isset($_GET['alert'])){
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Address</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address" required></textarea>
+                <input type="text" class="form-control" id="inputAddress" name="address" required>
               </div>
               <div class="col-md-6">
                 <label for="inputState" class="form-label">City</label>
                 <select class="form-select" name="city">
                     <?php foreach($kota as $kota1) { ?>
-                      <option value="<?=$kota1->kb_id?>"><?=$kota1->kb_kab_kot?> </option> 
+                      <option value="<?=$kota1->kb_id?>"><?=$kota1->kb_kab_kot?> <small class="text-muted">(<?=$kota1->mrc_country?>)</small> </option> 
                     <?php } ?> 
                 </select>
               </div>
@@ -110,11 +110,15 @@ if(isset($_GET['alert'])){
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Part Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="part_desc" required></textarea>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="part_desc" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">IGSO Number</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="igso_number" required>
+              </div>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label">Link HP CDAX</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="link" required>
               </div>
               <h6>Asginee</h6>
               <div class="col-md-6">

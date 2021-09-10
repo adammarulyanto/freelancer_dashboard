@@ -7,6 +7,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+<script>
+$(".heatmap").each(function(){
+  var value_data = $(this).text();
+  var max_value = $(this).data('id');
+
+  var persen = value_data/max_value*100;
+  var satu = "#87f5f5";
+  var dua = "#90dbfb";
+  var tiga = "#5fbdfd";
+  var empat = "#537eb8";
+  var lima = "#f48f35";
+
+  if(persen>=1 && persen<=20){
+    $(this).css({"background-color": satu});
+  }else if(persen>=21 && persen<=40){
+    $(this).css({"background-color": dua});
+  }else if(persen>=41 && persen<=60){
+    $(this).css({"background-color": tiga});
+  }else if(persen>=61 && persen<=80){
+    $(this).css({"background-color": empat});
+  }else if(persen>=81 && persen<=100){
+    $(this).css({"background-color": lima});
+  }else{
+    $(this).css({"background-color": "rgba(0,0,0,0)"});
+  }
+});
+</script>
         <script type="text/javascript">
             $(document).ready(function(){
               $(".hamburger").click(function(){
@@ -30,7 +57,9 @@
                 $('#example').DataTable({
                   "scrollX": true,
                   language: { search: "",searchPlaceholder: "Search" },
-                  dom: 'Bfrtip',
+                  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'li><'col-sm-12 col-md-7 mt-1'p>>",
                   buttons: [
                       {
                           extend: 'excel',
@@ -69,6 +98,7 @@
                  $(".form-select-status").on('change', function(){
                       var value = $(this).val();
                       var id = $(this).data('id');
+                      alert(value);
                       $.ajax({
                           url:'<?=base_url()?>fl_task/update_status',
                           method:'POST',
@@ -132,6 +162,9 @@
                   });
             } );
         </script>
+
+
+
 
 
 <script>

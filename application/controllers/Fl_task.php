@@ -102,7 +102,7 @@ class Fl_task extends CI_Controller {
 		$data['cnt_escalation'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 3 ".$get_freelancer_id.$where)->result();
 		$data['partreturn'] = $this->db->query($query."where part_status = 5 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_partreturn'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 5 ".$get_freelancer_id.$where)->result();
-		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status' and mgp_code_id in (1,2,3,5,6)")->result();
+		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
 		$data['freelancer'] = $this->db->query("select * from user_data")->result();
 		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
@@ -120,16 +120,19 @@ class Fl_task extends CI_Controller {
 	public function update_status(){
 		$value = $_POST['value_data'];
 		if($value=='1'){
-			$booking_status = 1;
+			$booking_status = ',booking_status=1';
 		}else if($value=='2'){
-			$booking_status = 2;
+			$booking_status = ',booking_status=2';
 		}else if($value=='3'){
-			$booking_status = 7;
+			$booking_status = ',booking_status=7';
 		}else if($value=='5'){
-			$booking_status = 3;
+			$booking_status = ',booking_status=3';
+		}else{
+			$booking_status='';
 		}
+		$set_book_status = $booking_status;
 		$id = $_POST['id_data'];
-		$sql=$this->db->query("UPDATE work_order set part_status=$value,booking_status=$booking_status where wo_id=$id");
+		$sql=$this->db->query("UPDATE work_order set part_status=$value$set_book_status where wo_id=$id");
 	}
 	public function update_freelancer(){
 		$value = $_POST['value_data'];

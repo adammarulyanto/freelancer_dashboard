@@ -5,9 +5,9 @@
   </div>
 </div>
 <?php foreach($akses_menu as $akses_menu){?>
-<div class="container-kanban">
-    <h1 class="mt-4 h1-kanban">Freelancer Task</h1>
-    <button class="btn btn-secondary mb-3 filter-kanban" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
+  <div class="container-fluid cont">
+    <h1 class="mt-4">Freelancer Task</h1>
+    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
 <!-- Modal -->
     <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -78,105 +78,101 @@
         </div>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table table-kanban">
-        <tr>
-          <th>
-            <div class="card mb-3 heading-card-kanban" id="waiting_part" >
-              <?php foreach($cnt_waitpart as $cnt_waitpart) { ?>
-              <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">Waiting Part <span class="badge"><?=$cnt_waitpart->cnt?></span></div>
-              <?php } ?>
+    <div class="row table-responsive">
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban" id="waiting_part" >
+          <?php foreach($cnt_waitpart as $cnt_waitpart) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">Waiting The Parts <span class="badge"><?=$cnt_waitpart->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($waitpart as $waitpart){?>
+            <div class="card mb-3 border-0 card-kanban card-modal" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$waitpart->wo_id?>" id="detailcard">
               <div class="card-body text-success">
-                <?php foreach($waitpart as $waitpart){?>
-                <div class="card mb-3 border-0 card-kanban card-modal" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$waitpart->wo_id?>" id="detailcard">
-                  <div class="card-body text-success">
-                    <div class="btn-group img-card">
-                      <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="img-thumbnail-assignee rounded-circle">
-                          <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
-                        </div>
-                      </button>
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
                     </div>
-                    <h5 class="card-title">- Break Fix - <?=$waitpart->wo_number?></h5>
-                    
-                  </div>
+                  </button>
                 </div>
-                <?php } ?>
+                <h5 class="card-title">- Break Fix - <?=$waitpart->wo_number?></h5>
+                
               </div>
             </div>
-          </th>
-          <th>
-            <div class="card mb-3 heading-card-kanban">
-              <?php foreach($cnt_partpickup as $cnt_partpickup) { ?>
-              <div class="card-header heading-card-title sticky-top text-white" style="background:#2980b9">Part Pickup By Freelancer <span class="badge"><?=$cnt_partpickup->cnt?></span></div>
-              <?php } ?>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban">
+          <?php foreach($cnt_partpickup as $cnt_partpickup) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#2980b9">Pickup Parts <span class="badge"><?=$cnt_partpickup->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($partpickup as $partpickup){?>
+            <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partpickup->wo_id?>" id="detailcard">
               <div class="card-body text-success">
-                <?php foreach($partpickup as $partpickup){?>
-                <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partpickup->wo_id?>" id="detailcard">
-                  <div class="card-body text-success">
-                    <div class="btn-group img-card">
-                      <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="img-thumbnail-assignee rounded-circle">
-                          <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
-                        </div>
-                      </button>
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
                     </div>
-                    <h5 class="card-title">- Break Fix - <?=$partpickup->wo_number?></h5>
-                  </div>
+                  </button>
                 </div>
-                <?php } ?>
+                <h5 class="card-title">- Break Fix - <?=$partpickup->wo_number?></h5>
               </div>
             </div>
-          </th>
-          <th>
-            <div class="card mb-3 heading-card-kanban">
-              <?php foreach($cnt_escalation as $cnt_escalation) { ?>
-              <div class="card-header heading-card-title sticky-top text-white" style="background:#2c3e50">Escalation <span class="badge"><?=$cnt_escalation->cnt?></span></div>
-              <?php } ?>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban">
+          <?php foreach($cnt_escalation as $cnt_escalation) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#2c3e50">Escalated <span class="badge"><?=$cnt_escalation->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($escalation as $escalation){?>
+            <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$escalation->wo_id?>" id="detailcard">
               <div class="card-body text-success">
-                <?php foreach($escalation as $escalation){?>
-                <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$escalation->wo_id?>" id="detailcard">
-                  <div class="card-body text-success">
-                    <div class="btn-group img-card">
-                      <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="img-thumbnail-assignee rounded-circle">
-                          <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
-                        </div>
-                      </button>
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
                     </div>
-                    <h5 class="card-title">- Break Fix - <?=$escalation->wo_number?></h5>
-                    
-                  </div>
+                  </button>
                 </div>
-                <?php } ?>
+                <h5 class="card-title">- Break Fix - <?=$escalation->wo_number?></h5>
+                
               </div>
             </div>
-          </th>
-          <th>
-            <div class="card mb-3 heading-card-kanban">
-              <?php foreach($cnt_partreturn as $cnt_partreturn) { ?>
-              <div class="card-header heading-card-title sticky-top text-white" style="background:#27ae60">Part Return By Freelancer <span class="badge"><?=$cnt_partreturn->cnt?></span></div>
-              <?php } ?>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban">
+          <?php foreach($cnt_partreturn as $cnt_partreturn) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#27ae60">Return Parts <span class="badge"><?=$cnt_partreturn->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($partreturn as $partreturn){?>
+            <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partreturn->wo_id?>" id="detailcard">
               <div class="card-body text-success">
-                <?php foreach($partreturn as $partreturn){?>
-                <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partreturn->wo_id?>" id="detailcard">
-                  <div class="card-body text-success">
-                    <div class="btn-group img-card">
-                      <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="img-thumbnail-assignee rounded-circle">
-                          <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
-                        </div>
-                      </button>
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="https://cberry.net/assets/website/img/img-user.png">
                     </div>
-                    <h5 class="card-title">- Break Fix - <?=$partreturn->wo_number?></h5>
-                    
-                  </div>
+                  </button>
                 </div>
-                <?php } ?>
+                <h5 class="card-title">- Break Fix - <?=$partreturn->wo_number?></h5>
+                
+              </div>
             </div>
-          </th>
-        </tr>
-       </table>
+            <?php } ?>
+        </div>
+      </div>
     </div>
 </div>
 <?php

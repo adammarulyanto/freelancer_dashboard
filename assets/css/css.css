@@ -4,11 +4,23 @@ input[type=date]:required:invalid::-webkit-datetime-edit {
 input[type=date]:focus::-webkit-datetime-edit {
     color: black !important;
 }
+.dataTables_length{
+  margin-top: 10px;
+}
+table thead{
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.table{
+  margin: 0;
+}
 
 body{
   font-size: 0.9rem;
   font-family: 'Open Sans', sans-serif;
 }
+
+
 .container{
   padding-left: 100px;
 }
@@ -150,10 +162,34 @@ body{
 
 
 /*-- DASHBOARD --*/
+
+.card-dashboard{
+  position: relative;
+  overflow: hidden;
+  color:#FFF ;
+  border: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
+}
+.icon-card-dashboard{
+  position: absolute;
+  font-size: 100px;
+  right: -30px;
+  bottom: -20%;
+  color: rgba(0, 0, 0, 0.2);
+}
+.title-card-dashboard{
+  font-weight: 900;
+  margin-bottom: 10px;
+}
 .box-dashboard{
   padding: 10px;
 }
-
+.box-card-dashboard{
+  border: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
+  padding: 0;
+  margin: 0;
+}
 .icon-part-summary{
   background-color: yellow;
   padding: 8px 15px;
@@ -242,6 +278,10 @@ body{
 .filter-kanban{
   margin-left: 10px;
 }
+.box-kanban{
+  margin-bottom: 20px;
+  height: 80vh;
+}
 .card-kanban{
   cursor: pointer;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -268,7 +308,6 @@ body{
   width: 25%;
 }
 .card-title{
-  color: #333;
   font-size: 15px;
   font-weight: 600;
   word-wrap: break-word;
@@ -360,13 +399,28 @@ body{
   width: 100%;
   margin-top: 10px;
   padding: 10px 0;
-  background-color: #27ae60;
+background: rgb(34,193,195);
+background: linear-gradient(98deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+font-weight: 600;
   border: 0;
 }
 .btn-login:hover{
   background-color: #2ecc71;
 }
-
+.box-login{
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+}
+.box-login h1,h6{
+  margin-bottom: 20px;
+}
+.title-connecting{
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
 
 /*-- BUTTON FILTER-- */
 .cat{
@@ -471,7 +525,7 @@ hr.update-wo{
   }
   #example_filter input {
     position: absolute;
-    top: -60px;
+    top: -100px;
     left: -25px;
     width: 91vw;
     padding-left: -20px;
