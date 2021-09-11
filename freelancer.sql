@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 11/09/2021 11:17:19
+ Date: 11/09/2021 20:37:45
 */
 
 SET NAMES utf8mb4;
@@ -3790,14 +3790,17 @@ CREATE TABLE `task_attachment`  (
   `ta_id` int NOT NULL AUTO_INCREMENT,
   `ta_wo_id` int NULL DEFAULT NULL,
   `ta_filename` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `ta_created_date` datetime NULL DEFAULT NULL,
+  `ta_created_date` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `ta_updated_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ta_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of task_attachment
 -- ----------------------------
+INSERT INTO `task_attachment` VALUES (2, 1, '', '2021-09-11 19:40:54', NULL);
+INSERT INTO `task_attachment` VALUES (4, 3, '', '2021-09-11 19:41:16', NULL);
+INSERT INTO `task_attachment` VALUES (6, 5, '', '2021-09-11 19:43:29', NULL);
 
 -- ----------------------------
 -- Table structure for tbl_akses_menu
@@ -3900,20 +3903,22 @@ CREATE TABLE `user_data`  (
   `ud_email_address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ud_username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ud_password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `ud_picture` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ud_is_active` enum('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'N',
   `ud_id_level` int NULL DEFAULT NULL,
   PRIMARY KEY (`ud_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_data
 -- ----------------------------
-INSERT INTO `user_data` VALUES (1, 'Administator', 'admin@mail.com', 'admin', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 1);
-INSERT INTO `user_data` VALUES (2, 'Freelancer 1', 'fl1@mail.com', 'freelancer1', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
-INSERT INTO `user_data` VALUES (3, 'Freelancer 2', 'fl2@mail.com', 'freelancer2', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
-INSERT INTO `user_data` VALUES (4, 'Freelancer 3', NULL, 'freelancer3', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 2);
-INSERT INTO `user_data` VALUES (5, 'Viewer 1', NULL, 'viewer1', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 3);
-INSERT INTO `user_data` VALUES (6, 'Fullname', 'mail@mail.com', 'Name', '7c222fb2927d828af22f592134e8932480637c0d', 'Y', 1);
+INSERT INTO `user_data` VALUES (1, 'Administator', 'admin@mail.com', 'admin', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 'Y', 1);
+INSERT INTO `user_data` VALUES (2, 'Freelancer 1', 'fl1@mail.com', 'freelancer1', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 'Y', 2);
+INSERT INTO `user_data` VALUES (3, 'Freelancer 2', 'fl2@mail.com', 'freelancer2', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 'Y', 2);
+INSERT INTO `user_data` VALUES (4, 'Freelancer 3', NULL, 'freelancer3', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 'Y', 2);
+INSERT INTO `user_data` VALUES (5, 'Viewer 1', NULL, 'viewer1', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 'Y', 3);
+INSERT INTO `user_data` VALUES (6, 'Fullname', 'mail@mail.com', 'Name', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 'Y', 1);
+INSERT INTO `user_data` VALUES (7, 'Adam', 'adammarulyanto@gmail.com', 'adammarul', '7c222fb2927d828af22f592134e8932480637c0d', '20210911150903.jpeg', 'Y', 1);
 
 -- ----------------------------
 -- Table structure for work_order
@@ -3967,7 +3972,7 @@ INSERT INTO `work_order` VALUES (17, 'er21wr3e1', 1, 456456, 'asdasda', 'asdasda
 INSERT INTO `work_order` VALUES (18, 'casbvcasd23', 1, 2354567, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 2, 'asdasda', '12312312312', '2021-08-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 2, 9, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `work_order` VALUES (20, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `work_order` VALUES (21, '123kuhk', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2020-05-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `work_order` VALUES (22, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2020-04-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', 'asd123', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (22, 'WO-12346', 7, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2020-04-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', 'asd123', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `work_order` VALUES (23, 'j123h,m12b3', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `work_order` VALUES (24, '1nm23bnm123', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `work_order` VALUES (25, 'n123bnm12', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2020-02-05 18:28:38', '2021-09-02', NULL, 3, '1231231', 'part_desc', 'asd123', NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL);
