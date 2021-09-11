@@ -1,3 +1,7 @@
+</div>
+</div>
+<p align="center" class="bg-light footer">©2021 Copyrights | Freelancer Onsite Service</p>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
@@ -91,6 +95,43 @@ $(".heatmap").each(function(){
                       }
                   ]
                 });
+                $('#example2').DataTable({
+                  "scrollX": true,
+                  language: { search: "",searchPlaceholder: "Search" },
+                  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'li><'col-sm-12 col-md-7 mt-1'p>>",
+                  buttons: [
+                      {
+                          extend: 'excel',
+                          text: '<i class="bi bi-file-earmark-excel-fill"></i>',
+                          className: 'btn-excel',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          title: null,
+                          filename: '<?php echo "Data-".date('Ymdhis');?>'
+                      },
+                      {
+                          extend: 'pdf',
+                          text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
+                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          className: 'btn-pdf'
+                      },
+                      {
+                          extend: 'print',
+                          text: '<i class="bi bi-printer-fill"></i>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          className: 'btn-print'
+                      }
+                  ]
+                });
                 $('.modal_kanban').on('hidden.bs.modal', function () {
                   document.getElementById("loader-wrapper").style.display = "block";
                   location.reload();
@@ -98,7 +139,6 @@ $(".heatmap").each(function(){
                  $(".form-select-status").on('change', function(){
                       var value = $(this).val();
                       var id = $(this).data('id');
-                      alert(value);
                       $.ajax({
                           url:'<?=base_url()?>fl_task/update_status',
                           method:'POST',
@@ -156,6 +196,15 @@ $(".heatmap").each(function(){
                       var id = $(this).data('id');
                       $.ajax({
                           url:'<?=base_url()?>user_data/update_aktif_user',
+                          method:'POST',
+                          data: {value_data:value,id_data:id}
+                      });
+                  });
+                   $(".update_city").change(function (){
+                      var value = $(this).is(':checked');
+                      var id = $(this).data('id');
+                      $.ajax({
+                          url:'<?=base_url()?>settings/update_aktif_city',
                           method:'POST',
                           data: {value_data:value,id_data:id}
                       });

@@ -257,6 +257,44 @@
             <label for="inputAddress" class="form-label">SO Number</label>
             <p id="igso_number"></p>
           </div>
+
+          <script>
+            var loadFile = function(event) {
+              var dataid = $("#update_status").data('id');
+              var output = document.getElementById('output');
+              output.src = URL.createObjectURL(event.target.files[0]);
+              var file_data = $('.input_upload').prop('files')[0];   
+              var form_data = new FormData();                  
+              form_data.append('file', file_data);                           
+              $.ajax({
+                  url: '<?=base_url()?>fl_task/add_atc', // <-- point to server-side PHP script 
+                  dataType: 'text',  // <-- what to expect back from the PHP script, if anything
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  data: form_data,                         
+                  type: 'post',
+                  success: function(php_script_response){
+                      alert(php_script_response); // <-- display response from the PHP script, if any
+                  }
+               });
+              output.onload = function() {
+                URL.revokeObjectURL(output.src); // free memory
+                $('#icon-add-attachment').css({"display":"none"});
+                $('.btn-delete-attachment').css({"display":"block"});
+                $('.input_upload').css({"display":"none"});
+                $('#div-attachment').reload();
+              }
+              $('.btn-upload').css({"display":"block"});
+            };
+          </script>
+        <h6>Attachment</h6>
+          <div class="div-attachment">
+            <input type="file" accept="image/*" onchange="loadFile(event)" class="input_upload" id="attachment">
+            <img id="output" class="img-fluid">
+            <i class="bi bi-plus-lg position-absolute top-50 start-50 translate-middle i-add" id="icon-add-attachment"></i>
+            <i class="bi bi-x-lg rounded-circle btn-delete-attachment"></i>
+          </div>
         </div>
       </div>
     </div>

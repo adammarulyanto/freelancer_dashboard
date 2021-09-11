@@ -18,6 +18,7 @@ table thead{
 body{
   font-size: 0.9rem;
   font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7;
 }
 
 
@@ -104,6 +105,9 @@ body{
 /*-- sidebar menu ext --*/
 .sidemenu{
   background-color: #343A40;
+}
+.accordion-menu{
+  background-color: rgba(0, 0, 0, 0);
 }
 .heading-profile{
   padding: 0;
@@ -365,7 +369,48 @@ body{
   border-radius: 100%;
   margin-top: 2px;
 }
+.div-attachment{
+  position: relative;
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 15px 20px 10px 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+}
+.div-attachment input{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.div-attachment img{
+  margin: 0;
+  padding: 0;
+  z-index: 200;
+  border-radius: 10px;
+}
+.div-attachment i.i-add{
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
 
+.btn-delete-attachment{
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  background-color: #FFF;
+  color: #000;
+  padding: 1px 5px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
+  display: none;
+}
 /* -- Tables -- */
 .dataTables_wrapper .dt-buttons button{
   border: 0;
@@ -546,6 +591,9 @@ hr.update-wo{
   .container-kanban{
   margin: 0;
   }
+}
+.footer{
+  margin-bottom: 15px;
 }
 
 @media (max-width: 1360px) {

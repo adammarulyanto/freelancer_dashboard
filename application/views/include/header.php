@@ -43,8 +43,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
              .done(function(data){
                   console.log(data.wo_number); 
                   $('#datawo').hide();
-                  $('#datawo').show();
-                  $('#wo_number').html(data.wo_number);
+                  $('#datawo').show();                  $('#wo_number').html(data.wo_number);
                   $('#case_id').html(data.case_id);
                   $('#wo_desc').html(data.wo_desc);
                   $('#product_desc').html(data.product_desc);
@@ -75,6 +74,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
                   $('#booking_status').attr('data-id' , wo_id);
                   document.getElementById('update_status').value=part_stat1;
                   $('#update_status').attr('data-id' , wo_id);
+
                   $('#loader').hide();
              })
              .fail(function(){

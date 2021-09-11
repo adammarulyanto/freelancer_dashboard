@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 07/09/2021 01:03:42
+ Date: 11/09/2021 11:17:19
 */
 
 SET NAMES utf8mb4;
@@ -3700,20 +3700,41 @@ INSERT INTO `dates` VALUES (7305, '2030-01-01', 1893430800, 'Weekday', 'Tuesday'
 DROP TABLE IF EXISTS `kota_kabupaten`;
 CREATE TABLE `kota_kabupaten`  (
   `kb_id` int NOT NULL AUTO_INCREMENT,
+  `kb_mrc_id` int NULL DEFAULT NULL,
   `kb_kab_kot` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `kb_active` enum('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'N',
   PRIMARY KEY (`kb_id`) USING BTREE,
   INDEX `id_id_pro_kab_kota_aktif`(`kb_id`, `kb_kab_kot`, `kb_active`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of kota_kabupaten
 -- ----------------------------
-INSERT INTO `kota_kabupaten` VALUES (1, 'Kota 1', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (2, 'Kota 2', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (3, 'Kota 3', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (4, 'Kota 4', 'Y');
-INSERT INTO `kota_kabupaten` VALUES (5, 'Kota 5', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (1, 1, 'Depok', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (2, 1, 'Tangerang', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (3, 1, 'Bekasi', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (4, 2, 'Bangalor', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (5, 1, 'Jakarta', 'Y');
+INSERT INTO `kota_kabupaten` VALUES (7, 3, 'Melbourne', 'Y');
+
+-- ----------------------------
+-- Table structure for mr_country
+-- ----------------------------
+DROP TABLE IF EXISTS `mr_country`;
+CREATE TABLE `mr_country`  (
+  `mrc_id` int NOT NULL AUTO_INCREMENT,
+  `mrc_country` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `mrc_created_date` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `mrc_updated_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`mrc_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of mr_country
+-- ----------------------------
+INSERT INTO `mr_country` VALUES (1, 'Indonesia', '2021-09-11 01:12:37', NULL);
+INSERT INTO `mr_country` VALUES (2, 'India', '2021-09-11 01:12:37', NULL);
+INSERT INTO `mr_country` VALUES (3, 'Australia', '2021-09-11 01:14:26', '2021-09-11 01:14:43');
 
 -- ----------------------------
 -- Table structure for mr_global_param
@@ -3746,10 +3767,10 @@ INSERT INTO `mr_global_param` VALUES (7, '7', 'booking-status', 'Additional Part
 INSERT INTO `mr_global_param` VALUES (8, '1', 'failure-code', 'Used & Consumed', '2021-09-01 18:12:13', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (9, '2', 'failure-code', 'Return & Good', '2021-09-01 18:12:13', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (10, '1', 'part-status', 'Waiting for Parts', '2021-09-01 18:12:14', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `mr_global_param` VALUES (11, '2', 'part-status', 'Pick Up Spare Parts', '2021-09-01 18:12:15', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `mr_global_param` VALUES (12, '3', 'part-status', 'Escalation', '2021-09-01 18:12:16', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `mr_global_param` VALUES (11, '2', 'part-status', 'Pick Up Parts', '2021-09-01 18:12:15', NULL, '2021-09-10 17:25:39', NULL, NULL, NULL);
+INSERT INTO `mr_global_param` VALUES (12, '3', 'part-status', 'Escalated', '2021-09-01 18:12:16', NULL, '2021-09-10 17:25:43', NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (13, '4', 'part-status', 'Additional Parts Required', '2021-09-01 18:12:17', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `mr_global_param` VALUES (14, '5', 'part-status', 'Return Spare Parts', '2021-09-01 18:12:26', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `mr_global_param` VALUES (14, '5', 'part-status', 'Return Parts', '2021-09-01 18:12:26', NULL, '2021-09-10 17:25:47', NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (15, '6', 'part-status', 'Completed', '2021-09-01 18:12:27', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (16, '1', 'delay-code', '0-Response Met', '2021-09-03 12:39:55', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (17, '2', 'delay-code', '2-Part Issue', '2021-09-03 12:39:59', NULL, NULL, NULL, NULL, NULL);
@@ -3760,6 +3781,23 @@ INSERT INTO `mr_global_param` VALUES (21, '6', 'delay-code', '11-Customer can\'t
 INSERT INTO `mr_global_param` VALUES (22, '7', 'delay-code', '12-Innacurate diagnose by customer action', '2021-09-03 12:41:11', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (23, '8', 'delay-code', '13-Innacurate diagnose by partner action', '2021-09-03 12:41:23', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `mr_global_param` VALUES (24, '9', 'delay-code', '14-Acces denied by customer', '2021-09-03 12:41:37', NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for task_attachment
+-- ----------------------------
+DROP TABLE IF EXISTS `task_attachment`;
+CREATE TABLE `task_attachment`  (
+  `ta_id` int NOT NULL AUTO_INCREMENT,
+  `ta_wo_id` int NULL DEFAULT NULL,
+  `ta_filename` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `ta_created_date` datetime NULL DEFAULT NULL,
+  `ta_updated_date` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ta_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of task_attachment
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tbl_akses_menu
@@ -3774,7 +3812,7 @@ CREATE TABLE `tbl_akses_menu`  (
   `edit_level` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   `delete_level` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tbl_akses_menu
@@ -3803,6 +3841,10 @@ INSERT INTO `tbl_akses_menu` VALUES (21, 4, 3, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (22, 4, 4, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (23, 4, 5, 'N', 'N', 'N', 'N');
 INSERT INTO `tbl_akses_menu` VALUES (24, 4, 6, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (25, 1, 7, 'Y', 'Y', 'Y', 'Y');
+INSERT INTO `tbl_akses_menu` VALUES (26, 2, 7, 'N', 'N', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (27, 3, 7, 'Y', 'Y', 'N', 'N');
+INSERT INTO `tbl_akses_menu` VALUES (28, 4, 7, 'N', 'N', 'N', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_menu
@@ -3817,7 +3859,7 @@ CREATE TABLE `tbl_menu`  (
   `is_active` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Y',
   `parent` enum('Y') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Y',
   PRIMARY KEY (`id_menu`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tbl_menu
@@ -3828,6 +3870,7 @@ INSERT INTO `tbl_menu` VALUES (3, 'Work Order', 'data', 'bx bx-table', 3, 'Y', '
 INSERT INTO `tbl_menu` VALUES (4, 'User Data', 'user_data', 'bx bxs-group', 4, 'Y', 'Y');
 INSERT INTO `tbl_menu` VALUES (5, 'User Level', 'user_level', 'bx bxs-user-detail', 5, 'Y', 'Y');
 INSERT INTO `tbl_menu` VALUES (6, 'Menu', 'menu', 'bx bx-list-ul', 6, 'Y', 'Y');
+INSERT INTO `tbl_menu` VALUES (7, 'Settings', 'settings', 'bi bi-gear-wide-connected', 7, 'Y', 'Y');
 
 -- ----------------------------
 -- Table structure for tbl_userlevel
@@ -3899,26 +3942,38 @@ CREATE TABLE `work_order`  (
   `failure_code` int NULL DEFAULT NULL,
   `part_status` int NULL DEFAULT NULL,
   `delay_code` int NULL DEFAULT NULL,
+  `visit` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `comment` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `sla` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `tat` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`wo_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of work_order
 -- ----------------------------
-INSERT INTO `work_order` VALUES (3, 'j1h23gjh123', 3, 21312, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-02-02 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 1, 2);
-INSERT INTO `work_order` VALUES (6, '1n2b3v1n23', 2, 123123, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-02-01 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 5, 3);
-INSERT INTO `work_order` VALUES (8, '1nm23vbnm12', 1, 56745, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-03-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 1, 4);
-INSERT INTO `work_order` VALUES (9, '1nm23b1', 1, 765897, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 3);
-INSERT INTO `work_order` VALUES (10, '456hjkjk56h4', 1, 901019, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 7, '123123asd', 'asdasda', '12312asd', 1, 3, 4);
-INSERT INTO `work_order` VALUES (12, 'jk435hk34j', 2, 897213849, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 7, '123123asd', 'asdasda', '12312asd', 1, 3, 5);
-INSERT INTO `work_order` VALUES (13, 'm123mnm132', 1, 5678412, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 5, 5);
-INSERT INTO `work_order` VALUES (14, 'j456hk45j6', 2, 12312345, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 5, 6);
-INSERT INTO `work_order` VALUES (15, '1n23vbn12', 5, 123123789, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 5, 7);
-INSERT INTO `work_order` VALUES (16, 'op12i3op12', 1, 675678, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 6);
-INSERT INTO `work_order` VALUES (17, 'er21wr3e1', 1, 456456, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 8);
-INSERT INTO `work_order` VALUES (18, 'casbvcasd23', 1, 2354567, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 2, 'asdasda', '12312312312', '2021-08-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 6, 9);
-INSERT INTO `work_order` VALUES (20, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 3, NULL);
-INSERT INTO `work_order` VALUES (21, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 2, NULL);
-INSERT INTO `work_order` VALUES (22, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2021-09-05 18:28:50', '2021-09-02', NULL, 2, '1231231', 'part_desc', 'asd123', NULL, 2, NULL);
+INSERT INTO `work_order` VALUES (3, 'j1h23gjh123', 3, 21312, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-02-02 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 1, 2, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (6, '1n2b3v1n23', 2, 123123, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-02-01 17:59:40', '2021-09-01', '2021-09-01', 3, '123123asd', 'asdasda', '12312asd', 1, 1, 3, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (8, '1nm23vbnm12', 1, 56745, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 4, 'asdasda', '12312312312', '2021-03-01 17:59:40', '2021-09-01', '2021-09-01', 1, '123123asd', 'asdasda', '12312asd', 1, 1, 4, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (9, '1nm23b1', 1, 765897, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 3, 3, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (10, '456hjkjk56h4', 1, 901019, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-04-01 17:59:40', '2021-09-01', '2021-09-01', 7, '123123asd', 'asdasda', '12312asd', 1, 3, 4, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (12, 'jk435hk34j', 2, 897213849, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 7, '123123asd', 'asdasda', '12312asd', 1, 3, 5, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (13, 'm123mnm132', 1, 5678412, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-05-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 1, 5, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (14, 'j456hk45j6', 2, 12312345, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-06-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 1, 6, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (15, '1n23vbn12', 5, 123123789, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 1, 'asdasda', '12312312312', '2021-09-08 11:36:41', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 2, 1, 3, '13', 'asdasdasd.com', 'asjdhaksjdhaklsjdh', NULL, NULL);
+INSERT INTO `work_order` VALUES (16, 'op12i3op12', 1, 675678, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 6, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (17, 'er21wr3e1', 1, 456456, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 3, 'asdasda', '12312312312', '2021-07-01 17:59:40', '2021-09-01', '2021-09-01', 2, '123123asd', 'asdasda', '12312asd', 1, 2, 8, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (18, 'casbvcasd23', 1, 2354567, 'asdasda', 'asdasda', '312asdas', 'asdasdasd', 'asdasdasda', 2, 'asdasda', '12312312312', '2021-08-01 17:59:40', '2021-09-01', '2021-09-01', 4, '123123asd', 'asdasda', '12312asd', 1, 2, 9, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (20, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (21, '123kuhk', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2020-05-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (22, 'WO-12346', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2020-04-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', 'asd123', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (23, 'j123h,m12b3', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:25:40', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (24, '1nm23bnm123', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2021-09-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (25, 'n123bnm12', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2020-02-05 18:28:38', '2021-09-02', NULL, 3, '1231231', 'part_desc', 'asd123', NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (26, '12mn3b12nm3', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2020-05-05 18:28:38', '2021-09-02', NULL, 7, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (27, '12nm3bnm123', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 2, 'asdasd', '123123123', '2020-05-05 18:28:38', '2021-09-02', NULL, 2, '1231231', 'part_desc', '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (28, '12nm3bj12m3', 1, 1234556, 'asdasdasd', 'asdasda', '1234565464', 'Asdasda', 'asdasda', 1, 'asdasd', '123123123', '2021-09-05 18:28:50', '2021-09-02', NULL, 2, '1231231', 'part_desc', 'asd123', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `work_order` VALUES (29, '1asddas', 1, 0, 'dasda', 'sadasd', 'aasdasd', 'asdas', 'asdasd', 1, 'asdasd', '12312312', '2021-09-10 19:47:17', '2021-09-10', NULL, 1, 'asdas', 'part_desc', 'asdasd', NULL, 6, NULL, NULL, 'asdasd', NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

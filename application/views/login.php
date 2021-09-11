@@ -7,6 +7,12 @@
       padding: 0 20px;
     }
   }
+  .footer{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 </style>
 <?php
 if(isset($_GET['alert'])){

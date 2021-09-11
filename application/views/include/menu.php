@@ -19,6 +19,7 @@
     $url = $this->uri->segment(1);
     $menu = $this->db->query("select * from tbl_menu where id_menu in (select id_menu from tbl_akses_menu where view_level = 'Y' and id_level =$idlevel) order by urutan asc,id_menu desc")->result();
     foreach ($menu as $menu){
+      if($menu->nama_menu!='Settings'){
     ?>
       <li>
         <a href="<?=base_url().$menu->link?>" class="<?php if($url=="<?=$menu->link?>"){echo 'active-menu';}?>">
@@ -28,6 +29,37 @@
         </a>
       </li>
     <?php
+    }else{
+    ?>
+    <div id="accordionFlushExample">
+      <div class="accordion-item accordion-menu">
+        <li id="flush-headingOne">
+          <a class="<?php if($url=="<?=$menu->link?>"){echo 'active-menu';}?>" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <i class='bi bi-gear-wide-connected'></i>
+            <span class="links_name">Settings</span>
+            <span class="tooltip">Settings</span>
+          </a>
+        </li>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <li>
+          <a href="<?=base_url()?>settings/city" class="<?php if($url=="city"){echo 'active-menu';}?>">
+            <i class='bx bx-map-alt'></i>
+            <span class="links_name">Country/City</span>
+            <span class="tooltip">Country/City</span>
+          </a>
+        </li>
+        <li>
+          <a href="<?=base_url()?>param" class="<?php if($url=="param"){echo 'active-menu';}?>">
+            <i class='bx bx-list-ol' ></i>
+            <span class="links_name">Global Parameter</span>
+            <span class="tooltip">Global Parameter</span>
+          </a>
+        </li>
+        </div>
+      </div>
+    </div>
+    <?php
+      }
     }
     ?>
     <li>

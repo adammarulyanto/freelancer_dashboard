@@ -161,4 +161,17 @@ class Fl_task extends CI_Controller {
 			echo 0;	
 		}
 	}
+	public function add_atc(){
+		if ( 0 < $_FILES['file']['error'] ) {
+        	echo 'Error: ' . $_FILES['file']['error'] . '<br>';
+	    }
+	    else {
+	        move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $_FILES['file']['name']);
+	    }
+	    $value = $_FILES['file']['tmp_name'];
+		$id = $_POST['id_data'];
+
+
+		$query = $this->db->query("INSERT INTO task_attachment ('ta_wo_id','ta_filename') values ($id,'$value');");
+	}
 }
