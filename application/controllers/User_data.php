@@ -30,7 +30,7 @@ class User_data extends CI_Controller {
  	}
 	public function index()
 	{
-		$data['users'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level")->result();
+		$data['users'] = $this->db->query("select *,ifnull(ud_picture,'default.png') ava from user_data left join tbl_userlevel on id_level = ud_id_level")->result();
 		$data['level'] = $this->db->query("select * from tbl_userlevel")->result();
 
 		
@@ -61,9 +61,15 @@ class User_data extends CI_Controller {
 		$password = $_POST['password'];
 		$level = $_POST['level'];
 		$is_active = $_POST['is_active'];
+		$target_dir = getcwd()."/assets/img/avatar_user/";
+		$uploadOk = 1;
+		$imageFileType = strtolower(pathinfo($_FILES['avatar']['name'],PATHINFO_EXTENSION));
+		$basename = date("YmdHms").'.'.$imageFileType;
+		$target_file = $target_dir.$basename;
 
-		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`,`ud_email_address`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`) VALUES ('$fullname','$email','$username', sha1('$password'), '$is_active', $level);");
+		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`,`ud_email_address`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`,`ud_picture`) VALUES ('$fullname','$email','$username', sha1('$password'), '$is_active', $level,'$basename');");
 		if($sql){
+			$upload = move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
 			header("location:".base_url()."user_data?alert=add_success");
 		}else{
 			header("location:".base_url()."user_data?alert=failed");
@@ -74,12 +80,12 @@ class User_data extends CI_Controller {
 		$fullname = $_POST['fullname'];
 		$email = $_POST['email'];
 		$username = $_POST['username'];
-		$password = $_POST['password'];
 		$level = $_POST['level'];
-		if($password==NULL){
-			$pwd="";
-		}else{
+		if(isset($_POST['password'])){
+			$password = $_POST['password'];
 			$pwd=",`ud_password` = sha1('$password')";
+		}else{
+			$pwd="";
 		}
 		$level = $_POST['level'];
 
@@ -89,7 +95,19 @@ class User_data extends CI_Controller {
 			$is_active=",ud_is_active='N'";
 		}
 
-		$sql = $this->db->query("UPDATE `user_data` SET `ud_fullname` = '$fullname', `ud_email_address` = '$email', `ud_username` = '$username' $pwd$is_active, `ud_id_level` = $level WHERE `ud_id` = $id;");
+		if(isset($_FILES['avatar']['name'])){
+			$target_dir = getcwd()."/assets/img/avatar_user/";
+			$uploadOk = 1;
+			$imageFileType = strtolower(pathinfo($_FILES['avatar']['name'],PATHINFO_EXTENSION));
+			$basename = date("YmdHms").'.'.$imageFileType;
+			$target_file = $target_dir.$basename;
+			$upload = move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+			$update_ava = ",`ud_picture`='".$basename."'";
+		}else{
+			$update_ava = "";
+		}
+
+		$sql = $this->db->query("UPDATE `user_data` SET `ud_fullname` = '$fullname', `ud_email_address` = '$email', `ud_username` = '$username' $pwd$is_active, `ud_id_level` = $level $update_ava WHERE `ud_id` = $id;");
 		if($sql){
 			header("location:".base_url()."user_data?alert=update_success");
 		}else{

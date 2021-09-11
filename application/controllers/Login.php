@@ -29,16 +29,18 @@ class Login extends CI_Controller {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
-		$cek = $this->db->query("SELECT * from user_data left join tbl_userlevel on id_level = ud_id_level where ud_username = '$username' and ud_password=sha1('$password')")->row();
+		$cek = $this->db->query("SELECT *,ifnull(ud_picture,'default.png') ava from user_data left join tbl_userlevel on id_level = ud_id_level where ud_username = '$username' and ud_password=sha1('$password')")->row();
 
 		if($cek){
 			$getmenu = $this->db->query("SELECT link from tbl_menu tm left join tbl_akses_menu tam on tam.id_menu = tm.id_menu where id_level = $cek->id_level and view_level='Y' limit 1")->row();
+			$intial = preg_split("/\s+/", $cek->ud_fullname);
 			$session = array(
 				'id' 		=> $cek->ud_id,
 				'nama'		=> $cek->ud_fullname,
 				'user_level'		=> $cek->ud_id_level,
 				'nama_level'		=> $cek->nama_level,
 				'active'		=> $cek->ud_is_active,
+				'avatar'		=> $cek->ava,
 				'status'	=> 'login'
 			);
 			$this->session->set_userdata($session);
@@ -54,3 +56,4 @@ class Login extends CI_Controller {
 		redirect(base_url().'login');
 	}
 }
+

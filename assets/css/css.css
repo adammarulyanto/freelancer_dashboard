@@ -15,6 +15,10 @@ table thead{
   margin: 0;
 }
 
+table td,th{
+  vertical-align: middle;
+}
+
 body{
   font-size: 0.9rem;
   font-family: 'Open Sans', sans-serif;
@@ -126,6 +130,29 @@ body{
   width: 140px;
   padding-left: 10px;
   font-size: 14px;
+}
+.profile2{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 10px;
+  padding-left: 30px;
+  border-radius: 5px;
+}
+.profile2 img{
+  float: right;
+  height: 40px;
+  margin-left: 10px;
+}
+.profile2 .job{
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 500;
+}
+.profile2 .name_job{
+  text-align: right;
+  float: left;
+  font-weight: 600;
 }
 .menu{
   padding: 10px;
@@ -372,44 +399,72 @@ body{
 .div-attachment{
   position: relative;
   float: left;
-  width: 100px;
-  height: 100px;
-  background-color: rgba(0, 0, 0, 0.2);
-  margin: 15px 20px 10px 7px;
+  width: 100%;
+  background-color: #FFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
   border-radius: 10px;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
+  overflow: hidden;
 }
 .div-attachment input{
   position: absolute;
   left: 0;
   top: 0;
+  width: 100%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
   z-index: 2;
 }
-.div-attachment img{
-  margin: 0;
-  padding: 0;
-  z-index: 200;
-  border-radius: 10px;
-}
 .div-attachment i.i-add{
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
-
-.btn-delete-attachment{
-  position: absolute;
-  right: -10px;
-  top: -10px;
+.div-attachment img{
+  float: left;
+  width: 50px;
+  left: 0;
+  top: 0;
+  display: none;
+}
+.btn-upload-attachment{
+  float: right;
   background-color: #FFF;
   color: #000;
   padding: 1px 5px;
+  margin-left: 10px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
   display: none;
+}
+.btn-upload-atc{
+  float: right;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0);
+  border: 0;
+  display: none;
+}
+.div-box-list-attachment{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0;
+  border-radius: 10px;
+  padding: 10px 10px 0 0;
+}
+.box-list-attachment{
+  position: relative;
+  padding-right: 0;
+  margin-bottom: 10px;
+}
+.btn-del-atc{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  color: #000;
+  background-color: #FFF;
+  padding: 2px 6px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
 }
 /* -- Tables -- */
 .dataTables_wrapper .dt-buttons button{
@@ -418,6 +473,9 @@ body{
   font-size: 20px;
   background: none;
   float: left;
+}
+.img-table{
+  width: 50px;
 }
 .dataTables_wrapper .dt-buttons button:hover{
   font-size: 20px;
@@ -558,6 +616,14 @@ hr.update-wo{
 @media (max-width: 767px) {
   .icon-part{
     display: none;
+  }
+  .profile2 .name_job{
+    display: none;
+  }
+  .profile2{
+    padding-left: 0;
+    top: 7px;
+    right: 7px;
   }
   .container{
     padding-left: 20px;

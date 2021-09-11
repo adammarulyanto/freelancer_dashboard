@@ -2,6 +2,7 @@
 </div>
 <p align="center" class="bg-light footer">©2021 Copyrights | Freelancer Onsite Service</p>
 
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
@@ -11,6 +12,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#reset_file').on('click', function() {
+      $('#attachment').val('');
+      $('#output').css({"display":"none"});
+      $('.input_upload').css({"display":"block"});
+      $('.i-add').css({"display":"block"});
+      $('.btn-upload-attachment').css({"display":"none"});
+      $('.btn-upload-atc').css({"display":"none"});
+    });
+});
+</script>
 <script>
 $(".heatmap").each(function(){
   var value_data = $(this).text();

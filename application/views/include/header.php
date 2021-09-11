@@ -92,7 +92,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               type: 'POST',
               data: 'id_data_card='+id_data_card,
               dataType: 'json',
-          cache: false
+              cache: false
          })
          .done(function(data_card){
               console.log(data_card.wo_number); 
@@ -112,6 +112,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               $('#part_number').html(data_card.part_number);
               $('#part_desc').html(data_card.part_desc);
               $('#igso_number').html(data_card.igso_number);
+              $('#id_wo').val(data_card.wo_id);
               var wo_id = data_card.wo_id;
               var assigned = data_card.freelancer;
               var part_stat = data_card.part_status;
@@ -119,6 +120,22 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               $('#update_freelancer').attr('data-id' , wo_id);
               document.getElementById('update_status').value=part_stat;
               $('#update_status').attr('data-id' , wo_id);
+            var str = data_card.attachment;
+            var str_array = str.split(',');
+            var str2 = data_card.attachment_id;
+            var str_array2 = str2.split(',');
+
+            if(str!='EMPTY'){
+                for(var i = 0; i < str_array2.length; i++) {
+                   // Trim the excess whitespace.
+                   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+                   var html = '<div class="col-4 col-md-3 box-list-attachment"> <a href="<?=base_url()?>assets/img/attachment/'+str_array[i]+'" target="_blank"> <img loading="lazy" src="<?=base_url()?>assets/img/attachment/'+str_array[i]+'" class="img-fluid"> </a> <a href="<?=base_url()?>fl_task/delete_attachment?id='+str_array2[i]+'" class="btn-del-atc rounded-circle"><i class="bi bi-trash"></i></a></div>';
+                    $("#tit").append(html);
+                }
+            }else{
+                $('#tit').css({"display":"none"});
+            }
+
               $('#loader_card').hide();
          })
          .fail(function(){
@@ -128,6 +145,24 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
         }); 
     });
         </script>
+
+
+          <script>
+            var loadFile = function(event) {
+              var dataid = $("#update_status").data('id');
+              var output = document.getElementById('output');
+              output.src = URL.createObjectURL(event.target.files[0]);
+              output.onload = function() {
+                URL.revokeObjectURL(output.src); // free memory
+                $('.i-add').css({"display":"none"});
+                $('.btn-upload-attachment').css({"display":"block"});
+                $('#output').css({"display":"block"});
+                $('.input_upload').css({"display":"none"});
+                $('.btn-upload-atc').css({"display":"block"});
+                $('#div-attachment').reload();
+              };
+            };
+          </script>
     </head>
     <body>
         <div class="d-flex bg-light" id="wrapper">

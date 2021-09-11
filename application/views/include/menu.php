@@ -8,8 +8,8 @@
   <div class="menu-samping">
     <div class="logo-details">
       <!-- <i class='bx bxl-c-plus-plus icon'></i> -->
-        <img src="https://iconape.com/wp-content/files/hx/58721/svg/freelancer-1.svg" class="img-fluid icon" style="max-width:30px;">
-        <div class="logo_name"> &nbsp;Dashboard</div>
+        <!-- <img src="https://iconape.com/wp-content/files/hx/58721/svg/freelancer-1.svg" class="img-fluid icon" style="max-width:30px;"> -->
+        <div class="logo_name" style="margin-left: 15px"> &nbsp;Dashboard</div>
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
@@ -67,7 +67,7 @@
     </li>
      <li class="profile">
          <div class="profile-details">
-           <img src="https://cberry.net/assets/website/img/img-user.png" alt="profileImg">
+           <img src="<?=base_url()?>assets/img/avatar_user/<?=$this->session->userdata('avatar')?>" alt="profileImg">
            <div class="name_job">
              <div class="name"><?=$this->session->userdata("nama")?></div>
              <div class="job"><?=$this->session->userdata("nama_level")?></div>
@@ -76,4 +76,11 @@
          <a href="<?=base_url()?>login/logout" style="text-decoration: none;"><i class='bx bx-log-out' id="log_out"></i></a>
      </li>
     </ul>
+  </div>
+  <div class="profile2">
+    <div class="name_job">
+       <div class="name"><?=$this->session->userdata("nama")?></div>
+       <div class="job"><?=$this->session->userdata("nama_level")?></div>
+    </div>
+   <img src="<?=base_url()?>assets/img/avatar_user/<?=$this->session->userdata('avatar')?>" alt="profileImg" class="img-thumbnail">
   </div>

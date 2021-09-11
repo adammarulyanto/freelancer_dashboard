@@ -79,7 +79,7 @@ class Fl_task extends CI_Controller {
 		}
 
 		$query = "	SELECT
-					wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date, booking_status,part_number,part_desc,igso_number,failure_code,part_status,ud_fullname
+					wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date, booking_status,part_number,part_desc,igso_number,failure_code,part_status,ud_fullname,ifnull(ud_picture,'default.png') ud_picture
 					FROM
 					work_order
 					LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
@@ -107,6 +107,12 @@ class Fl_task extends CI_Controller {
 		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
 		$data['delay_code'] = $this->db->query("select * from mr_global_param where mgp_slug='delay-code'")->result();
+
+		if(isset($_POST['id_wo'])){
+			$id = $_POST['id_wo'];
+			$data['attachment'] = $this->db->query("select * from task_attachment where ta_wo_id = $id")->result();
+ 			exit;
+		}
 
 		$url = $this->uri->segment(1);
 		$menu = $this->db->query("select id_menu from tbl_menu where link = '$url'")->row()->id_menu;
@@ -143,7 +149,7 @@ class Fl_task extends CI_Controller {
 		if($_REQUEST['id_data_card']) {
 		$id = $_REQUEST['id_data_card'];
 		$data = $this->db->query("SELECT
-								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name
+								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name,ifnull(group_concat(ta_filename order by ta_id),'EMPTY') attachment,ifnull(group_concat(ta_id order by ta_id),'EMPTY') attachment_id
 								FROM
 								work_order
 								LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
@@ -151,8 +157,11 @@ class Fl_task extends CI_Controller {
 								LEFT JOIN mr_global_param mgp3 ON part_status = mgp3.mgp_code_id and mgp3.mgp_slug = 'part-status' 
 								left join user_data on ud_id = freelancer
 								left join kota_kabupaten on kb_id = city
+								left join task_attachment on ta_wo_id = wo_id
 								where
 								wo_id = $id 
+								group by
+								wo_id
 								order by
 								wo_id desc
 								")->row();
@@ -173,5 +182,39 @@ class Fl_task extends CI_Controller {
 
 
 		$query = $this->db->query("INSERT INTO task_attachment ('ta_wo_id','ta_filename') values ($id,'$value');");
+	}
+	public function upload_attachment(){
+		$id = $_POST['id_wo'];
+		$target_dir = getcwd()."/assets/img/attachment/";
+		$uploadOk = 1;
+		$imageFileType = strtolower(pathinfo($_FILES['attachment']['name'],PATHINFO_EXTENSION));
+		$basename = date("YmdHms").'.'.$imageFileType;
+		$target_file = $target_dir.$basename;
+
+		if ($uploadOk == 0) {
+			echo "<script type='text/javascript'>window.alert('Error.');window.location.href = '".$_SERVER['HTTP_REFERER']."';</script>";	
+		}else {
+			$upload = move_uploaded_file($_FILES["attachment"]["tmp_name"], $target_file);
+			if ($upload) {
+				$this->db->query("INSERT INTO task_attachment (ta_wo_id,ta_filename) values ('$id','$basename')");
+				redirect(base_url()."fl_task?alert=success");
+			} else {
+				redirect(base_url()."fl_task?alert=failed");
+			}
+		}
+	}
+	public function delete_attachment(){
+		$id = $_GET['id'];
+		$get_filename = $this->db->query("SELECT ta_filename FROM task_attachment where ta_id = $id")->row();
+		$filename = base_url()."assets/img/attachment/".$get_filename;
+
+		$query = $this->db->query("DELETE FROM task_attachment where ta_id = $id");
+		if ($query) {
+			$this->db->query("INSERT INTO task_attachment (ta_wo_id,ta_filename) values ('$id','$basename')");
+			unlink('$filename');
+			redirect(base_url()."fl_task?alert=success");
+		} else {
+			redirect(base_url()."fl_task?alert=failed");
+		}
 	}
 }

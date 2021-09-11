@@ -39,7 +39,7 @@ if(isset($_GET['alert'])){
             <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form action="<?=base_url()?>user_data/add_user" method="post">
+          <form action="<?=base_url()?>user_data/add_user" method="post" enctype="multipart/form-data">
           <div class="modal-body">
             <div class="row g-3">
               <div class="col-md-6">
@@ -73,6 +73,10 @@ if(isset($_GET['alert'])){
                     <option value="N">No</option>  
                 </select>
               </div>
+              <div class="col-md-12">
+                <label for="formFileSm" class="form-label">Avatar</label>
+                <input class="form-control" id="formFileSm" type="file" name="avatar">
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -87,6 +91,7 @@ if(isset($_GET['alert'])){
       <table id="example" class="table table-responsive table-hover" style="width:100%">
         <thead>
             <tr>
+                <th width="50px"></th>
                 <th>Fullname</th>
                 <th>Email Address</th>
                 <th>Username</th>
@@ -99,6 +104,7 @@ if(isset($_GET['alert'])){
         <tbody>
             <?php foreach ($users as $users) {?>
             <tr>
+                <td align="center"><img src="<?=base_url()?>assets/img/avatar_user/<?=$users->ava?>" alt="profileImg" class="img-thumbnail img-table"></td>
                 <td><?=$users->ud_fullname?></td>
                 <td><?=$users->ud_email_address?></td>
                 <td><?=$users->ud_username?></td>
@@ -119,7 +125,7 @@ if(isset($_GET['alert'])){
                           <h5 class="modal-title" id="exampleModalLabel">Edit User Data</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="<?=base_url()?>user_data/update_data" method="post">
+                        <form action="<?=base_url()?>user_data/update_data" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                           <div class="row g-3" id="datawo">
                             <input type="hidden" class="form-control" id="inputAddress" placeholder="" name="id_user" value="<?=$users->ud_id?>" required>
@@ -153,6 +159,11 @@ if(isset($_GET['alert'])){
                               <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" name="is_active" data-type="view_level" <?php if($users->ud_is_active=="Y"){ echo"checked";}?> style="width:45px; height: 25px;">
                               </div>
+                            </div>
+                            <div class="col-md-12">
+                              <label for="formFileSm" class="form-label">Avatar</label>
+                              <input class="form-control" id="formFileSm" type="file" name="avatar">
+                              <div id="emailHelp" class="form-text">Leave it blank if you don't want to change the avatar.</div>
                             </div>
                           </div>
                         </div>
