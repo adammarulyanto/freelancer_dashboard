@@ -205,16 +205,17 @@ class Fl_task extends CI_Controller {
 	}
 	public function delete_attachment(){
 		$id = $_GET['id'];
-		$get_filename = $this->db->query("SELECT ta_filename FROM task_attachment where ta_id = $id")->row();
-		$filename = base_url()."assets/img/attachment/".$get_filename;
-
-		$query = $this->db->query("DELETE FROM task_attachment where ta_id = $id");
-		if ($query) {
-			$this->db->query("INSERT INTO task_attachment (ta_wo_id,ta_filename) values ('$id','$basename')");
-			unlink('$filename');
-			redirect(base_url()."fl_task?alert=success");
-		} else {
-			redirect(base_url()."fl_task?alert=failed");
+		$get_filename = $this->db->query("SELECT ta_filename FROM task_attachment where ta_id = $id")->result();
+		foreach($get_filename as $gf){
+    		$filename = base_url()."assets/img/attachment/".$gf->ta_filename;
+    		$query = $this->db->query("DELETE FROM task_attachment where ta_id = $id");
+    		if ($query) {
+    			header("location:".base_url()."fl_task?alert=success");
+    		} else {
+    			header("location:".base_url()."fl_task?alert=failed");
+    		}
 		}
+		header("location:".base_url()."fl_task");
+		
 	}
 }
