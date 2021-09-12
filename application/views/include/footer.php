@@ -32,21 +32,21 @@ $(".heatmap").each(function(){
   var max_value = $(this).data('id');
 
   var persen = value_data/max_value*100;
-  var satu = "#87f5f5";
-  var dua = "#90dbfb";
-  var tiga = "#5fbdfd";
-  var empat = "#537eb8";
-  var lima = "#f48f35";
+  var satu = "#e5f2e5";
+  var dua = "#b2d8b2";
+  var tiga = "#7fbf7f";
+  var empat = "#4ca64c";
+  var lima = "#198c19";
 
-  if(persen>=1 && persen<=20){
+  if(persen>0 && persen<=20){
     $(this).css({"background-color": satu});
-  }else if(persen>=21 && persen<=40){
+  }else if(persen>20 && persen<=40){
     $(this).css({"background-color": dua});
-  }else if(persen>=41 && persen<=60){
+  }else if(persen>40 && persen<=60){
     $(this).css({"background-color": tiga});
-  }else if(persen>=61 && persen<=80){
+  }else if(persen>60 && persen<=80){
     $(this).css({"background-color": empat});
-  }else if(persen>=81 && persen<=100){
+  }else if(persen>80 && persen<=100){
     $(this).css({"background-color": lima});
   }else{
     $(this).css({"background-color": "rgba(0,0,0,0)"});
@@ -63,7 +63,7 @@ $(".heatmap").each(function(){
               });
             });
             $(document).ready(function(){
-                $("form").submit(function(){
+                $("#form-filter").submit(function(){
                     $("input").each(function(index, obj){
                         if($(obj).val() == "") {
                             $(obj).remove();

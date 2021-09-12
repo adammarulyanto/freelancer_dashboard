@@ -163,6 +163,49 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               };
             };
           </script>
+
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnVnACZJ7MCozMoc8U2VghqNMfUJ7hjYE"></script>
+            <script>
+            var markers = [
+                <?php
+                foreach ($cityachivement as $ca){
+                ?>
+                    ['<strong><?=$ca->city?></strong> <br> Achivement : <?=$ca->achivement?>', <?=$ca->kb_lat?> , <?=$ca->kb_long?>],
+                <?php
+                }
+                ?>
+            ];
+         
+              function initialize() {
+                var mapCanvas = document.getElementById('map-canvas-mark');
+                var mapOptions = {
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                }     
+                var map = new google.maps.Map(mapCanvas, mapOptions)
+         
+            var infowindow = new google.maps.InfoWindow(), marker, i;
+            var bounds = new google.maps.LatLngBounds(); // diluar looping
+            for (i = 0; i < markers.length; i++) {  
+            pos = new google.maps.LatLng(markers[i][1], markers[i][2]);
+            bounds.extend(pos); // di dalam looping
+            marker = new google.maps.Marker({
+                position: pos,
+                map: map
+            });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(markers[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+            map.fitBounds(bounds); // setelah looping
+            }
+         
+              }
+         
+         
+              google.maps.event.addDomListener(window, 'load', initialize);
+            </script>
     </head>
     <body>
         <div class="d-flex bg-light" id="wrapper">

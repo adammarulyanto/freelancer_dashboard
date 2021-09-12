@@ -148,7 +148,7 @@ if(isset($_GET['alert'])){
             <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form>
+          <form id="form-filter">
           <div class="modal-body">
             <div class="row g-3">
             <h6>Created Date</h6>
@@ -231,8 +231,8 @@ if(isset($_GET['alert'])){
             <tr>
                 <td><?=$workorder->wo_number?></td>
                 <td><?=$workorder->case_id?></td>
-                <td><?=$workorder->asset_serial?></td>
-                <td><?=$workorder->wo_desc?></td>
+                <td><p id="p_table"><?=$workorder->asset_serial?></p></td>
+                <td><p id="p_table"><?=$workorder->wo_desc?></p></td>
                 <td><?=$workorder->company_name?></td>
                 <td><?=$workorder->created_date?></td>
                 <td><?=$workorder->requested_date?></td>

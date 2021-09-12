@@ -16,9 +16,18 @@
             <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form>
+          <form id="form-filter">
           <div class="modal-body">
             <div class="row g-3">
+            <h6>WO Number</h6>
+            <div class="col-md-6">
+              <label for="inputAddress" class="form-label">WO Number</label>
+              <input type="text" class="form-control" id="inputAddress" name="wo_number">
+            </div>
+            <div class="col-md-6">
+              <label for="inputAddress" class="form-label">Case ID</label>
+              <input type="text" class="form-control" id="inputAddress" name="case_id">
+            </div>
             <h6>Created Date</h6>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">From</label>

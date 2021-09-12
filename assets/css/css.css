@@ -193,7 +193,10 @@ body{
 
 
 /*-- DASHBOARD --*/
-
+#map-canvas-mark{
+  height: 450px;
+  width: 100%;
+}
 .card-dashboard{
   position: relative;
   overflow: hidden;
@@ -395,6 +398,7 @@ body{
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 100%;
   margin-top: 2px;
+  border-radius: 5px;
 }
 .div-attachment{
   position: relative;
@@ -467,6 +471,13 @@ body{
   box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
 }
 /* -- Tables -- */
+#p_table {
+  overflow: hidden;
+  max-width: 200px;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .dataTables_wrapper .dt-buttons button{
   border: 0;
   padding: 5px 10px;
@@ -502,8 +513,7 @@ body{
   width: 100%;
   margin-top: 10px;
   padding: 10px 0;
-background: rgb(34,193,195);
-background: linear-gradient(98deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+  background-color: #16a085;
 font-weight: 600;
   border: 0;
 }

@@ -183,9 +183,11 @@ class Dashboard extends CI_Controller {
 													1
 													ORDER BY
 													mgp_code_id")->result();
-		$data['cityachovement'] = $this->db->query("SELECT
+		$data['cityachivement'] = $this->db->query("SELECT
 														mrc_country country,
 														kb_kab_kot city,
+														kb_lat,
+														kb_long,
 														count(*) achivement,
 														max_value
 													FROM
@@ -204,8 +206,7 @@ class Dashboard extends CI_Controller {
 														LEFT JOIN mr_country ON mrc_id = kb_mrc_id 
 														".$where." 
 													GROUP BY
-														1,2)a)b
-													-- 	".$where." 
+														1,2)a)b 
 													GROUP BY
 														1,2")->result();
 		$data['countryachovement'] = $this->db->query("SELECT
@@ -224,7 +225,7 @@ class Dashboard extends CI_Controller {
 														GROUP BY
 														1")->result();
 		$data['untilthismonth'] = $this->db->query("select date_format(date,'%b %y') bulan from dates ".$where_date." GROUP BY date_format(date,'%b %y') ORDER BY date_format(date,'%Y%m')")->result();
-		$this->load->view('include/header');
+		$this->load->view('include/header',$data);
 		$this->load->view('include/menu');
 		$this->load->view('dashboard',$data);
 		$this->load->view('include/footer');
