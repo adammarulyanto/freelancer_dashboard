@@ -206,6 +206,48 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
          
               google.maps.event.addDomListener(window, 'load', initialize);
             </script>
+<script type="text/javascript">
+  function directionMap() {
+
+  var directionsService = new google.maps.DirectionsService();
+  var map;
+
+  var mapCenter = new google.maps.LatLng(46.499729, 26.647089);
+  var mapOrigin1 = new google.maps.LatLng(46.596652, 26.812765);
+  var mapDestination1 = new google.maps.LatLng(46.4674824, 26.4513263);
+  var mapOrigin2 = new google.maps.LatLng(46.5476592, 26.515106);
+  var mapDestination2 = new google.maps.LatLng(46.4444641, 27.362008);
+
+  var mapOptions = {
+    zoom: 14,
+    center: mapCenter
+  }
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  function calculateRoute(mapOrigin, mapDestination) {
+  
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      map: map
+    });
+    
+    var request = {
+      origin: mapOrigin,
+      destination: mapDestination,
+      travelMode: 'DRIVING'
+    };
+    
+    directionsService.route(request, function(result, status) {
+      if (status == "OK") {
+        directionsDisplay.setDirections(result);
+      }
+    });
+  }
+  
+  calculateRoute(mapOrigin1, mapDestination1);
+  calculateRoute(mapOrigin1, mapDestination2);
+}
+</script>
     </head>
     <body>
         <div class="d-flex bg-light" id="wrapper">
