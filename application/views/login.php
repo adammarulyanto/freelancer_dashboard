@@ -36,8 +36,10 @@ if(isset($_GET['alert'])){
 <div class="container">
   <div class="row">
     <div class="col-12 position-absolute top-50 start-50 translate-middle box-login shadow" style="width: 400px;">
-      <h2 align="center"><strong>Login</strong></h2>
-      <h6 class="title-connecting"><i>You are connecting to - Freelancer Onsite Service</i></h6>
+    <!-- <h5 align="center"><strong>Sign in with your account</strong></h5> -->
+      <h6 class="title-connecting" align="left">You are connecting to :</h6>
+      <h4 align="left" class="fos-title"><strong>Freelancer Onsite Service</strong></h4>
+      <br>
       <form action="<?=base_url()?>login/login_act" method="post">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Username</label>

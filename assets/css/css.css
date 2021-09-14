@@ -561,10 +561,10 @@ font-weight: 600;
   margin-bottom: 20px;
 }
 .title-connecting{
-  margin-top: 20px;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.5);
-  text-align: center;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 /*-- BUTTON FILTER-- */
