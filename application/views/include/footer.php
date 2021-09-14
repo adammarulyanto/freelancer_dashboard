@@ -12,13 +12,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
+
 
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('#reset_file').on('click', function() {
-      $('#attachment').val('');
-      $('#output').css({"display":"none"});
+      $('#gallery-photo-add').css({"display":"block"});
+      $('#gallery-photo-add').val('');
+      $('.img-preview-atc').remove();
       $('.input_upload').css({"display":"block"});
       $('.i-add').css({"display":"block"});
       $('.btn-upload-attachment').css({"display":"none"});
@@ -74,6 +77,7 @@ $(".heatmap").each(function(){
 
             $(document).ready(function() {
                 $('#example').DataTable({
+                  "lengthMenu": [[25, 50, 100,-1], [25, 50, 100,"All"]],
                   "scrollX": true,
                   language: { search: "",searchPlaceholder: "Search" },
                   dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
@@ -108,6 +112,10 @@ $(".heatmap").each(function(){
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           className: 'btn-print'
                       }
+                  //     ,{
+                  //         extend: 'colvis',
+                  //         columns: 'th:nth-child(n+2)'
+                  //     }
                   ]
                 });
                 $('#example2').DataTable({

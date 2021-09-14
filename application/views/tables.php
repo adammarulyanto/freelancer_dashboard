@@ -1,9 +1,14 @@
-<div id="loader-wrapper">
+<div id="loader-wrapper" style="display:block;">
   <div class="d-flex justify-content-center loading-circle position-absolute top-50 start-50 translate-middle">
     <div class="spinner-border" role="status">
     </div>
   </div>
 </div>
+<script>
+  $(window).on('load', function () {
+    $('#loader-wrapper').hide();
+  }) 
+</script>
 
 <?php foreach($akses_menu as $akses_menu){
 if(isset($_GET['alert'])){
@@ -35,12 +40,20 @@ if(isset($_GET['alert'])){
 <div class="container-fluid cont">
     <h1 class="mt-4">Work Order</h1>
     <?php if($akses_menu->add_level=="Y"){?>
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add"><i class="bi bi-plus-lg"></i></button>
+    <form method="post" id="clear">
+    <span class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add"><i class="bi bi-plus-lg"></i></span>
     <?php
     }
     ?>
-    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
-
+    <span class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></span>
+    <?php
+    if(isset($_GET['filter'])){
+    ?>
+    <button class="btn btn-default mb-3" type="submit" form="clear">Clear Filter</button>
+    <?php
+    }
+    ?>
+    </form>
     <!-- Modal -->
     <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -49,7 +62,7 @@ if(isset($_GET['alert'])){
             <h5 class="modal-title" id="exampleModalLabel">Add Work Order</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form action="<?=base_url()?>data/add_wo" method="post">
+          <form action="<?=base_url()?>data/add_wo" id="add_wo" method="post">
           <div class="modal-body">
             <div class="row g-3">
             <h6>WO Information</h6>
@@ -120,6 +133,10 @@ if(isset($_GET['alert'])){
                 <label for="inputAddress" class="form-label">Link HP CDAX</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="link" required>
               </div>
+              <div class="col-md-12">
+                <label for="inputAddress" class="form-label">Link Freelancer Platform</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="link_fl" required>
+              </div>
               <h6>Asginee</h6>
               <div class="col-md-6">
                 <label for="inputState" class="form-label">Assign to</label>
@@ -133,7 +150,7 @@ if(isset($_GET['alert'])){
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary" value="submit">Save</button>
           </div>
           </form>
         </div>
@@ -148,26 +165,26 @@ if(isset($_GET['alert'])){
             <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form id="form-filter">
+          <form id="form-filter" method="get">
           <div class="modal-body">
             <div class="row g-3">
             <h6>Created Date</h6>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">From</label>
-                <input type="date" class="form-control" id="inputAddress" name="create_from">
+                <input type="date" class="form-control" name="create_from">
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">To</label>
-                <input type="date" class="form-control" id="inputAddress" name="create_to">
+                <input type="date" class="form-control" name="create_to">
               </div>
             <h6>Request Date</h6>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">From</label>
-                <input type="date" class="form-control" id="inputAddress" name="req_from">
+                <input type="date" class="form-control" name="req_from">
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">To</label>
-                <input type="date" class="form-control" id="inputAddress" name="req_to">
+                <input type="date" class="form-control" name="req_to">
               </div>
             <h6>Booking Status</h6>
               <div class="col-12">
@@ -201,6 +218,28 @@ if(isset($_GET['alert'])){
                   </div>
                   <?php } ?>
               </div>
+
+            <h6>City</h6>
+            <div class="col-12">
+                <?php foreach($city_filter as $ct1) { ?>    
+                <div class="cat action">
+                   <label>
+                      <input type="checkbox" name="city_filter[]" value="<?=$ct1->kb_id?>"><span><?=$ct1->kb_kab_kot?></span>
+                   </label>
+                </div>
+                <?php } ?>
+            </div>
+
+            <h6>Country </h6>
+              <div class="col-12">
+                  <?php foreach($country as $con1) { ?>    
+                  <div class="cat action">
+                     <label>
+                        <input type="checkbox" name="country[]" value="<?=$con1->mrc_id?>"><span><?=$con1->mrc_country?></span>
+                     </label>
+                  </div>
+                  <?php } ?>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -210,19 +249,26 @@ if(isset($_GET['alert'])){
         </div>
       </div>
     </div>
-    <div class="shadow-sm mb-5 p-3 bg-white rounded box-data">
-      <table id="example" class="table table-responsive table-hover" style="width:100%">
+    <div class="shadow-sm mb-5 p-3 bg-white rounded box-data table-responsive">
+      <table id="example" class="table table-responsive table-striped table-hover" style="width:4000px">
         <thead>
             <tr>
                 <th>WO Number</th>
                 <th>Case Id</th>
                 <th>Asset Serial</th>
-                <th>WO Description</th>
                 <th>Company Name</th>
+                <th>Contact Name</th>
+                <th>Contact Phone</th>
                 <th>Create Date</th>
                 <th>Requested Date</th>
                 <th>Finish Date</th>
+                <th>Part Number</th>
+                <th>IGSO Number</th>
                 <th>Booking Status</th>
+                <th>Freelancer</th>
+                <th>City</th>
+                <th>Link HP CDAX</th>
+                <th>Link FLN Platform</th>
                 <th></th>
             </tr>
         </thead>
@@ -232,12 +278,19 @@ if(isset($_GET['alert'])){
                 <td><?=$workorder->wo_number?></td>
                 <td><?=$workorder->case_id?></td>
                 <td><p id="p_table"><?=$workorder->asset_serial?></p></td>
-                <td><p id="p_table"><?=$workorder->wo_desc?></p></td>
-                <td><?=$workorder->company_name?></td>
+                <td><p id="p_table"><?=$workorder->company_name?></p></td>
+                <td><?=$workorder->contact_name?></td>
+                <td><?=$workorder->contact_phone?></td>
                 <td><?=$workorder->created_date?></td>
                 <td><?=$workorder->requested_date?></td>
                 <td><?=$workorder->finish_date?></td>
+                <td><?=$workorder->part_number?></td>
+                <td><?=$workorder->igso_number?></td>
                 <td><?=$workorder->booking_status?></td>
+                <td><?=$workorder->freelancer_name?></td>
+                <td><?=$workorder->kb_kab_kot?></td>
+                <td><p id="p_table"><a href="<?=$workorder->link?>" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="<?=$workorder->link?>"><?=$workorder->link?></a></p></td>
+                <td><p id="p_table"><a href="<?=$workorder->link_freelancer?>" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="<?=$workorder->link_freelancer?>"><?=$workorder->link_freelancer?></a></p></td>
                 <td>
                   <?php if($akses_menu->view_level=="Y"){?>
                     <i class="bi bi-eye btn-action" data-bs-toggle="modal" data-bs-target="#view" id="getwo" data-id="<?=$workorder->wo_id?>"></i>
@@ -268,7 +321,7 @@ if(isset($_GET['alert'])){
                   }
                   if($akses_menu->edit_level=="Y"){
                   ?>
-                  <i class="bi bi-pencil-square btn-action" onclick="location.href='<?=base_url()?>data/edit_wo?id_wo=<?=$workorder->wo_id_sha1?>'"></i>
+                  <a href="<?=base_url()?>data/edit_wo?id_wo=<?=$workorder->wo_id_sha1?>" target="_blank" style='color: #000;'><i class="bi bi-pencil-square btn-action"></i></a>
                   <?php
                   }
                   ?>
@@ -331,14 +384,14 @@ if(isset($_GET['alert'])){
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 <div class="row g-3">
-                  <div class="col-md-6">
+                 <!--  <div class="col-md-6">
                     <label for="inputState" class="form-label">Failure</label>
                     <p id="failure_code"></p>
                   </div>
                   <div class="col-md-6">
                     <label for="inputState" class="form-label">Delay Code</label>
                     <p id="delay_code"></p>
-                  </div>
+                  </div> -->
                   <div class="col-md-6">
                     <label for="inputState" class="form-label">Visit</label>
                     <p id="visit"></p>
@@ -346,7 +399,7 @@ if(isset($_GET['alert'])){
 
                   <div class="col-md-6">
                     <label for="inputState" class="form-label">Link HP SubK Partner</label>
-                    <p id="link"></p>
+                    <p id="link" style="width: 100%"></p>
                   </div>
 
                   <div class="col-md-6">
@@ -402,8 +455,16 @@ if(isset($_GET['alert'])){
           </div>
         <h6>Date</h6>
           <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Created Date</label>
+            <p id="created_date"></p>
+          </div>
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Request Date</label>
             <p id="requested_date"></p>
+          </div>
+          <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Finish Date</label>
+            <p id="finish_date"></p>
           </div>
         <h6>Order Information</h6>
           <div class="col-md-6">

@@ -43,7 +43,8 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
              .done(function(data){
                   console.log(data.wo_number); 
                   $('#datawo').hide();
-                  $('#datawo').show();                  $('#wo_number').html(data.wo_number);
+                  $('#datawo').show();                  
+                  $('#wo_number').html(data.wo_number);
                   $('#case_id').html(data.case_id);
                   $('#wo_desc').html(data.wo_desc);
                   $('#product_desc').html(data.product_desc);
@@ -53,7 +54,9 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
                   $('#city').html(data.kb_kab_kot);
                   $('#contact_name').html(data.contact_name);
                   $('#contact_phone').html(data.contact_phone);
+                  $('#created_date').html(data.created_date);
                   $('#requested_date').html(data.requested_date);
+                  $('#finish_date').html(data.finish_date);
                   $('#part_number').html(data.part_number);
                   $('#part_desc').html(data.part_desc);
                   $('#igso_number').html(data.igso_number);
@@ -62,6 +65,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
                   $('#comment').html(data.comment);
                   $('#failure_code').html(data.failure_code);
                   $('#delay_code').html(data.delay_code_name);
+                  $('#link_freelancer').html(data.link_freelancer);
                   var wo_id = data.wo_id;
                   var assigned = data.freelancer;
                   var book_stat1 = data.book_status_id;
@@ -108,7 +112,9 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               $('#city').html(data_card.kb_kab_kot);
               $('#contact_name').html(data_card.contact_name);
               $('#contact_phone').html(data_card.contact_phone);
+              $('#created_date').html(data_card.created_date);
               $('#requested_date').html(data_card.requested_date);
+              $('#finish_date').html(data_card.finish_date);
               $('#part_number').html(data_card.part_number);
               $('#part_desc').html(data_card.part_desc);
               $('#igso_number').html(data_card.igso_number);
@@ -147,22 +153,39 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
         </script>
 
 
-          <script>
-            var loadFile = function(event) {
-              var dataid = $("#update_status").data('id');
-              var output = document.getElementById('output');
-              output.src = URL.createObjectURL(event.target.files[0]);
-              output.onload = function() {
-                URL.revokeObjectURL(output.src); // free memory
-                $('.i-add').css({"display":"none"});
-                $('.btn-upload-attachment').css({"display":"block"});
-                $('#output').css({"display":"block"});
-                $('.input_upload').css({"display":"none"});
-                $('.btn-upload-atc').css({"display":"block"});
-                $('#div-attachment').reload();
-              };
-            };
-          </script>
+          <script type="text/javascript">
+              $(function() {
+                  // Multiple images preview in browser
+                  var imagesPreview = function(input, placeToInsertImagePreview) {
+
+                      if (input.files) {
+                          var filesAmount = input.files.length;
+
+                          for (i = 0; i < filesAmount; i++) {
+                              var reader = new FileReader();
+
+                              reader.onload = function(event) {
+                                  $($.parseHTML('<img class="img-preview-atc">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                              }
+
+                              reader.readAsDataURL(input.files[i]);
+                          }
+                      }
+
+                  };
+
+                  $('#gallery-photo-add').on('change', function() {
+                      imagesPreview(this, 'div.gallery');
+                      $('#gallery-photo-add').css({"display":"none"});
+                      $('.i-add').css({"display":"none"});
+                      $('.gallery').css({"display":"block"});
+                      $('.btn-upload-attachment').css({"display":"block"});
+                      $('.input_upload').css({"display":"none"});
+                      $('.btn-upload-atc').css({"display":"block"});
+                      $('#div-attachment').reload();
+                  });
+              });
+            </script>
 
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnVnACZJ7MCozMoc8U2VghqNMfUJ7hjYE"></script>
             <script>

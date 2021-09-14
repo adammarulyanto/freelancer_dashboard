@@ -139,7 +139,7 @@ class Dashboard extends CI_Controller {
 
 		$data['book_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
-		$data['freelancer'] = $this->db->query("select * from user_data")->result();
+		$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
 		$data['city_filter'] = $this->db->query("select * from kota_kabupaten")->result();
 		$data['country'] = $this->db->query("select * from mr_country")->result();
 
@@ -207,6 +207,7 @@ class Dashboard extends CI_Controller {
 														".$where." 
 													GROUP BY
 														1,2)a)b 
+														".$where." 
 													GROUP BY
 														1,2")->result();
 		$data['countryachovement'] = $this->db->query("SELECT

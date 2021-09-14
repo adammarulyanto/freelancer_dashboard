@@ -7,7 +7,16 @@
 <?php foreach($akses_menu as $akses_menu){?>
   <div class="container-fluid cont">
     <h1 class="mt-4">Freelancer Task</h1>
-    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></button>
+    <form method="get" id="form-filter">
+    <span class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></span>
+    <?php
+    if(isset($_GET['filter'])){
+    ?>
+    <button class="btn btn-default mb-3" type="submit">Clear Filter</button>
+    <?php
+    }
+    ?>
+    </form>
 <!-- Modal -->
     <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -81,7 +90,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Filter</button>
+            <button type="submit" class="btn btn-primary" name="filter" value="on">Filter</button>
           </div>
           </form>
         </div>
@@ -245,6 +254,10 @@
             <p id="contact_name"></p>
           </div>
           <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Contact Phone</label>
+            <p id="contact_phone"></p>
+          </div>
+          <div class="col-md-6">
             <label for="inputAddress" class="form-label">Customer Address</label>
             <p id="address"></p>
           </div>
@@ -266,17 +279,20 @@
             <label for="inputAddress" class="form-label">SO Number</label>
             <p id="igso_number"></p>
           </div>
+          <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Link Freelancer Platform</label>
+            <p id="link_freelancer"></p>
+          </div>
         <h6>Attachment</h6>
           <div class="col-12">
             <form action="<?=base_url()?>fl_task/upload_attachment" method="post" enctype="multipart/form-data">
+              
               <div class="div-attachment">
                 <input type="hidden" name="id_wo" id="id_wo">
-                <input type="file" accept="image/*" onchange="loadFile(event)" class="input_upload" id="attachment" name="attachment">
-                <div class="img-preview-atc">
-                  <img id="output" class="img-fluid">
-                </div>
-                <i class="bi bi-plus-lg i-add" id="icon-add-attachment"> Add Attachment</i>
-                <div class="btn-upload-atc">
+                <input type="file" id="gallery-photo-add" name="attachment[]" accept="image/*" multiple>
+                <div class='gallery'></div>
+                <i class="bi bi-plus-lg i-add" id="icon-add-attachment"> Add Attachment (Maximum file : 2 MB)</i>
+                <div class="btn-upload-reset">
                   <button type="submit" class="btn-upload-atc"><i class="bi bi-upload rounded-circle btn-upload-attachment"></i></button>
             </form>
                   <i class="bi bi-x-lg rounded-circle btn-upload-attachment" id='reset_file'></i>

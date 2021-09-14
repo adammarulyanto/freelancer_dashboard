@@ -30,6 +30,16 @@ class Fl_task extends CI_Controller {
  	}
 	public function index()
 	{
+		if(isset($_GET['wo_number'])){
+			$wo_number = " and wo_number = '".$_GET['wo_number']."'";
+		}else{
+			$wo_number = "";
+		}
+		if(isset($_GET['case_id'])){
+			$case_id = " and case_id = '".$_GET['case_id']."'";
+		}else{
+			$case_id = "";
+		}
 		if(isset($_GET['create_from'])){
 			$create_from = " and created_date > '".$_GET['create_from']." 00:00:00'";
 		}else{
@@ -93,7 +103,7 @@ class Fl_task extends CI_Controller {
 		}else{
 			$get_freelancer_id = "";
 		}
-		$where = $create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl;
+		$where = $wo_number.$case_id.$create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl;
 		$data['waitpart'] = $this->db->query($query."where part_status = 1 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_waitpart'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 1 ".$get_freelancer_id.$where)->result();
 		$data['partpickup'] = $this->db->query($query."where part_status = 2 ".$get_freelancer_id.$where." order by created_date")->result();
@@ -103,7 +113,7 @@ class Fl_task extends CI_Controller {
 		$data['partreturn'] = $this->db->query($query."where part_status = 5 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_partreturn'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 5 ".$get_freelancer_id.$where)->result();
 		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
-		$data['freelancer'] = $this->db->query("select * from user_data")->result();
+		$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
 		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
 		$data['delay_code'] = $this->db->query("select * from mr_global_param where mgp_slug='delay-code'")->result();
@@ -149,7 +159,7 @@ class Fl_task extends CI_Controller {
 		if($_REQUEST['id_data_card']) {
 		$id = $_REQUEST['id_data_card'];
 		$data = $this->db->query("SELECT
-								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name,ifnull(group_concat(ta_filename order by ta_id),'EMPTY') attachment,ifnull(group_concat(ta_id order by ta_id),'EMPTY') attachment_id
+								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name,ifnull(group_concat(ta_filename order by ta_id),'EMPTY') attachment,ifnull(group_concat(ta_id order by ta_id),'EMPTY') attachment_id,link_freelancer
 								FROM
 								work_order
 								LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
@@ -185,37 +195,44 @@ class Fl_task extends CI_Controller {
 	}
 	public function upload_attachment(){
 		$id = $_POST['id_wo'];
+		$file = $_FILES['attachment']['name'];
+		$max_size = 1024*2000;
+		$file_amount = count($file)-1;
 		$target_dir = getcwd()."/assets/img/attachment/";
-		$uploadOk = 1;
-		$imageFileType = strtolower(pathinfo($_FILES['attachment']['name'],PATHINFO_EXTENSION));
-		$basename = date("YmdHms").'.'.$imageFileType;
-		$target_file = $target_dir.$basename;
-
-		if ($uploadOk == 0) {
-			echo "<script type='text/javascript'>window.alert('Error.');window.location.href = '".$_SERVER['HTTP_REFERER']."';</script>";	
-		}else {
-			$upload = move_uploaded_file($_FILES["attachment"]["tmp_name"], $target_file);
-			if ($upload) {
-				$this->db->query("INSERT INTO task_attachment (ta_wo_id,ta_filename) values ('$id','$basename')");
-				redirect(base_url()."fl_task?alert=success");
-			} else {
-				redirect(base_url()."fl_task?alert=failed");
+		for ($i = 0; $i <= $file_amount; $i++) {
+			if($_FILES['attachment']['size'][$i]>=$max_size+1){
+			redirect(base_url()."fl_task?alert=size_limit");
 			}
+		}
+		for ($i = 0; $i <= $file_amount; $i++) {
+			$uploadOk = 1;
+			$imageFileType = strtolower(pathinfo($file[$i],PATHINFO_EXTENSION));
+			$basename = $i.date("YmdHms").'.'.$imageFileType;
+			$target_file = $target_dir.$basename;
+
+			$upload = move_uploaded_file($_FILES["attachment"]["tmp_name"][$i], $target_file);
+			$this->db->query("INSERT INTO task_attachment (ta_wo_id,ta_filename) values ('$id','$basename')");
+		}
+		if ($upload) {
+			redirect(base_url()."fl_task?alert=success");
+		} else {
+			redirect(base_url()."fl_task?alert=failed");
 		}
 	}
 	public function delete_attachment(){
 		$id = $_GET['id'];
 		$get_filename = $this->db->query("SELECT ta_filename FROM task_attachment where ta_id = $id")->result();
 		foreach($get_filename as $gf){
-    		$filename = base_url()."assets/img/attachment/".$gf->ta_filename;
-    		$query = $this->db->query("DELETE FROM task_attachment where ta_id = $id");
-    		if ($query) {
+    		$filename = getcwd()."/assets/img/attachment/".$gf->ta_filename;
+    		$unlink = unlink($filename);
+    		if ($unlink) {
+    			$query = $this->db->query("DELETE FROM task_attachment where ta_id = $id");
     			header("location:".base_url()."fl_task?alert=success");
     		} else {
     			header("location:".base_url()."fl_task?alert=failed");
     		}
 		}
-		header("location:".base_url()."fl_task");
+		// header("location:".base_url()."fl_task");
 		
 	}
 }

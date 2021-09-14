@@ -30,7 +30,7 @@ class User_data extends CI_Controller {
  	}
 	public function index()
 	{
-		$data['users'] = $this->db->query("select *,ifnull(ud_picture,'default.png') ava from user_data left join tbl_userlevel on id_level = ud_id_level")->result();
+		$data['users'] = $this->db->query("select *,ifnull(if(ud_picture='0',NULL,ud_picture),'default.png') ava from user_data left join tbl_userlevel on id_level = ud_id_level")->result();
 		$data['level'] = $this->db->query("select * from tbl_userlevel")->result();
 
 		

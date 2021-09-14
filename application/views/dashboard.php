@@ -8,9 +8,11 @@
                     if(isset($_GET['filter'])){
                     ?>
                     <button class="btn btn-default mb-3" type="submit">Clear Filter</button>
-                    </form>
                     <?php
                     }
+                    ?>
+                    </form>
+                    <?php
                     foreach($booking_status as $booking_status){?>
                     <div class="row show-grid summary-dashboard">
                         <!-- <div class="col-sm-6 col-md-1-5 col-lg-1-5">
