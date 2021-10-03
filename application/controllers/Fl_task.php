@@ -104,14 +104,31 @@ class Fl_task extends CI_Controller {
 			$get_freelancer_id = "";
 		}
 		$where = $wo_number.$case_id.$create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl;
+		
 		$data['waitpart'] = $this->db->query($query."where part_status = 1 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_waitpart'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 1 ".$get_freelancer_id.$where)->result();
-		$data['partpickup'] = $this->db->query($query."where part_status = 2 ".$get_freelancer_id.$where." order by created_date")->result();
-		$data['cnt_partpickup'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 2 ".$get_freelancer_id.$where)->result();
+		
+		// $data['partpickup'] = $this->db->query($query."where part_status = 2 ".$get_freelancer_id.$where." order by created_date")->result();
+		// $data['cnt_partpickup'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 2 ".$get_freelancer_id.$where)->result();
+		
 		$data['escalation'] = $this->db->query($query."where part_status = 3 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_escalation'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 3 ".$get_freelancer_id.$where)->result();
+		
 		$data['partreturn'] = $this->db->query($query."where part_status = 5 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_partreturn'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 5 ".$get_freelancer_id.$where)->result();
+
+		$data['in_progress'] = $this->db->query($query."where part_status = 8 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_inprogress'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 8 ".$get_freelancer_id.$where)->result();
+
+		$data['wo_completed'] = $this->db->query($query."where part_status = 6 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_wocompleted'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 6 ".$get_freelancer_id.$where)->result();
+
+		$data['wo_waitingfse'] = $this->db->query($query."where part_status = 10 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_wowaitingfse'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 10 ".$get_freelancer_id.$where)->result();
+
+		$data['wop_waitingfse'] = $this->db->query($query."where part_status = 11 ".$get_freelancer_id.$where." order by created_date")->result();
+		$data['cnt_wopwaitingfse'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 11 ".$get_freelancer_id.$where)->result();
+
 		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
 		$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
 		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
@@ -135,13 +152,21 @@ class Fl_task extends CI_Controller {
 	}
 	public function update_status(){
 		$value = $_POST['value_data'];
-		if($value=='1'){
+		if($value=='11'){
 			$booking_status = ',booking_status=1';
-		}else if($value=='2'){
+		}else if($value=='10'){
+			$booking_status = ',booking_status=1';
+		}else if($value=='1'){
+			$booking_status = ',booking_status=1';
+		}else if($value=='8'){
 			$booking_status = ',booking_status=2';
 		}else if($value=='3'){
 			$booking_status = ',booking_status=7';
+		}else if($value=='6'){
+			$booking_status = ',booking_status=3, finish_date=NOW()';
 		}else if($value=='5'){
+			$booking_status = ',booking_status=3';
+		}else if($value=='12'){
 			$booking_status = ',booking_status=3';
 		}else{
 			$booking_status='';
@@ -155,11 +180,21 @@ class Fl_task extends CI_Controller {
 		$id = $_POST['id_data'];
 		$sql=$this->db->query("UPDATE work_order set freelancer=$value where wo_id=$id");
 	}
+	public function update_finish_date(){
+		$value = $_POST['value_data'];
+		$id = $_POST['id_data'];
+		$sql=$this->db->query("UPDATE work_order set finish_date='$value' where wo_id=$id");
+	}
+	public function update_visit(){
+		$value = $_POST['value_data'];
+		$id = $_POST['id_data'];
+		$sql=$this->db->query("UPDATE work_order set visit='$value' where wo_id=$id");
+	}
 	public function get_data(){
 		if($_REQUEST['id_data_card']) {
 		$id = $_REQUEST['id_data_card'];
 		$data = $this->db->query("SELECT
-								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name,ifnull(group_concat(ta_filename order by ta_id),'EMPTY') attachment,ifnull(group_concat(ta_id order by ta_id),'EMPTY') attachment_id,link_freelancer
+								wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,part_status,kb_kab_kot,ud_fullname freelancer_name,ifnull(group_concat(ta_filename order by ta_id),'EMPTY') attachment,ifnull(group_concat(ta_id order by ta_id),'EMPTY') attachment_id,link_freelancer,visit
 								FROM
 								work_order
 								LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 

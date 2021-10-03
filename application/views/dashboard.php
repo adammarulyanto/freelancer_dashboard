@@ -2,7 +2,7 @@
                 <!-- Page content-->
                 <div class="container-fluid cont">
                     <h1 class="mt-4">Dashboard</h1>
-                    <form method="get" id="form-filter">
+                    <form method="get">
                     <span class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></span>
                     <?php
                     if(isset($_GET['filter'])){
@@ -153,10 +153,10 @@
                                     <h5 class="title-card-dashboard">City/Part Status</h5>
                                     <div class="card box-card-dashboard">
                                       <div class="card-body p-0 table-responsive">
-                                        <table class="table table-borderless table-citypart" id="js-datatable" style="min-width:700px">
+                                        <table class="table table-borderless table-citypart" id="js-datatable" style="min-width:1300px">
                                           <thead>
                                             <tr>
-                                              <th style="padding-left: 15px;">Part Status</th>
+                                              <th style="padding-left: 15px; width: 300px;">Part Status</th>
                                               <?php
                                               foreach ($city as $col_city){
                                               ?>
@@ -171,7 +171,7 @@
                                               foreach ($citypartstatus as $cp1){
                                               ?>
                                               <tr>
-                                                <td style="padding-left: 15px;"><?=$cp1->status_part?></td>
+                                                <td style="padding-left: 15px; width: 300px;"><?=$cp1->status_part?></td>
                                                 <?=$cp1->value_data?>
                                               </tr>
                                               <?php
@@ -241,7 +241,7 @@
             <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form>
+          <form id="form-filter">
           <div class="modal-body">
             <div class="row g-3">
             <h6>Range Date</h6>

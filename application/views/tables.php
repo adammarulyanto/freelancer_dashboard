@@ -250,7 +250,7 @@ if(isset($_GET['alert'])){
       </div>
     </div>
     <div class="shadow-sm mb-5 p-3 bg-white rounded box-data table-responsive">
-      <table id="example" class="table table-responsive table-striped table-hover" style="width:4000px">
+      <table id="work_order" class="table table-responsive table-striped table-hover" style="width:4000px">
         <thead>
             <tr>
                 <th>WO Number</th>
@@ -283,7 +283,7 @@ if(isset($_GET['alert'])){
                 <td><?=$workorder->contact_phone?></td>
                 <td><?=$workorder->created_date?></td>
                 <td><?=$workorder->requested_date?></td>
-                <td><?=$workorder->finish_date?></td>
+                <td><?=$workorder->finish_date_format?></td>
                 <td><?=$workorder->part_number?></td>
                 <td><?=$workorder->igso_number?></td>
                 <td><?=$workorder->booking_status?></td>

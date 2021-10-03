@@ -98,7 +98,7 @@ class Data extends CI_Controller {
 			$where_con = "";
 		}
 		$query = "	SELECT
-					wo_id,sha1(wo_id) wo_id_sha1,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,date_format(created_date,'%m-%d-%Y') created_date,date_format(requested_date,'%m-%d-%Y') requested_date,date_format(finish_date,'%m-%d-%Y') finish_date,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,kb_kab_kot,ud_fullname freelancer_name,finish_date,kb_kab_kot,link,link_freelancer
+					wo_id,sha1(wo_id) wo_id_sha1,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,date_format(created_date,'%m-%d-%Y') created_date,date_format(requested_date,'%m-%d-%Y') requested_date,date_format(finish_date,'%m-%d-%Y') finish_date_format,mgp1.mgp_desc booking_status,part_number,part_desc,igso_number,mgp2.mgp_desc failure_code,mgp3.mgp_desc part_status,kb_kab_kot,ud_fullname freelancer_name,finish_date,kb_kab_kot,link,link_freelancer
 					FROM
 					work_order
 					LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
@@ -114,7 +114,8 @@ class Data extends CI_Controller {
 
 		$where = $create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl.$where_city.$where_con;
 		$data['workorder'] = $this->db->query($query.$where." order by wo_id desc")->result();
-		$data['kota'] = $this->db->query("select * from kota_kabupaten left join mr_country on mrc_id = kb_mrc_id")->result();$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
+		$data['kota'] = $this->db->query("select * from kota_kabupaten left join mr_country on mrc_id = kb_mrc_id")->result();
+		$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
 		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
 		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
@@ -219,6 +220,7 @@ class Data extends CI_Controller {
 		$contact_name = $_POST['customer_name'];
 		$contact_phone = $_POST['contact_phone'];
 		$request_date = $_POST['request_date'];
+		$finish_date = $_POST['finish_date'];
 		$part_number = $_POST['part_number'];
 		$part_desc = $_POST['part_desc'];
 		$igso_number = $_POST['igso_number'];
@@ -227,7 +229,7 @@ class Data extends CI_Controller {
 		$link_fl = $_POST['link_fl'];
 		$comment = $_POST['comment'];
 
-		$query = $this->db->query("UPDATE `work_order` SET `wo_number` = '$wo_number', `case_id` = '$case_id', `wo_desc` = '$wo_desc', `product_desc` = '$prod_desc', `asset_serial` = '$asset_serial', `company_name` = '$company_name', `address` = '$address', `city` = '$city', `contact_name` = '$contact_name', `contact_phone` = '$contact_phone', `created_date` = NOW(), `requested_date` = '$request_date', `part_number` = '$part_number', `part_desc` = '$part_desc', `igso_number` = '$igso_number', `visit` = '$visit', `link` = '$link', `comment` = '$comment',`link_freelancer` = '$link_fl' WHERE sha1(wo_id) = '$id';");
+		$query = $this->db->query('UPDATE `work_order` SET `wo_number` = "$wo_number", `case_id` = "$case_id", `wo_desc` = "$wo_desc", `product_desc` = "$prod_desc", `asset_serial` = "$asset_serial", `company_name` = "$company_name", `address` = "$address", `city` = "$city", `contact_name` = "$contact_name", `contact_phone` = "$contact_phone", `created_date` = NOW(), `requested_date` = "$request_date",`finish_date`="$finish_date", `part_number` = "$part_number", `part_desc` = "$part_desc", `igso_number` = "$igso_number", `visit` = "$visit", `link` = "$link", `comment` = "$comment",`link_freelancer` = "$link_fl" WHERE sha1(wo_id) = "$id";');
 		if($query){
 			header("location:".base_url()."data?alert=edit_success");
 		}else{

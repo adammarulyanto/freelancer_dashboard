@@ -7,7 +7,7 @@
 <?php foreach($akses_menu as $akses_menu){?>
   <div class="container-fluid cont">
     <h1 class="mt-4">Freelancer Task</h1>
-    <form method="get" id="form-filter">
+    <form method="get">
     <span class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filter"><i class="bi bi-funnel"></i></span>
     <?php
     if(isset($_GET['filter'])){
@@ -96,11 +96,60 @@
         </div>
       </div>
     </div>
-    <div class="row table-responsive">
+    <div class="table-responsive" style="overflow-x: scroll;">
+    <div class="row box-row-kanban">
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban" id="waiting_part" >
+          <?php foreach($cnt_wopwaitingfse as $cnt_wopwaitfse) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">WOP Waiting on FSE <span class="badge"><?=$cnt_wopwaitfse->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($wop_waitingfse as $wopwaitfse){?>
+            <div class="card mb-3 border-0 card-kanban card-modal" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$wopwaitfse->wo_id?>" id="detailcard">
+              <div class="card-body text-success">
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="<?=base_url()?>assets/img/avatar_user/<?=$wopwaitfse->ud_picture?>">
+                    </div>
+                  </button>
+                </div>
+                <h5 class="card-title">- Break Fix - <?=$wopwaitfse->wo_number?></h5>
+                
+              </div>
+            </div>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban" id="waiting_part" >
+          <?php foreach($cnt_wowaitingfse as $cnt_wowaitfse) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">WO Waiting on FSE <span class="badge"><?=$cnt_wowaitfse->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($wo_waitingfse as $wowaitfse){?>
+            <div class="card mb-3 border-0 card-kanban card-modal" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$wowaitfse->wo_id?>" id="detailcard">
+              <div class="card-body text-success">
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="<?=base_url()?>assets/img/avatar_user/<?=$wowaitfse->ud_picture?>">
+                    </div>
+                  </button>
+                </div>
+                <h5 class="card-title">- Break Fix - <?=$wowaitfse->wo_number?></h5>
+                
+              </div>
+            </div>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
         <div class="card mb-3 heading-card-kanban" id="waiting_part" >
           <?php foreach($cnt_waitpart as $cnt_waitpart) { ?>
-          <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">Waiting The Parts <span class="badge"><?=$cnt_waitpart->cnt?></span></div>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">Waiting On Parts <span class="badge"><?=$cnt_waitpart->cnt?></span></div>
           <?php } ?>
           <div class="card-body text-success">
             <?php foreach($waitpart as $waitpart){?>
@@ -123,21 +172,21 @@
       </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
         <div class="card mb-3 heading-card-kanban">
-          <?php foreach($cnt_partpickup as $cnt_partpickup) { ?>
-          <div class="card-header heading-card-title sticky-top text-white" style="background:#2980b9">Pickup Parts <span class="badge"><?=$cnt_partpickup->cnt?></span></div>
+          <?php foreach($cnt_inprogress as $cnt_inprogress) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#2980b9">In Progress <span class="badge"><?=$cnt_inprogress->cnt?></span></div>
           <?php } ?>
           <div class="card-body text-success">
-            <?php foreach($partpickup as $partpickup){?>
-            <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$partpickup->wo_id?>" id="detailcard">
+            <?php foreach($in_progress as $inprogress){?>
+            <div class="card mb-3 border-0 card-kanban" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$inprogress->wo_id?>" id="detailcard">
               <div class="card-body text-success">
                 <div class="btn-group img-card">
                   <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="img-thumbnail-assignee rounded-circle">
-                      <img class="img-fluid" src="<?=base_url()?>assets/img/avatar_user/<?=$partpickup->ud_picture?>">
+                      <img class="img-fluid" src="<?=base_url()?>assets/img/avatar_user/<?=$inprogress->ud_picture?>">
                     </div>
                   </button>
                 </div>
-                <h5 class="card-title">- Break Fix - <?=$partpickup->wo_number?></h5>
+                <h5 class="card-title">- Break Fix - <?=$inprogress->wo_number?></h5>
               </div>
             </div>
             <?php } ?>
@@ -169,6 +218,30 @@
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
+        <div class="card mb-3 heading-card-kanban" id="waiting_part" >
+          <?php foreach($cnt_wocompleted as $cnt_wocompleted) { ?>
+          <div class="card-header heading-card-title sticky-top text-white" style="background:#d35400">WO Completed <span class="badge"><?=$cnt_wocompleted->cnt?></span></div>
+          <?php } ?>
+          <div class="card-body text-success">
+            <?php foreach($wo_completed as $wo_completed){?>
+            <div class="card mb-3 border-0 card-kanban card-modal" data-bs-toggle="modal" data-bs-target="#detail_card" data-id="<?=$wo_completed->wo_id?>" id="detailcard">
+              <div class="card-body text-success">
+                <div class="btn-group img-card">
+                  <button class="elipsis-card-kanban" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="img-thumbnail-assignee rounded-circle">
+                      <img class="img-fluid" src="<?=base_url()?>assets/img/avatar_user/<?=$wo_completed->ud_picture?>">
+                    </div>
+                  </button>
+                </div>
+                <h5 class="card-title">- Break Fix - <?=$wo_completed->wo_number?></h5>
+                
+              </div>
+            </div>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 box-kanban">
         <div class="card mb-3 heading-card-kanban">
           <?php foreach($cnt_partreturn as $cnt_partreturn) { ?>
           <div class="card-header heading-card-title sticky-top text-white" style="background:#27ae60">Return Parts <span class="badge"><?=$cnt_partreturn->cnt?></span></div>
@@ -192,6 +265,7 @@
         </div>
       </div>
     </div>
+</div>
 </div>
 <?php
 }
@@ -227,6 +301,14 @@
               <option value="<?=$status_part->mgp_code_id?>"><?=$status_part->parts_status?></option>
               <?php } ?>
             </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Finish Date</label>
+            <input type="date" class="form-control update_finish_date" id="update_finish_date" name="finish_date">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Visit</label>
+            <input type="number" class="form-control update_visit" id="update_visit" name="visit">
           </div>
           <div class="col-md-6">
             <label for="inputAddress" class="form-label">Case ID</label>
@@ -281,7 +363,7 @@
           </div>
           <div class="col-md-6">
             <label for="inputAddress" class="form-label">Link Freelancer Platform</label>
-            <p id="link_freelancer"></p>
+              <a id="a-link-freelancer"><p id="link_freelancer" style="word-wrap: break-word;"></p></a>
           </div>
         <h6>Attachment</h6>
           <div class="col-12">

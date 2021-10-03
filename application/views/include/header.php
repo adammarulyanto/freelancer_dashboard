@@ -11,7 +11,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
         <meta name="author" content="" />
         <title><?php foreach($menu as $menu){ echo $menu->nama_menu;}?> Dashboard</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="<?=base_url()?>assets/img/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="<?=base_url()?>assets/css/styles.css" rel="stylesheet" />
         <link href="<?=base_url()?>assets/css/css.css" rel="stylesheet" />
@@ -119,6 +119,8 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               $('#part_desc').html(data_card.part_desc);
               $('#igso_number').html(data_card.igso_number);
               $('#id_wo').val(data_card.wo_id);
+              $('#link_freelancer').html(data_card.link_freelancer);
+              $('#a-link-freelancer').attr("href", data_card.link_freelancer);
               var wo_id = data_card.wo_id;
               var assigned = data_card.freelancer;
               var part_stat = data_card.part_status;
@@ -126,6 +128,10 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               $('#update_freelancer').attr('data-id' , wo_id);
               document.getElementById('update_status').value=part_stat;
               $('#update_status').attr('data-id' , wo_id);
+              $('#update_finish_date').val(data_card.finish_date);
+              $('#update_finish_date').attr('data-id' , wo_id);
+              $('#update_visit').val(data_card.visit);
+              $('#update_visit').attr('data-id' , wo_id);
             var str = data_card.attachment;
             var str_array = str.split(',');
             var str2 = data_card.attachment_id;

@@ -28,6 +28,19 @@ $(document).ready(function() {
       $('.btn-upload-atc').css({"display":"none"});
     });
 });
+
+$(".del-vac1").change(function() {
+  $('.vac1').prop('disabled', function(i, v) { return !v; });
+});
+$(".del-vac2").change(function() {
+  $('.vac2').prop('disabled', function(i, v) { return !v; });
+});
+$(".del-vacpp").change(function() {
+  $('.vacpp').prop('disabled', function(i, v) { return !v; });
+});
+$(".del-bgc").change(function() {
+  $('.bgc').prop('disabled', function(i, v) { return !v; });
+});                  
 </script>
 <script>
 $(".heatmap").each(function(){
@@ -155,6 +168,89 @@ $(".heatmap").each(function(){
                       }
                   ]
                 });
+                $('#tbl-teams').DataTable({
+                  "scrollX": true,
+                  language: { search: "",searchPlaceholder: "Search" },
+                  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'li><'col-sm-12 col-md-7 mt-1'p>>",
+                  buttons: [
+                      {
+                          extend: 'excel',
+                          text: '<i class="bi bi-file-earmark-excel-fill"></i>',
+                          className: 'btn-excel',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          title: null,
+                          filename: '<?php echo "Data-".date('Ymdhis');?>'
+                      },
+                      {
+                          extend: 'pdf',
+                          text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
+                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          className: 'btn-pdf'
+                      },
+                      {
+                          extend: 'print',
+                          text: '<i class="bi bi-printer-fill"></i>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          className: 'btn-print'
+                      }
+                  //     ,{
+                  //         extend: 'colvis',
+                  //         columns: 'th:nth-child(n+2)'
+                  //     }
+                  ]
+                });
+                $('#work_order').DataTable({
+                  "lengthMenu": [[25, 50, 100,-1], [25, 50, 100,"All"]],
+                  "scrollX": true,
+                  language: { search: "",searchPlaceholder: "Search" },
+                  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'li><'col-sm-12 col-md-7 mt-1'p>>",
+                  buttons: [
+                      {
+                          extend: 'excel',
+                          text: '<i class="bi bi-file-earmark-excel-fill"></i>',
+                          className: 'btn-excel',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          title: null,
+                          filename: '<?php echo "Data-".date('Ymdhis');?>'
+                      },
+                      {
+                          extend: 'pdf',
+                          text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
+                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          className: 'btn-pdf'
+                      },
+                      {
+                          extend: 'print',
+                          text: '<i class="bi bi-printer-fill"></i>',
+                          exportOptions: {
+                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                          },
+                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          className: 'btn-print'
+                      }
+                  //     ,{
+                  //         extend: 'colvis',
+                  //         columns: 'th:nth-child(n+2)'
+                  //     }
+                  ]
+                });
                 $('.modal_kanban').on('hidden.bs.modal', function () {
                   document.getElementById("loader-wrapper").style.display = "block";
                   location.reload();
@@ -228,6 +324,24 @@ $(".heatmap").each(function(){
                       var id = $(this).data('id');
                       $.ajax({
                           url:'<?=base_url()?>settings/update_aktif_city',
+                          method:'POST',
+                          data: {value_data:value,id_data:id}
+                      });
+                  });
+                   $(".update_finish_date").change(function (){
+                      var value = $(this).val();
+                      var id = $(this).data('id');
+                      $.ajax({
+                          url:'<?=base_url()?>fl_task/update_finish_date',
+                          method:'POST',
+                          data: {value_data:value,id_data:id}
+                      });
+                  });
+                   $(".update_visit").change(function (){
+                      var value = $(this).val();
+                      var id = $(this).data('id');
+                      $.ajax({
+                          url:'<?=base_url()?>fl_task/update_visit',
                           method:'POST',
                           data: {value_data:value,id_data:id}
                       });
