@@ -88,13 +88,31 @@ class Fl_task extends CI_Controller {
 			$where_fl = "";
 		}
 
+		if(isset($_GET['city_filter'])){
+			$city = $_GET['city_filter'];
+			$imp_city = implode(',', $city);
+			$where_city = " and city in (".$imp_city.")";
+		}else{
+			$where_city = "";
+		}
+
+		if(isset($_GET['country'])){
+			$country = $_GET['country'];
+			$imp_con = implode(',', $country);
+			$where_con = " and mrc_id in (".$imp_con.")";
+		}else{
+			$where_con = "";
+		}
+
 		$query = "	SELECT
-					wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date, booking_status,part_number,part_desc,igso_number,failure_code,part_status,ud_fullname,ifnull(ud_picture,'default.png') ud_picture
+					wo_id,wo_number,freelancer,case_id,wo_desc,product_desc,asset_serial,company_name,address,contact_name,contact_phone,created_date,requested_date,finish_date, booking_status,part_number,part_desc,igso_number,failure_code,part_status,ud_fullname,ifnull(ud_picture,'default.png') ud_picture,city,mrc_id
 					FROM
 					work_order
 					LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
 					LEFT JOIN mr_global_param mgp2 ON failure_code = mgp2.mgp_code_id and mgp2.mgp_slug = 'failure-code' 
 					LEFT JOIN mr_global_param mgp3 ON part_status = mgp3.mgp_code_id and mgp3.mgp_slug = 'part-status'
+					left join kota_kabupaten on kb_id = city
+					left join mr_country on mrc_id = kb_mrc_id
 					left join user_data on ud_id = freelancer
 					";
 		$id_user = $this->session->userdata('id');					
@@ -103,7 +121,7 @@ class Fl_task extends CI_Controller {
 		}else{
 			$get_freelancer_id = "";
 		}
-		$where = $wo_number.$case_id.$create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl;
+		$where = $wo_number.$case_id.$create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl.$where_city.$where_con;;
 		
 		$data['waitpart'] = $this->db->query($query."where part_status = 1 ".$get_freelancer_id.$where." order by created_date")->result();
 		$data['cnt_waitpart'] = $this->db->query("select count(*) cnt from (".$query.") db where part_status = 1 ".$get_freelancer_id.$where)->result();
@@ -134,6 +152,10 @@ class Fl_task extends CI_Controller {
 		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
 		$data['delay_code'] = $this->db->query("select * from mr_global_param where mgp_slug='delay-code'")->result();
+
+
+		$data['city_filter'] = $this->db->query("select * from kota_kabupaten where kb_active = 'Y'")->result();
+		$data['country'] = $this->db->query("select * from mr_country")->result();
 
 		if(isset($_POST['id_wo'])){
 			$id = $_POST['id_wo'];
@@ -201,7 +223,7 @@ class Fl_task extends CI_Controller {
 								LEFT JOIN mr_global_param mgp2 ON failure_code = mgp2.mgp_code_id and mgp2.mgp_slug = 'failure-code' 
 								LEFT JOIN mr_global_param mgp3 ON part_status = mgp3.mgp_code_id and mgp3.mgp_slug = 'part-status' 
 								left join user_data on ud_id = freelancer
-								left join kota_kabupaten on kb_id = city
+								left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 								left join task_attachment on ta_wo_id = wo_id
 								where
 								wo_id = $id 

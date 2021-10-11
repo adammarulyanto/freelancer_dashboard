@@ -43,12 +43,16 @@ if(isset($_GET['alert'])){
       <form action="<?=base_url()?>login/login_act" method="post">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Username</label>
-          <input type="username" class="form-control" name="username">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          <input type="username" class="form-control" name="username" value="<?php if(isset($_COOKIE["user_name"])) { echo $_COOKIE["user_name"]; } ?>">
+          <div id="emailHelp" class="form-text">We'll never share your username with anyone else.</div>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" name="password">
+          <input type="password" class="form-control" name="password" value="<?php if(isset($_COOKIE["user_pwd"])) { echo $_COOKIE["user_pwd"]; } ?>">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rememberme">
+          <label class="form-check-label" for="exampleCheck1">Remember Me</label>
         </div>
         <button type="submit" class="btn btn-primary btn-login">Login</button>
       </form>

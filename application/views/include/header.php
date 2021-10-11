@@ -25,6 +25,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
         <script type="text/javascript">
           $(document).ready(function(){   
@@ -193,7 +194,7 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
               });
             </script>
 
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnVnACZJ7MCozMoc8U2VghqNMfUJ7hjYE"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnVnACZJ7MCozMoc8U2VghqNMfUJ7hjYE&callback=directionMap"></script>
             <script>
             var markers = [
                 <?php
@@ -235,48 +236,89 @@ $menu = $this->db->query("SELECT nama_menu from tbl_menu where link = '$link'")-
          
               google.maps.event.addDomListener(window, 'load', initialize);
             </script>
-<script type="text/javascript">
-  function directionMap() {
-
-  var directionsService = new google.maps.DirectionsService();
-  var map;
-
-  var mapCenter = new google.maps.LatLng(46.499729, 26.647089);
-  var mapOrigin1 = new google.maps.LatLng(46.596652, 26.812765);
-  var mapDestination1 = new google.maps.LatLng(46.4674824, 26.4513263);
-  var mapOrigin2 = new google.maps.LatLng(46.5476592, 26.515106);
-  var mapDestination2 = new google.maps.LatLng(46.4444641, 27.362008);
-
-  var mapOptions = {
-    zoom: 14,
-    center: mapCenter
-  }
-
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-  function calculateRoute(mapOrigin, mapDestination) {
-  
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-      map: map
-    });
-    
-    var request = {
-      origin: mapOrigin,
-      destination: mapDestination,
-      travelMode: 'DRIVING'
-    };
-    
-    directionsService.route(request, function(result, status) {
-      if (status == "OK") {
-        directionsDisplay.setDirections(result);
+            
+      <script>
+      var wh = [
+          <?php
+          foreach ($wh as $wh){
+          ?>
+              ['<strong><?=$wh->wh_address?></strong>', <?=$wh->wh_lat?> , <?=$ca->wh_long?>],
+          <?php
+          }
+          ?>
+      ];
+   
+        function initialize() {
+          var mapCanvas = document.getElementById('map-wh');
+          var mapOptions = {
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          }     
+          var map = new google.maps.Map(mapCanvas, mapOptions)
+   
+      var infowindow = new google.maps.InfoWindow(), marker, i;
+      var bounds = new google.maps.LatLngBounds(); // diluar looping
+      for (i = 0; i < wh.length; i++) {  
+      pos = new google.maps.LatLng(wh[i][1], wh[i][2]);
+      bounds.extend(pos); // di dalam looping
+      marker = new google.maps.Marker({
+          position: pos,
+          map: map
+      });
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+              infowindow.setContent(wh[i][0]);
+              infowindow.open(map, marker);
+          }
+      })(marker, i));
+      map.fitBounds(bounds); // setelah looping
       }
-    });
-  }
-  
-  calculateRoute(mapOrigin1, mapDestination1);
-  calculateRoute(mapOrigin1, mapDestination2);
-}
-</script>
+   
+        }
+   
+   
+        google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
+      <!-- <script type="text/javascript">
+      function directionMap() {
+
+      var directionsService = new google.maps.DirectionsService();
+      var map;
+
+      var mapCenter = new google.maps.LatLng(46.499729, 26.647089);
+      // var mapOrigin1 = new google.maps.LatLng(46.596652, 26.812765);
+      // var mapDestination1 = new google.maps.LatLng(46.4674824, 26.4513263);
+      var mapOrigin1 = 'Jl. Bratasena V';
+      var mapDestination1 = 'Jakarta';
+
+      var mapOptions = {
+        zoom: 14,
+        center: mapCenter
+      }
+
+      map = new google.maps.Map(document.getElementById('map-wh2'), mapOptions);
+
+      function calculateRoute(mapOrigin, mapDestination) {
+
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+          map: map
+        });
+        
+        var request = {
+          origin: mapOrigin,
+          destination: mapDestination,
+          travelMode: 'DRIVING'
+        };
+        
+        directionsService.route(request, function(result, status) {
+          if (status == "OK") {
+            directionsDisplay.setDirections(result);
+          }
+        });
+      }
+
+      calculateRoute(mapOrigin1, mapDestination1);
+      }
+      </script> -->
     </head>
     <body>
         <div class="d-flex bg-light" id="wrapper">

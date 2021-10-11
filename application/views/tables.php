@@ -40,7 +40,7 @@ if(isset($_GET['alert'])){
 <div class="container-fluid cont">
     <h1 class="mt-4">Work Order</h1>
     <?php if($akses_menu->add_level=="Y"){?>
-    <form method="post" id="clear">
+    <form method="get">
     <span class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add"><i class="bi bi-plus-lg"></i></span>
     <?php
     }
@@ -49,7 +49,7 @@ if(isset($_GET['alert'])){
     <?php
     if(isset($_GET['filter'])){
     ?>
-    <button class="btn btn-default mb-3" type="submit" form="clear">Clear Filter</button>
+    <button class="btn btn-default mb-3" type="submit">Clear Filter</button>
     <?php
     }
     ?>
@@ -137,13 +137,21 @@ if(isset($_GET['alert'])){
                 <label for="inputAddress" class="form-label">Link Freelancer Platform</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="" name="link_fl" required>
               </div>
-              <h6>Asginee</h6>
+              <h6>Status</h6>
               <div class="col-md-6">
                 <label for="inputState" class="form-label">Assign to</label>
                 <select class="form-select" name="freelancer">
                   <?php foreach($freelancer as $flancer1) { ?>
                     <option value="<?=$flancer1->ud_id?>"><?=$flancer1->ud_fullname?> </option> 
                   <?php } ?> 
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="inputState" class="form-label">Part Status</label>
+                <select class="form-select" name="part_status">
+                  <?php foreach($part_status as $pstatus) { ?>
+                    <option value="<?=$pstatus->mgp_code_id?>"><?=$pstatus->parts_status?> </option> 
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -186,64 +194,100 @@ if(isset($_GET['alert'])){
                 <label for="inputAddress" class="form-label">To</label>
                 <input type="date" class="form-control" name="req_to">
               </div>
-            <h6>Booking Status</h6>
-              <div class="col-12">
+
+            <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Booking Status</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select btn-filter-book-status" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Booking Status
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($booking_status as $bstatus1) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"><span><?=$bstatus1->mgp_desc?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input dropdown_book_status" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"> <span style="margin-left:10px"><?=$bstatus1->mgp_desc?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>Part Status</h6>
-              <div class="col-12">
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Part Status</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Part Status
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($part_status as $pstatus) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"><span><?=$pstatus->parts_status?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"> <span style="margin-left:10px"><?=$pstatus->parts_status?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>Freelancer</h6>
-              <div class="col-12">
-                  <?php foreach($freelancer as $flancer1) { ?>  
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="freelancer[]" value="<?=$flancer1->ud_id?>"><span><?=$flancer1->ud_fullname?></span>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Freelancer</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Technician
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                  <?php foreach($freelancer as $flancer1) { ?>    
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="freelancer[]" value="<?=$flancer1->ud_id?>"> <span style="margin-left:10px"><?=$flancer1->ud_fullname?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>City</h6>
-            <div class="col-12">
-                <?php foreach($city_filter as $ct1) { ?>    
-                <div class="cat action">
-                   <label>
-                      <input type="checkbox" name="city_filter[]" value="<?=$ct1->kb_id?>"><span><?=$ct1->kb_kab_kot?></span>
-                   </label>
-                </div>
-                <?php } ?>
-            </div>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>City</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  City
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                  <?php foreach($city_filter as $ct1) { ?>    
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="city_filter[]" value="<?=$ct1->kb_id?>"> <span style="margin-left:10px"><?=$ct1->kb_kab_kot?></span>
+                     </label>
+                  </li>
+                  <?php } ?>
+                </ul>
+              </div>
+              </div>
 
-            <h6>Country </h6>
-              <div class="col-12">
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Country</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Country
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($country as $con1) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="country[]" value="<?=$con1->mrc_id?>"><span><?=$con1->mrc_country?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="country[]" value="<?=$con1->mrc_id?>"> <span style="margin-left:10px"><?=$con1->mrc_country?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Filter</button>
+            <button type="submit" class="btn btn-primary" name="filter" value="on">Filter</button>
           </div>
           </form>
         </div>
@@ -375,14 +419,14 @@ if(isset($_GET['alert'])){
           </select>
         </div>
         <div class="accordion" id="accordionExample">
-          <div class="accordion-item">
+          <div class="accordion-item accordion-item-modal">
             <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <button class="accordion-button collapsed accordion-button-modal" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 Other Information
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
+              <div class="accordion-body accordion-body-modal">
                 <div class="row g-3">
                  <!--  <div class="col-md-6">
                     <label for="inputState" class="form-label">Failure</label>

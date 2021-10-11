@@ -105,7 +105,7 @@ class Data extends CI_Controller {
 					LEFT JOIN mr_global_param mgp2 ON failure_code = mgp2.mgp_code_id and mgp2.mgp_slug = 'failure-code' 
 					LEFT JOIN mr_global_param mgp3 ON part_status = mgp3.mgp_code_id and mgp3.mgp_slug = 'part-status' 
 					left join user_data on ud_id = freelancer
-					left join kota_kabupaten on kb_id = city
+					left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 					left join mr_country on mrc_id = kb_mrc_id
 					WHERE
 					1=1
@@ -114,13 +114,13 @@ class Data extends CI_Controller {
 
 		$where = $create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl.$where_city.$where_con;
 		$data['workorder'] = $this->db->query($query.$where." order by wo_id desc")->result();
-		$data['kota'] = $this->db->query("select * from kota_kabupaten left join mr_country on mrc_id = kb_mrc_id")->result();
+		$data['kota'] = $this->db->query("select * from kota_kabupaten left join mr_country on mrc_id = kb_mrc_id where kb_active = 'Y'")->result();
 		$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
-		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
-		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
-		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code'")->result();
-		$data['delay_code'] = $this->db->query("select * from mr_global_param where mgp_slug='delay-code'")->result();
-		$data['city_filter'] = $this->db->query("select * from kota_kabupaten")->result();
+		$data['booking_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status' order by mgp_sort")->result();
+		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status' order by mgp_sort")->result();
+		$data['failure_code'] = $this->db->query("select * from mr_global_param where mgp_slug='failure-code' order by mgp_sort")->result();
+		$data['delay_code'] = $this->db->query("select * from mr_global_param where mgp_slug='delay-code' order by mgp_sort")->result();
+		$data['city_filter'] = $this->db->query("select * from kota_kabupaten where kb_active = 'Y'")->result();
 		$data['country'] = $this->db->query("select * from mr_country")->result();
 
 
@@ -152,7 +152,7 @@ class Data extends CI_Controller {
 		$link = $_POST['link'];
 		$link_fl = $_POST['link_fl'];
 
-		$query = $this->db->query("INSERT INTO `work_order` (`wo_number`, `freelancer`, `case_id`, `wo_desc`, `product_desc`, `asset_serial`, `company_name`, `address`, `city`, `contact_name`, `contact_phone`, `created_date`, `requested_date`, `booking_status`, `part_number`, `part_desc`, `igso_number`, `part_status`,`link`,`link_freelancer`) VALUES ('$wo_number', '$freelancer', '$case_id', '$wo_desc', '$prod_desc', '$asset_serial', '$company_name', '$address', '$city', '$customer_name', '$contact_phone', NOW(), '$request_date', 1, '$part_number', 'part_desc', '$igso_number', 1,'$link','$link_fl');");
+		$query = $this->db->query("INSERT INTO `work_order` (`wo_number`, `freelancer`, `case_id`, `wo_desc`, `product_desc`, `asset_serial`, `company_name`, `address`, `city`, `contact_name`, `contact_phone`, `created_date`, `requested_date`,`finish_date`, `booking_status`, `part_number`, `part_desc`, `igso_number`, `part_status`,`link`,`link_freelancer`) VALUES ('$wo_number', '$freelancer', '$case_id', '$wo_desc', '$prod_desc', '$asset_serial', '$company_name', '$address', '$city', '$customer_name', '$contact_phone', NOW(), '$request_date',NULL, 1, '$part_number', '$part_desc', '$igso_number', 1,'$link','$link_fl');");
 
 		if($query){
 			header("location:".base_url()."data?alert=add_success");
@@ -160,6 +160,7 @@ class Data extends CI_Controller {
 			header("location:".base_url()."data?alert=failed");
 		}
 	}
+
 
 	public function get_data(){
 		if($_REQUEST['id_data']) {
@@ -173,7 +174,7 @@ class Data extends CI_Controller {
 								LEFT JOIN mr_global_param mgp3 ON part_status = mgp3.mgp_code_id and mgp3.mgp_slug = 'part-status' 
 								LEFT JOIN mr_global_param mgp4 ON delay_code = mgp4.mgp_code_id and mgp4.mgp_slug = 'delay-code' 
 								left join user_data on ud_id = freelancer
-								left join kota_kabupaten on kb_id = city
+								left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 								where
 								wo_id = $id 
 								order by
@@ -195,13 +196,13 @@ class Data extends CI_Controller {
 								LEFT JOIN mr_global_param mgp3 ON part_status = mgp3.mgp_code_id and mgp3.mgp_slug = 'part-status' 
 								LEFT JOIN mr_global_param mgp4 ON delay_code = mgp4.mgp_code_id and mgp4.mgp_slug = 'delay-code' 
 								left join user_data on ud_id = freelancer
-								left join kota_kabupaten on kb_id = city
+								left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 								where
 								sha1(wo_id) = '$id'
 								order by
 								wo_id desc
 								")->result();
-		$data['kota'] = $this->db->query("select * from kota_kabupaten")->result();
+		$data['kota'] = $this->db->query("select * from kota_kabupaten where kb_active = 'Y'")->result();
 		$this->load->view('include/header');
 		$this->load->view('include/menu');
 		$this->load->view('edit_wo',$data);
@@ -214,7 +215,8 @@ class Data extends CI_Controller {
 		$wo_desc = $_POST['wo_desc'];
 		$prod_desc = $_POST['prod_desc'];
 		$asset_serial = $_POST['asset_serial'];
-		$company_name = $_POST['company_name'];
+		$company = $_POST['company_name'];
+		$company_name = str_replace("'","\'",$company);
 		$address = $_POST['address'];
 		$city = $_POST['city'];
 		$contact_name = $_POST['customer_name'];
@@ -229,7 +231,7 @@ class Data extends CI_Controller {
 		$link_fl = $_POST['link_fl'];
 		$comment = $_POST['comment'];
 
-		$query = $this->db->query('UPDATE `work_order` SET `wo_number` = "$wo_number", `case_id` = "$case_id", `wo_desc` = "$wo_desc", `product_desc` = "$prod_desc", `asset_serial` = "$asset_serial", `company_name` = "$company_name", `address` = "$address", `city` = "$city", `contact_name` = "$contact_name", `contact_phone` = "$contact_phone", `created_date` = NOW(), `requested_date` = "$request_date",`finish_date`="$finish_date", `part_number` = "$part_number", `part_desc` = "$part_desc", `igso_number` = "$igso_number", `visit` = "$visit", `link` = "$link", `comment` = "$comment",`link_freelancer` = "$link_fl" WHERE sha1(wo_id) = "$id";');
+		$query = $this->db->query("UPDATE `work_order` SET `wo_number` = '$wo_number', `case_id` = '$case_id', `wo_desc` = '$wo_desc', `product_desc` = '$prod_desc', `asset_serial` = '$asset_serial', `company_name` = '$company_name', `address` = '$address', `city` = '$city', `contact_name` = '$contact_name', `contact_phone` = '$contact_phone', `created_date` = NOW(), `requested_date` = '$request_date',`finish_date`='$finish_date', `part_number` = '$part_number', `part_desc` = '$part_desc', `igso_number` = '$igso_number', `visit` = '$visit', `link` = '$link', `comment` = '$comment',`link_freelancer` = '$link_fl' WHERE sha1(wo_id) = '$id';");
 		if($query){
 			header("location:".base_url()."data?alert=edit_success");
 		}else{

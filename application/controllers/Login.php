@@ -43,6 +43,18 @@ class Login extends CI_Controller {
 				'avatar'		=> $cek->ava,
 				'status'	=> 'login'
 			);
+			if(!empty($_POST["rememberme"])) {
+				//buat cookie
+				setcookie ("user_name",$_POST["username"],time()+ (3600 * 365 * 24 * 60 * 60));
+				setcookie ("user_pwd",$_POST["password"],time()+ (3600 * 365 * 24 * 60 * 60));
+			} else {
+				if(isset($_COOKIE["user_name"])) {
+				 setcookie ("user_name","");
+			   }
+			   if(isset($_COOKIE["user_pwd"])) {
+				 setcookie ("user_pwd","");
+			   }
+			 }
 			$this->session->set_userdata($session);
 			header("location:".base_url()."/".$getmenu->link);
 		}else{

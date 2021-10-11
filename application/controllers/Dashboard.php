@@ -106,6 +106,7 @@ class Dashboard extends CI_Controller {
 		}
 		$where = "where 1=1".$create_from.$create_to.$req_from.$req_to.$where_book.$where_part.$where_fl.$where_city.$where_con;
 		$where_date = "where 1=1".$date_from.$date_to;
+		$where_created = "where 1=1".$create_from.$create_to;
 		$data['parts_status'] = $this->db->query("SELECT
 									count(case when part_status=1 then 1 end) waitpart,
 									count(case when part_status=2 then 1 end) pickup,
@@ -115,9 +116,9 @@ class Dashboard extends CI_Controller {
 									count(case when part_status=6 then 1 end) completed
 									FROM
 									work_order
-									LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'part-status' 
+									LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'part-status'
 									left join user_data on ud_id = freelancer
-									left join kota_kabupaten on kb_id = city
+									left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 									left join mr_country on mrc_id = kb_mrc_id
 									".$where)->result();
 		$data['booking_status'] = $this->db->query("	SELECT
@@ -133,45 +134,45 @@ class Dashboard extends CI_Controller {
 									work_order
 									LEFT JOIN mr_global_param mgp1 ON booking_status = mgp1.mgp_code_id and mgp1.mgp_slug = 'booking-status' 
 									left join user_data on ud_id = freelancer
-									left join kota_kabupaten on kb_id = city
+									left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 									left join mr_country on mrc_id = kb_mrc_id
 									".$where)->result();
 
 		$data['book_status'] = $this->db->query("select * from mr_global_param where mgp_slug='booking-status'")->result();
 		$data['part_status'] = $this->db->query("select mgp_code_id,mgp_desc parts_status from mr_global_param where mgp_slug = 'part-status'")->result();
 		$data['freelancer'] = $this->db->query("select * from user_data left join tbl_userlevel on id_level = ud_id_level where id_level=2 or lower(nama_level) like '%freelancer%' group by ud_id")->result();
-		$data['city_filter'] = $this->db->query("select * from kota_kabupaten")->result();
+		$data['city_filter'] = $this->db->query("select * from kota_kabupaten where kb_active = 'Y'")->result();
 		$data['country'] = $this->db->query("select * from mr_country")->result();
 
-		$data['city'] = $this->db->query("SELECT kb_id,replace(GROUP_CONCAT(kb_kab_kot),',','</th><th style=\'text-align:center\'>') city from kota_kabupaten order by kb_id")->result();
+		$data['city'] = $this->db->query("SELECT kb_id,replace(GROUP_CONCAT(kb_kab_kot),',','</th><th style=\'text-align:center\'>') city from kota_kabupaten where kb_active = 'Y' order by kb_id")->result();
 		$data['citypartstatus'] = $this->db->query("SELECT
-													status_part,concat('<td style=\'text-align:center;\' class=\'heatmap\' data-id=',max_value,'>',replace(replace(GROUP_CONCAT(jumlah order by kb_id),',','</td><td style=\'text-align:center\' data-id=\'max-value\' class=\'heatmap\'>'),'max-value',max_value),'</td>') value_data
+													status_part,concat('<td style=\'text-align:center;\' data-id=',max_value,'>',replace(replace(GROUP_CONCAT(jumlah order by kb_id),',','</td><td style=\'text-align:center\' data-id=\'max-value\'>'),'max-value',max_value),'</td>') value_data
 													from(
-													select mgp_code_id,mgp_desc status_part, kb_kab_kot city,kb_id, ifnull(jml,0) jumlah from
-													(select kb_id,kb_kab_kot from kota_kabupaten) kabkot
-													join (select mgp_code_id,mgp_desc from mr_global_param where mgp_slug='part-status') ps
+													select mgp_code_id,mgp_sort,mgp_desc status_part, kb_kab_kot city,kb_id, ifnull(jml,0) jumlah from
+													(select kb_id,kb_kab_kot from kota_kabupaten where kb_active = 'Y') kabkot
+													join (select mgp_code_id,mgp_sort,mgp_desc from mr_global_param where mgp_slug='part-status') ps
 													left join (SELECT
 														part_status,city,wo.part_status id_part_status,count(*) jml
 													FROM
 														work_order wo
-														left join kota_kabupaten on kb_id = city
+														left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 														left join mr_country on mrc_id = kb_mrc_id
 													".$where."
 													GROUP BY
 													1,2
 													ORDER BY
 													1,2)wo on city = kb_id and part_status = mgp_code_id)datas
-													join (	SELECT
+													join (SELECT
 															max(jumlah) max_value
 															from(
-															select mgp_code_id,mgp_desc status_part, kb_kab_kot city, ifnull(jml,0) jumlah from
-															(select kb_id,kb_kab_kot from kota_kabupaten) kabkot
-															join (select mgp_code_id,mgp_desc from mr_global_param where mgp_slug='part-status') ps
+															select mgp_code_id,mgp_sort,mgp_desc status_part, kb_kab_kot city, ifnull(jml,0) jumlah from
+															(select kb_id,kb_kab_kot from kota_kabupaten where kb_active = 'Y') kabkot
+															join (select mgp_code_id,mgp_sort,mgp_desc from mr_global_param where mgp_slug='part-status') ps
 															left join (SELECT
 																part_status,city,wo.part_status id_part_status,count(*) jml
 															FROM
 																work_order wo
-																left join kota_kabupaten on kb_id = city
+																left join kota_kabupaten on kb_id = city and kb_active = 'Y'
 																left join mr_country on mrc_id = kb_mrc_id
 															GROUP BY
 															1,2
@@ -182,7 +183,7 @@ class Dashboard extends CI_Controller {
 													GROUP BY
 													1
 													ORDER BY
-													mgp_code_id")->result();
+													mgp_sort")->result();
 		$data['cityachivement'] = $this->db->query("SELECT
 														mrc_country country,
 														kb_kab_kot city,
@@ -192,7 +193,7 @@ class Dashboard extends CI_Controller {
 														max_value
 													FROM
 														work_order
-														LEFT JOIN kota_kabupaten ON kb_id = city
+														LEFT JOIN kota_kabupaten ON kb_id = city and kb_active = 'Y'
 														LEFT JOIN mr_country ON mrc_id = kb_mrc_id 
 														JOIN (
 														select max(achivement) max_value from(
@@ -202,7 +203,7 @@ class Dashboard extends CI_Controller {
 														count(*) achivement 
 													FROM
 														work_order
-														LEFT JOIN kota_kabupaten ON kb_id = city
+														LEFT JOIN kota_kabupaten ON kb_id = city and kb_active = 'Y'
 														LEFT JOIN mr_country ON mrc_id = kb_mrc_id 
 														".$where." 
 													GROUP BY
@@ -214,18 +215,44 @@ class Dashboard extends CI_Controller {
 														country,group_concat(jml order by orderby) achivement
 														from (
 														select
-														dates.bulan,mrc_country country,ifnull(jml,0) jml,orderby
+														dates.bulan,kb_kab_kot country,ifnull(jml,0) jml,orderby
 														from
-														(select date_format(date,'%b %y') bulan,date_format(date,'%Y%m') orderby from dates ".$where_date." GROUP BY 1 ORDER BY date_format(date,'%Y%m')) dates
-														join (select mrc_id,mrc_country from mr_country where 1=1".$where_con.") ud
-														left join (select kb_mrc_id,date_format(created_date,'%b %y') bulan,date_format(created_date,'%Y%m') urutan,count(*) jml,created_date from `work_order` left join kota_kabupaten on kb_id = city left join mr_country on mrc_id = kb_mrc_id ".$where." GROUP BY 1,2 ORDER BY urutan)datas on dates.bulan = datas.bulan and mrc_id = kb_mrc_id
+														(select date_format(date,'%b') bulan,date_format(date,'%m') orderby from dates ".$where_date." GROUP BY 1 ORDER BY date_format(date,'%m')) dates
+														join (select distinct kb_id,kb_kab_kot from work_order left join kota_kabupaten on city = kb_id left join mr_country on mrc_id = kb_mrc_id where 1=1".$where_city.$where_con.") ud
+														left join (select city,date_format(created_date,'%b') bulan,date_format(created_date,'%m') urutan,count(*) jml,created_date from `work_order` left join kota_kabupaten on kb_id = city and kb_active = 'Y' left join mr_country on mrc_id = kb_mrc_id ".$where." GROUP BY 1,2 ORDER BY urutan)datas on dates.bulan = datas.bulan and city = kb_id
 														ORDER BY
 														orderby)db
 														where
 														country is not null
 														GROUP BY
 														1")->result();
-		$data['untilthismonth'] = $this->db->query("select date_format(date,'%b %y') bulan from dates ".$where_date." GROUP BY date_format(date,'%b %y') ORDER BY date_format(date,'%Y%m')")->result();
+		$data['fse_book_status'] = $this->db->query("SELECT * from(
+select distinct replace(replace(mgp_desc,'Partner Request Reassign','Reassign'),'Customer Canceled','Canceled') mgp_desc from work_order left join mr_global_param on mgp_code_id = booking_status and mgp_slug='booking-status' and mgp_code_id!=7 left join kota_kabupaten on kb_id = city left join mr_country on mrc_id = kb_mrc_id ".$where_created." order by mgp_sort)a
+union all
+select 'Total'")->result();
+
+		$data['fse_city'] = $this->db->query("SELECT
+												ud_fullname,
+												kb_kab_kot,
+												concat('<td style=\'text-align:center;\' >',replace(GROUP_CONCAT(jml order by mgp_sort),',','</td><td style=\'text-align:center\'>'),'</td>') value_data
+												from(
+												select
+												fse.ud_fullname,
+												city.kb_kab_kot,
+												mgp_desc,
+												mgp_sort,
+												ifnull(ifnull(jml,jml2),0) jml
+												from
+												(select distinct ifnull(ud_fullname,'Unassigned') ud_fullname from work_order left join user_data on ud_id = freelancer) fse
+												join (select distinct kb_kab_kot from work_order left join kota_kabupaten on kb_id = city left join mr_country on mrc_id = kb_mrc_id where 1=1 ".$where_city.$where_con.") city
+												join (select * from(SELECT distinct mgp_sort,mgp_desc from work_order left join mr_global_param on mgp_code_id = booking_status and mgp_slug='booking-status' and mgp_code_id!=7 ".$where_created." order by mgp_sort)a union all select 6,'Total') book_status
+												left join (select ifnull(ud_fullname,'Unassigned') ud_fullname,kb_kab_kot kota,mgp_desc booking_status,count(*) jml from work_order left join mr_global_param on mgp_code_id = booking_status and mgp_slug='booking-status' and mgp_code_id!=7 left join kota_kabupaten on kb_id = city and kb_active = 'Y' left join user_data on ud_id = freelancer ".$where_created." group by 1,2,3) datas on datas.kota = kb_kab_kot and fse.ud_fullname = datas.ud_fullname and book_status.mgp_desc= datas.booking_status
+												left join (select ifnull(ud_fullname,'Unassigned') ud_fullname,kb_kab_kot kota,'Total' booking_status,count(*) jml2 from work_order left join mr_global_param on mgp_code_id = booking_status and mgp_slug='booking-status' left join kota_kabupaten on kb_id = city and kb_active = 'Y' left join user_data on ud_id = freelancer ".$where_created." group by 1,2,3) total on total.kota = kb_kab_kot and fse.ud_fullname = total.ud_fullname and book_status.mgp_desc= total.booking_status
+												GROUP BY
+												1,2,3)a
+												GROUP BY
+												1,2")->result();
+		$data['untilthismonth'] = $this->db->query("select date_format(date,'%b') bulan from dates ".$where_date." GROUP BY date_format(date,'%b') ORDER BY date_format(date,'%m')")->result();
 		$this->load->view('include/header',$data);
 		$this->load->view('include/menu');
 		$this->load->view('dashboard',$data);

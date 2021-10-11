@@ -216,6 +216,9 @@ body{
   border: 0;
   box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
 }
+.table-fse-city{
+  max-height: 430px;
+}
 .icon-card-dashboard{
   position: absolute;
   font-size: 100px;
@@ -311,6 +314,11 @@ body{
 .container-fluid .show-grid [class^=col-] {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+/* -- WAREHOUSE -- */
+#map-wh {
+  height: 300px;
+  margin: 20px 0 0 0;
 }
 
 /* -- KANBAN -- */
@@ -630,31 +638,51 @@ This following statements selects each category individually that contains an in
 .action input:checked + span{background-color: #27ae60;}
 
 /* --MODAL -- */
-.accordion-item{
+.accordion-item-modal{
   border: 0;
   padding: 0;
   margin: 0;
   margin-top: 5px;
 }
-.accordion-button{
+.accordion-button-modal{
   padding: 0;
   border: 0;
   font-size: 14px;
   font-weight: 600;
 }
-.accordion-button:focus,.accordion-button:active {
+.accordion-button-modal:focus,.accordion-button-modal:active {
    outline: none !important;
    box-shadow: none;
    background: transparent;
    color: #000;
 }
-.accordion-body{
+.accordion-body-modal{
   padding: 10px 0;
 }
-.accordion-button:not(.collapsed) {
+.accordion-button-modal:not(.collapsed) {
   border: 0;
   color: #000;
   background-color: rgba(0, 0, 0, 0);
+}
+/* -- Tutor --  */
+.box-add-tutor{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  transform: translateY(-100px);
+  transition: 0.3s;
+}
+.displayblock{
+  opacity: 1;
+  z-index: 1;
+  position: relative;
+  transform: translateY(0);
+}
+.btn-add-tutor button{
+  width: 100px;
+  border-radius: 10px;
+  padding: 5px 0;
+  float: right;
 }
 
 /* -- Edit Work Order -- */

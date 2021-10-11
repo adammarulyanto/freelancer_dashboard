@@ -55,37 +55,95 @@
                 <label for="inputAddress" class="form-label">To</label>
                 <input type="date" class="form-control" id="inputAddress" name="req_to">
               </div>
-            <h6>Booking Status</h6>
-              <div class="col-12">
+
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Booking Status</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select btn-filter-book-status" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Booking Status
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($booking_status as $bstatus1) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"><span><?=$bstatus1->mgp_desc?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input dropdown_book_status" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"> <span style="margin-left:10px"><?=$bstatus1->mgp_desc?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>Part Status</h6>
-              <div class="col-12">
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Part Status</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Part Status
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($part_status as $pstatus) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"><span><?=$pstatus->parts_status?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="part_status[]" value="<?=$pstatus->mgp_code_id?>"> <span style="margin-left:10px"><?=$pstatus->parts_status?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>Freelancer</h6>
-              <div class="col-12">
-                  <?php foreach($freelancer as $flancer1) { ?>  
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="freelancer[]" value="<?=$flancer1->ud_id?>"><span><?=$flancer1->ud_fullname?></span>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Freelancer</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Technician
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                  <?php foreach($freelancer as $flancer1) { ?>    
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="freelancer[]" value="<?=$flancer1->ud_id?>"> <span style="margin-left:10px"><?=$flancer1->ud_fullname?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>City</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  City
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                  <?php foreach($city_filter as $ct1) { ?>    
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="city_filter[]" value="<?=$ct1->kb_id?>"> <span style="margin-left:10px"><?=$ct1->kb_kab_kot?></span>
+                     </label>
+                  </li>
+                  <?php } ?>
+                </ul>
+              </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Country</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Country
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                  <?php foreach($country as $con1) { ?>    
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="country[]" value="<?=$con1->mrc_id?>"> <span style="margin-left:10px"><?=$con1->mrc_country?></span>
+                     </label>
+                  </li>
+                  <?php } ?>
+                </ul>
+              </div>
               </div>
             </div>
           </div>

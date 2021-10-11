@@ -2,7 +2,7 @@
 </div>
 <p align="center" class="bg-light footer">©2021 Copyrights | Freelancer Onsite Service</p>
 
-
+<script async defer src="//maps.googleapis.com/maps/api/js?key=AIzaSyDnVnACZJ7MCozMoc8U2VghqNMfUJ7hjYE&callback=directionMap"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
@@ -15,6 +15,13 @@
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
 
 
+<script type="text/javascript">
+  ClassicEditor
+  .create( document.querySelector( '#editor' ) )
+  .catch( error => {
+    console.error( error );
+  } );
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -26,6 +33,10 @@ $(document).ready(function() {
       $('.i-add').css({"display":"block"});
       $('.btn-upload-attachment').css({"display":"none"});
       $('.btn-upload-atc').css({"display":"none"});
+    });
+
+    $(".add-tutor").click(function(){
+      $(".box-add-tutor").toggleClass("displayblock");
     });
 });
 
@@ -102,7 +113,7 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-excel-fill"></i>',
                           className: 'btn-excel',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: null,
                           filename: '<?php echo "Data-".date('Ymdhis');?>'
@@ -112,7 +123,7 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           className: 'btn-pdf'
                       },
@@ -120,7 +131,7 @@ $(".heatmap").each(function(){
                           extend: 'print',
                           text: '<i class="bi bi-printer-fill"></i>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           className: 'btn-print'
@@ -143,7 +154,7 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-excel-fill"></i>',
                           className: 'btn-excel',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: null,
                           filename: '<?php echo "Data-".date('Ymdhis');?>'
@@ -153,7 +164,7 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           className: 'btn-pdf'
                       },
@@ -161,7 +172,7 @@ $(".heatmap").each(function(){
                           extend: 'print',
                           text: '<i class="bi bi-printer-fill"></i>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           className: 'btn-print'
@@ -180,7 +191,7 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-excel-fill"></i>',
                           className: 'btn-excel',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: null,
                           filename: '<?php echo "Data-".date('Ymdhis');?>'
@@ -190,7 +201,7 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           className: 'btn-pdf'
                       },
@@ -198,7 +209,7 @@ $(".heatmap").each(function(){
                           extend: 'print',
                           text: '<i class="bi bi-printer-fill"></i>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: '<?php echo "Data-".date('Ymdhis');?>',
                           className: 'btn-print'
@@ -222,17 +233,17 @@ $(".heatmap").each(function(){
                           text: '<i class="bi bi-file-earmark-excel-fill"></i>',
                           className: 'btn-excel',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           title: null,
-                          filename: '<?php echo "Data-".date('Ymdhis');?>'
+                          filename: '<?php echo "Work Order - ".date('Ymdhis');?>'
                       },
                       {
                           extend: 'pdf',
                           text: '<i class="bi bi-file-earmark-pdf-fill"></i>',
-                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          title: '<?php echo "Work Order - ".date('Ymdhis');?>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
                           className: 'btn-pdf'
                       },
@@ -240,9 +251,9 @@ $(".heatmap").each(function(){
                           extend: 'print',
                           text: '<i class="bi bi-printer-fill"></i>',
                           exportOptions: {
-                              columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                              columns: ':not(:last-child)'
                           },
-                          title: '<?php echo "Data-".date('Ymdhis');?>',
+                          title: '<?php echo "Work Order - ".date('Ymdhis');?>',
                           className: 'btn-print'
                       }
                   //     ,{

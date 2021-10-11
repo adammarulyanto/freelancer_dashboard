@@ -119,23 +119,29 @@
                                 </div>
                                 <div class="col-12 box-dashboard">
                                     <div class="card box-card-dashboard">
-                                      <div class="card-body p-0 table-responsive">
-                                        <table class="table table-borderless">
+                                      <div class="card-body p-0 table-responsive table-fse-city">
+                                        <table class="table table-borderless table-citypart table-striped" id="js-datatable" style="min-width:700px">
                                           <thead>
                                             <tr>
-                                              <th width="15%" style="padding-left: 15px;">Country</th>
-                                              <th width="15%">City</th>
-                                              <th style="text-align: right;">Achivement</th>
+                                              <th style="padding-left: 15px;">FSE</th>
+                                              <th style="padding-left: 15px;">City</th>
+                                              <?php
+                                              foreach ($fse_book_status as $fse_book_status){
+                                              ?>
+                                                <th style='text-align:center'><?=$fse_book_status->mgp_desc?></th>
+                                              <?php
+                                              }
+                                              ?>
                                             </tr>
                                           </thead>
                                           <tbody>
                                               <?php
-                                              foreach ($cityachivement as $ca1){
+                                              foreach ($fse_city as $fse_city){
                                               ?>
                                               <tr>
-                                                <td style="padding-left: 15px;"><?=$ca1->country?></td>
-                                                <td><?=$ca1->city?></td>
-                                                <td style="text-align: right;" class="heatmap" data-id="<?=$ca1->max_value?>"><?=$ca1->achivement?></td>
+                                                <td style="padding-left: 15px;"><?=$fse_city->ud_fullname?></td>
+                                                <td style="padding-left: 15px;"><?=$fse_city->kb_kab_kot?></td>
+                                                <?=$fse_city->value_data?>
                                               </tr>
                                               <?php
                                               }
@@ -153,7 +159,7 @@
                                     <h5 class="title-card-dashboard">City/Part Status</h5>
                                     <div class="card box-card-dashboard">
                                       <div class="card-body p-0 table-responsive">
-                                        <table class="table table-borderless table-citypart" id="js-datatable" style="min-width:1300px">
+                                        <table class="table table-borderless table-citypart table-striped" id="js-datatable" style="min-width:1300px">
                                           <thead>
                                             <tr>
                                               <th style="padding-left: 15px; width: 300px;">Part Status</th>
@@ -253,48 +259,77 @@
                 <label for="inputAddress" class="form-label">To</label>
                 <input type="date" class="form-control" id="inputAddress" name="create_to">
               </div>
-            <h6>Booking Status</h6>
-              <div class="col-12">
+
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Booking Status</strong></label>
+                <div class="btn-group">
+                <button class="form-select btn-filter-book-status" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Booking Status
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($book_status as $bstatus1) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"><span><?=$bstatus1->mgp_desc?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input dropdown_book_status" name="book_status[]" value="<?=$bstatus1->mgp_code_id?>"> <span style="margin-left:10px"><?=$bstatus1->mgp_desc?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>Technician</h6>
-              <div class="col-12">
-                  <?php foreach($freelancer as $flancer1) { ?>  
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="freelancer[]" value="<?=$flancer1->ud_id?>"><span><?=$flancer1->ud_fullname?></span>
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Technician</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Technician
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                  <?php foreach($freelancer as $flancer1) { ?>    
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="freelancer[]" value="<?=$flancer1->ud_id?>"> <span style="margin-left:10px"><?=$flancer1->ud_fullname?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>City</h6>
-              <div class="col-12">
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>City</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  City
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($city_filter as $ct1) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="city_filter[]" value="<?=$ct1->kb_id?>"><span><?=$ct1->kb_kab_kot?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="city_filter[]" value="<?=$ct1->kb_id?>"> <span style="margin-left:10px"><?=$ct1->kb_kab_kot?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
 
-            <h6>Country </h6>
-              <div class="col-12">
+              <div class="col-md-6">
+                <label for="inputAddress" class="form-label"><strong>Country</strong></label><br>
+                <div class="btn-group">
+                <button class="form-select dropdown-filter" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Country
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
                   <?php foreach($country as $con1) { ?>    
-                  <div class="cat action">
-                     <label>
-                        <input type="checkbox" name="country[]" value="<?=$con1->mrc_id?>"><span><?=$con1->mrc_country?></span>
+                  <li>
+                     <label class="dropdown-item">
+                        <input type="checkbox" class="form-check-input" name="country[]" value="<?=$con1->mrc_id?>"> <span style="margin-left:10px"><?=$con1->mrc_country?></span>
                      </label>
-                  </div>
+                  </li>
                   <?php } ?>
+                </ul>
+              </div>
               </div>
             </div>
           </div>

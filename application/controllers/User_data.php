@@ -69,10 +69,10 @@ class User_data extends CI_Controller {
 			$target_file = $target_dir.$basename;
 			$upload = move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
 		}else{
-			$basename == 0;			
+			$basename = 'default.png';			
 		}
 
-		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`,`ud_email_address`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`,`ud_picture`) VALUES ('$fullname','$email','$username', sha1('$password'), '$is_active', $level,if($basename=0,$basename,NULL);");
+		$sql = $this->db->query("INSERT INTO `user_data` (`ud_fullname`,`ud_email_address`, `ud_username`, `ud_password`, `ud_is_active`, `ud_id_level`,`ud_picture`) VALUES ('$fullname','$email','$username', sha1('$password'), '$is_active', $level,'$basename');");
 		if($sql){
 			header("location:".base_url()."user_data?alert=add_success");
 		}else{

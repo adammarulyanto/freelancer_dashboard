@@ -44,19 +44,19 @@ if(isset($_GET['alert'])){
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Fullname</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="" name="fullname" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="fullname" autocomplete="off" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="inputAddress" placeholder="" name="email" required>
+                <input type="email" class="form-control" id="inputAddress" placeholder="" name="email" autocomplete="off" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Username</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="" name="username" required>
+                <input type="text" class="form-control" id="inputAddress" placeholder="" name="username" autocomplete="off" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputAddress" placeholder="" name="password" required>
+                <input type="password" class="form-control" id="inputAddress" placeholder="" name="password" autocomplete="off" required>
               </div>
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label">Level</label>
